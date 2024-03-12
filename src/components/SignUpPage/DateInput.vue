@@ -1,12 +1,12 @@
 <template>
   <div>
     <label for="dobPicker">Fecha de Nacimiento (dd-MM-yyyy):</label>
-    <datepicker
+    <input
       id="dobPicker"
       v-model="dob"
-      :format="datepickerFormat"
+      :config="flatpickrConfig"
       @input="validateDob"
-    ></datepicker>
+    />
     <div v-if="dobError" class="error-message">
       Ingresa una fecha de nacimiento válida.
     </div>
@@ -14,17 +14,14 @@
 </template>
 
 <script>
-import Datepicker from "vue-datepicker";
-
 export default {
-  components: {
-    Datepicker,
-  },
   data() {
     return {
       dob: null,
       dobError: false,
-      datepickerFormat: "dd-MM-yyyy", // Ajusta el formato según tus necesidades
+      flatpickrConfig: {
+        dateFormat: "d-m-Y",
+      },
     };
   },
   methods: {
@@ -47,6 +44,9 @@ export default {
         this.dobError = false;
       }
     },
+  },
+  mounted() {
+    flatpickr("#dobPicker", this.flatpickrConfig);
   },
 };
 </script>
