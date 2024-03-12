@@ -13,7 +13,7 @@
     />
     <div class="link-container">
       <p class="txt-not-account">¿Aún no tienes cuenta?</p>
-      <router-link to="/SignUp" class="link-sign-up">Regístrate</router-link>
+      <router-link to="/sign-up" class="link-sign-up">Regístrate</router-link>
     </div>
     <p></p>
     <h1 class="txt-welcome">¡Bienvenido!</h1>

@@ -1,7 +1,6 @@
 <template>
   <div class="bck-header">
     <img src="@/assets/Logo.png" alt="Logo de la pagina" class="img-logo" />
-    <p class="navbar">Home/Registro</p>
   </div>
 </template>
 
