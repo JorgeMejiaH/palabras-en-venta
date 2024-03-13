@@ -5,7 +5,7 @@
       type="text"
       :value="firstName"
       @input="handleChange"
-      class="in-user-name"
+      class="in-user-input"
       id="name"
     />
     <label for="lastName" class="lbl-user-lastname">Apellidos:</label>
@@ -13,7 +13,7 @@
       type="text"
       :value="lastName"
       @input="handleChange"
-      class="in-user-lastname"
+      class="in-user-input"
       id="lastName"
     />
   </div>
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     handleChange(event) {
-      this.username = event.target.value;
+      this[property] = event.target.value;
     },
   },
 };

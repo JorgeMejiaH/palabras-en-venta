@@ -35,6 +35,18 @@ export default {
 </script>
 
 <style>
+.in-user-login {
+  width: 30%;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.lbl-user-login {
+  display: block;
+  margin-bottom: 0;
+  font-size: 100%;
+}
 .img-logo {
   position: absolute;
   top: 0.5%;
@@ -94,19 +106,6 @@ export default {
   font-size: 201%;
   font-weight: bold;
 }
-.in-user-login {
-  width: 30%;
-  padding: 8px;
-  box-sizing: border-box;
-  border-radius: 8px;
-}
-
-.lbl-user-login {
-  display: block;
-  margin-bottom: 0;
-  font-size: 100%;
-}
-
 .block-inputs {
   margin-left: 30%;
 }

@@ -1,11 +1,12 @@
 <template>
   <div>
-    <label for="dobPicker">Fecha de Nacimiento (dd-MM-yyyy):</label>
+    <label for="dobPicker">Fecha de Nacimiento:</label>
     <input
       id="dobPicker"
       v-model="dob"
       :config="flatpickrConfig"
       @input="validateDob"
+      class="in-user-input"
     />
     <div v-if="dobError" class="error-message">
       Ingresa una fecha de nacimiento válida.
@@ -51,7 +52,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .error-message {
   color: red;
   margin-top: 5px;
