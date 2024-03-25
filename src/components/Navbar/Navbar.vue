@@ -10,7 +10,7 @@
         class="nav-search-bar"
       />
       <div class="nav-links-grouped">
-        <p class="nav-category">categorias</p>
+        <dropdown-category />
         <nav>
           <router-link to="/news" class="nav-router-news">Noticias</router-link>
           <router-link to="/help" class="nav-router-help">
@@ -19,21 +19,34 @@
         </nav>
       </div>
     </div>
-    <p class="nav-user">usuario</p>
+    <div class="nav-user-block">
+      <img
+        src="@/assets/user-logo.png"
+        alt="img-user-logo"
+        class="img-user-logo"
+      />
+      <dropdown-user />
+    </div>
     <router-link to="/shoppingList" class="nav-router-shop-list"
       >Mis compras</router-link
     >
-    <router-link to="/cart" class="nav-router-cart">Carrito</router-link>
+    <router-link to="/cart" class="nav-router-cart">
+      <img
+        src="@/assets/cart-shopping.png"
+        alt="cart"
+        class="nav-shopping-cart"
+      />
+    </router-link>
     <!--Insertar imagen del carrito de compras-->
   </div>
 </template>
 
 <script>
-import DropdownNav from "./DropdownNav.vue";
+import DropdownCategory from "./DropdownCategory.vue";
 import DropdownUser from "./DropdownUser.vue";
 export default {
+  components: { DropdownCategory, DropdownUser },
   name: "navbar",
-  components: { DropdownNav, DropdownUser },
 };
 </script>
 

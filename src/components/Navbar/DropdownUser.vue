@@ -1,30 +1,44 @@
 <template>
-  <div class="user-dropdown">
-    <div class="dropdown-header">
-      <img src="@/assets/user-logo.png" alt="user-logo" class="dropdown-logo" />
-      {{ title }}
-      {{ subtitle }}
-      <img
-        src="@/assets/arrow-down.png"
-        alt="arrow-down"
-        class="dropdown-icon"
-      />
-    </div>
-    <div class="dropdown-wraper">
-      <ul class="dropdown-list">
-        <li class="dropdown-list-item">Mi cuenta</li>
-        <li class="dropdown-list-item">Libreta de direcciones</li>
-        <li class="dropdown-list-item">Compra/Reserva y cancelaciones</li>
-        <li class="dropdown-list-item">Sigue tu pedido</li>
-        <li class="dropdown-list-item">Cerrar seción</li>
-        <li class="dropdown-list-item">Suspender cuenta</li>
-      </ul>
-    </div>
+  <div>
+    <Dropdown :buttonText="selectedOption">
+      <li
+        v-for="(option, index) in options"
+        :key="index"
+        @click="selectOption(option)"
+      >
+        <div>
+          <router-link :to="optionRoutes[option]" class="router-dropdown">{{ option }}</router-link>
+        </div>
+      </li>
+    </Dropdown>
   </div>
 </template>
 
 <script>
-export default {};
+import Dropdown from "../Dropdown/Dropdown.vue";
+
+export default {
+  components: {
+    Dropdown,
+  },
+  data() {
+    return {
+      selectedOption: "Usuario",
+      options: ["Iniciar seción", "Regístate"],
+      optionRoutes: {
+        "Iniciar seción": "/login",
+        "Regístate": "/sign-up",
+      },
+    };
+  },
+  methods: {
+    selectOption(option) {
+      this.selectedOption = option;
+    },
+  },
+};
 </script>
 
-<style></style>
+<style>
+/* Add your global styles here */
+</style>
