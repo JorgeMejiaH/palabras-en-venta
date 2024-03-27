@@ -11,7 +11,7 @@
       />
       <div class="nav-links-grouped">
         <dropdown-category />
-        <nav>
+        <nav class="news-help">
           <router-link to="/news" class="nav-router-news">Noticias</router-link>
           <router-link to="/help" class="nav-router-help">
             Ayuda/PQR
@@ -34,10 +34,9 @@
       <img
         src="@/assets/cart-shopping.png"
         alt="cart"
-        class="nav-shopping-cart"
+        class="img-shopping-cart"
       />
     </router-link>
-    <!--Insertar imagen del carrito de compras-->
   </div>
 </template>
 
@@ -52,68 +51,70 @@ export default {
 
 <style>
 .Navbar {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   background-color: #050835;
-  border: 1px solid #fff;
-  height: 5%;
-}
-.Navbar > * {
-  border: 1px solid #fff; /* Grid item border */
+  width: 100%; 
+  height: 200px;
 }
 .nav-img-logo {
-  margin-top: 5%;
-  width: 60%;
-  height: auto;
-}
-.nav-grouped {
   position: relative;
-  top: 8%;
-  left: -25%;
+  left: 7%;
+  width: 80%;
+  height: auto;
+  align-self: center;
+}
+.nav-grouped{
+  position: relative;
+  align-self: center;
+  justify-self: center;
+  width: 100%;
+  height: 60%;
   display: grid;
-  grid-template-rows: repeat(2, 1fr); /* Adjust the number of rows as needed */
-  gap: 1%;
-  border: 1px solid #fff;
-  width: 120%;
-  height: 80%;
+  grid-template-rows: repeat(2, 1fr);
 }
-.nav-grouped > * {
-  border: 1px solid #fff;
-}
-.nav-links-grouped {
+.nav-links-grouped{
   display: flex;
-  flex-direction: row;
   align-items: center;
-  height: 50%;
 }
-.nav-category {
-  color: #fff;
+.news-help{
+  display: flex;
+  align-items: center;
 }
-.nav-router-news {
-  color: #fff;
+.nav-router-news{
+  color: white;
+  margin-right: 10px;
 }
-.nav-router-help {
-  color: #fff;
+.nav-router-help{
+  color: white;
 }
-.nav-search-bar {
+.nav-search-bar{
   border-radius: 10px;
 }
-.nav-user {
-  display: grid;
-  grid-column: 3;
-  color: #fff;
-  place-items: center;
+.nav-user-block{
+  position: relative;
+  display: flex;
+  align-self: center;
+  justify-self: center;
 }
-.nav-router-shop-list {
-  display: grid;
-  color: #fff;
-  font-weight: bold;
-  place-items: center;
+.img-user-logo{
+  width: 100%;
+  height: auto;
+  margin-right: 10px;
 }
-.nav-router-cart {
-  display: grid;
-  color: #fff;
+.nav-router-cart{
+  align-self: center;
+  justify-self: center;
+}
+.img-shopping-cart{
+  width: 150%;
+  height: auto;
+}
+.nav-router-shop-list{
+  align-self: center;
+  justify-self: center;
   font-weight: bold;
-  place-items: center;
+  color: white;
 }
 </style>

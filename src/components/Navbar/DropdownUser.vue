@@ -1,15 +1,19 @@
 <template>
   <div>
     <Dropdown :buttonText="selectedOption">
-      <li
-        v-for="(option, index) in options"
-        :key="index"
-        @click="selectOption(option)"
-      >
-        <div>
-          <router-link :to="optionRoutes[option]" class="router-dropdown">{{ option }}</router-link>
-        </div>
-      </li>
+      <div class="dropdown-menu-user">
+        <li
+          v-for="(option, index) in options"
+          :key="index"
+          @click="selectOption(option)"
+        >
+          <div>
+            <router-link :to="optionRoutes[option]" class="router-dropdown">{{
+              option
+            }}</router-link>
+          </div>
+        </li>
+      </div>
     </Dropdown>
   </div>
 </template>
@@ -40,5 +44,13 @@ export default {
 </script>
 
 <style>
-/* Add your global styles here */
+.dropdown-menu-user {
+  position: absolute;
+  background-color: #050835;
+  width: 100%;
+}
+.router-dropdown {
+  color: white;
+  cursor: pointer;
+}
 </style>

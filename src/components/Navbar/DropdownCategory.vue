@@ -1,13 +1,17 @@
 <template>
   <div>
-    <Dropdown :buttonText="selectedOption" >
-      <li
-        v-for="(option, index) in options"
-        :key="index"
-        @click="selectOption(option)"
-      >
-        <router-link :to="optionRoutes[option]" class="router-dropdown">{{ option }}</router-link>
-      </li>
+    <Dropdown :buttonText="selectedOption">
+      <div class="dropdown-menu-category">
+        <li
+          v-for="(option, index) in options"
+          :key="index"
+          @click="selectOption(option)"
+        >
+          <router-link :to="optionRoutes[option]" class="router-dropdown">{{
+            option
+          }}</router-link>
+        </li>
+      </div>
     </Dropdown>
   </div>
 </template>
@@ -47,7 +51,12 @@ export default {
 </script>
 
 <style>
-.router-dropdown{
+.dropdown-menu-category {
+  position: absolute;
+  background-color: #050835;
+}
+.router-dropdown {
   color: white;
+  cursor: pointer;
 }
 </style>
