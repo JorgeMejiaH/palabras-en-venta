@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import PasswordInput from "@/components/LoginPage/PasswordInput.vue";
-import UsernameInput from "@/components/LoginPage/UsernameInput.vue";
+import PasswordInput from "@/components/LoginPage/PasswordInputLogin.vue";
+import UsernameInput from "@/components/LoginPage/UsernameInputLogin.vue";
 export default {
   components: { UsernameInput, PasswordInput },
 };

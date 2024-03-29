@@ -6,7 +6,7 @@
       :value="Email"
       @input="handleChange"
       id="user-email"
-      class="in-user-email"
+      class="in-user-input"
     />
     <div v-if="!isValidEmail" class="error-message">
       Ingresa un correo electrónico válido.

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="date-input">
     <label for="dobPicker">Fecha de Nacimiento:</label>
     <input
       id="dobPicker"
@@ -56,5 +56,8 @@ export default {
 .error-message {
   color: red;
   margin-top: 5px;
+}
+.date-input{
+  grid-column: 1;
 }
 </style>
