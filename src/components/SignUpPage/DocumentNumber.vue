@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="document-number-container">
     <label for="DocumentNumber" class="lbl-document-number"
       >Numero de documento:</label
     >
@@ -43,5 +43,10 @@ export default {
 .error-message {
   color: red;
   margin-top: 5px;
+}
+.document-number-container{
+  margin-top: 3%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
 </style>

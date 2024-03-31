@@ -1,5 +1,5 @@
 <template>
-  <div class="document-type">
+  <div class="document-type-container">
     <label for="DocumentType" class="lbl-document-type"
       >Tipo de documento:</label
     >
@@ -44,5 +44,9 @@ export default {
   color: red;
   margin-top: 5px;
 }
-
+.document-type-container{
+  margin-top: 10%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="place-of-birth-container">
     <label for="PlaceOfBirth" class="lbl-birth-place"
       >Lugar de nacimiento:</label
     >
@@ -44,4 +44,10 @@ export default {
   color: red;
   margin-top: 5px;
 }
+.place-of-birth-container{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  margin-top: 4%;
+}
+
 </style>

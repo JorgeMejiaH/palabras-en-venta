@@ -5,7 +5,7 @@
       type="text"
       :value="firstName"
       @input="handleChange"
-      class="in-user-input"
+      class="in-user-input-names"
       id="name"
     />
     <label for="lastName" class="lbl-user-lastname">Apellidos:</label>
@@ -13,7 +13,7 @@
       type="text"
       :value="lastName"
       @input="handleChange"
-      class="in-user-input"
+      class="in-user-input-names"
       id="lastName"
     />
   </div>
@@ -46,8 +46,8 @@ export default {
   grid-row: 1; 
 }
 
-.in-user-input {
-  width: 50%;
+.in-user-input-names {
+  width: 90%;
   padding: 8px;
   box-sizing: border-box;
   border-radius: 8px;

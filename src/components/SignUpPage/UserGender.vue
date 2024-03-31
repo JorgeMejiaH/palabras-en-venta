@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <label for="gender">Género:</label>
+  <div class="gender-container">
+    <label for="gender" class="lbl-gender">Género:</label>
     <select v-model="selectedGender" id="gender">
       <option value="male">Masculino</option>
       <option value="female">Femenino</option>
@@ -19,4 +19,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.gender-container{
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+.lbl-gender{
+  margin-right: 2%;
+}
+</style>

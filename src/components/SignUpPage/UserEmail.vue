@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="email-container">
     <label for="Email" class="lbl-user-email">Correo electrónico:</label>
     <input
       type="text"
@@ -41,5 +41,10 @@ export default {
 .error-message {
   color: red;
   margin-top: 5px;
+}
+.email-container{
+  margin-top: 3%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
 </style>

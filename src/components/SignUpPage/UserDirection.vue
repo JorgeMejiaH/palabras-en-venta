@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="direction-container">
     <label for="Direction" class="lbl-user-direction">Dirección:</label>
     <input
       type="text"
@@ -26,4 +26,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.direction-container{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  margin-top: 4%;
+}
+</style>

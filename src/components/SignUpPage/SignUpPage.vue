@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <sign-up-header />
+  <sign-up-header />
+  <div class="background-container">
     <div class="register-container">
       <div class="first-column">
         <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
@@ -58,28 +58,49 @@ export default {
 </script>
 
 <style>
+.background-container {
+  background-image: url(/src/assets/registerBackground.png);
+  background-size: cover;
+  background-position: center;
+  background-color: #050835;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.register-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
 .txt-welcome-sign-up {
-  text-align: end;
-  margin-right: 32%;
-  margin-top: 15%;
   font-size: 220%;
   color: #3b63a8;
   font-weight: bold;
-  z-index: 1;
+  margin-top: 5%;
+  margin-right: 45%;
 }
 .txt-register {
-  text-align: end;
-  margin-top: 0;
-  margin-right: 28%;
+  margin-top: -5%;
+  margin-right: 45%;
   font-size: 201%;
   font-weight: bold;
 }
-.register-container{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
 .second-column {
   margin-top: 10%;
+}
+.in-user-input {
+  width: 90%;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  justify-self: center;
+}
+.link-container {
+  margin-right: 5%;
 }
 </style>
