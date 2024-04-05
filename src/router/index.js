@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
+import ValidationCodePage from "@/components/LoginPage/ValidationCodePage.vue";
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     name: "sign-up",
     component: SignUpView,
   },
+  {
+    path: "/validation-code",
+    name: "validation-code",
+    component: ValidationCodePage,
+  }
 ];
 
 const router = createRouter({
