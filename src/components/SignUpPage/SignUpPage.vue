@@ -6,10 +6,11 @@
         <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
         <h2 class="txt-register">Crea tu cuenta</h2>
         <user-names-last-names />
-        <date-input />
+        <date-input @fechaValida="manejarValidacion" />
         <place-of-birth />
         <user-direction />
         <user-gender />
+        <spam-checkbox />
       </div>
       <div class="second-column">
         <div class="link-container">
@@ -19,10 +20,13 @@
           </router-link>
         </div>
         <document-type />
-        <document-number />
+        <document-number @documentoValido="manejarValidacion"/>
         <user-email />
         <username-input-sign-up />
         <password-input-sign-up />
+        <button class="btn-continue" :disabled="!formularioValido">
+          Siguiente
+        </button>
       </div>
     </div>
   </div>
@@ -40,6 +44,7 @@ import UsernameInputSignUp from "./UsernameInputSignUp.vue";
 import PasswordInputSignUp from "./PasswordInputSignUp.vue";
 import UserEmail from "./UserEmail.vue";
 import UserGender from "./UserGender.vue";
+import SpamCheckbox from "./SpamCheckbox.vue";
 export default {
   components: {
     SignUpHeader,
@@ -53,6 +58,27 @@ export default {
     PasswordInputSignUp,
     UserEmail,
     UserGender,
+    SpamCheckbox,
+  },
+  data() {
+    return {
+      fechaValida: false,
+      documentoValido: false,
+    };
+  },
+  computed: {
+    formularioValido() {
+      return this.fechaValida && this.documentoValido;
+    },
+  },
+  methods: {
+    manejarValidacion(valido, tipo) {
+      if (tipo === 'fecha') {
+        this.fechaValida = valido;
+      } else if (tipo === 'documento') {
+        this.documentoValido = valido;
+      }
+    },
   },
 };
 </script>
@@ -76,18 +102,19 @@ export default {
   border-radius: 20px;
   margin-top: 5%;
   margin-bottom: 5%;
+  padding: 1%;
 }
 .txt-welcome-sign-up {
   font-size: 220%;
   color: #3b63a8;
   font-weight: bold;
   margin-top: 5%;
-  margin-right: 45%;
+  margin-right: 30%;
 }
 .txt-register {
   margin-top: -5%;
-  margin-right: 45%;
-  font-size: 201%;
+  margin-right: 30%;
+  font-size: 185%;
   font-weight: bold;
 }
 .second-column {
@@ -102,5 +129,12 @@ export default {
 }
 .link-container {
   margin-right: 5%;
+}
+.btn-continue {
+  margin-top: 5%;
+  width: 40%;
+  height: 5%;
+  border-radius: 8px;
+  font-weight: bold;
 }
 </style>

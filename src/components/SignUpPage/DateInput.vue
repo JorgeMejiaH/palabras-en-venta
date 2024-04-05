@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       dob: null,
-      dobError: false,
+      dobError: true,
       flatpickrConfig: {
         dateFormat: "d-m-Y",
       },
@@ -27,12 +27,22 @@ export default {
   },
   methods: {
     validateDob() {
-      const selectedDate = new Date(this.dob);
+      const dobParts = this.dob.split('-'); 
+      const selectedDate = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]);
       const currentDate = new Date();
-      const eighteenYearsAgo = new Date();
-      eighteenYearsAgo.setFullYear(currentDate.getFullYear() - 18);
-      const hundredYearsAgo = new Date();
-      hundredYearsAgo.setFullYear(currentDate.getFullYear() - 100);
+      currentDate.setHours(0, 0, 0, 0);
+      const eighteenYearsAgo = new Date(
+        currentDate.getFullYear() - 18,
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+      eighteenYearsAgo.setHours(0, 0, 0, 0);
+      const hundredYearsAgo = new Date(
+        currentDate.getFullYear() - 100,
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+      hundredYearsAgo.setHours(0, 0, 0, 0);
 
       // Validación básica para verificar si la fecha de nacimiento es una fecha válida.
       if (
@@ -41,8 +51,10 @@ export default {
         selectedDate > eighteenYearsAgo
       ) {
         this.dobError = true;
+        this.$emit("fechaValida", false);
       } else {
         this.dobError = false;
+        this.$emit("fechaValida", true);
       }
     },
   },
@@ -57,12 +69,12 @@ export default {
   color: red;
   margin-top: 5px;
 }
-.date-input-container{
+.date-input-container {
   display: grid;
   grid-template-rows: 1fr 1fr;
   margin-top: 4%;
 }
-.date-input{
+.date-input {
   width: 90%;
   padding: 8px;
   box-sizing: border-box;

@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       DocumentNumber: "",
-      isValidDocumentNumber: true,
+      isValidDocumentNumber: false,
     };
   },
   methods: {
@@ -33,6 +33,9 @@ export default {
 
       if (isValid) {
         this.DocumentNumber = inputText;
+        this.$emit("documentoValido", true);
+      } else {
+        this.$emit("documentoValido", false);
       }
     },
   },

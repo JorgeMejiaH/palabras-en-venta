@@ -10,7 +10,7 @@
       src="@/assets/WhiteBackground.png"
       alt="fondo blanco"
       class="white-background"
-    />
+    /> 
     <div class="link-container">
       <p class="txt-not-account">¿Aún no tienes cuenta?</p>
       <router-link to="/sign-up" class="link-sign-up">Regístrate</router-link>
