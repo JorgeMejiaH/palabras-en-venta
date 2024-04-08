@@ -1,6 +1,6 @@
 <template>
   <div class="Navbar">
-    <img src="@/assets/Logo.png" alt="Logo de la pagina" class="nav-img-logo" />
+    <img src="@/assets/logo.png" alt="Logo de la pagina" class="nav-img-logo" />
     <div class="nav-grouped">
       <input
         type="text"

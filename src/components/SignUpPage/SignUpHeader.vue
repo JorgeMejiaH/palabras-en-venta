@@ -1,6 +1,6 @@
 <template>
   <div class="bck-header">
-      <img src="@/assets/Logo.png" alt="Logo de la pagina" class="img-logo" />
+      <img src="@/assets/logo.png" alt="Logo de la pagina" class="img-logo" />
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {};
   position: absolute;
   top: 0.5%;
   left: 1%;
-  width: 10%;
+  width: 9%;
   height: auto;
 }
 .navbar {

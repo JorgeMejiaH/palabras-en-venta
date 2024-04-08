@@ -7,7 +7,7 @@
           <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
           <h2 class="txt-register">Crea tu cuenta</h2>
           <user-names-last-names />
-          <date-input @fechaValida="manejarValidacion" />
+          <date-input @fechaValida="validarFecha" />
           <place-of-birth />
           <user-direction />
           <user-gender />
@@ -20,8 +20,8 @@
               Ingresa Aquí
             </router-link>
           </div>
-          <document-type />
-          <document-number @documentoValido="manejarValidacion" />
+          <document-type @tipoDocumentoValido="validarTipoDocumento"/>
+          <document-number @documentoValido="validarDocumento" />
           <user-email />
           <username-input-sign-up />
           <password-input-sign-up />
@@ -65,15 +65,25 @@ export default {
   data() {
     return {
       fechaValida: false,
-      documentoValido: true,
+      documentoValido: false,
+      tipoDocumentoValido: false,
     };
   },
   computed: {
     formularioValido() {
-      return this.fechaValida && this.documentoValido;
+      return this.fechaValida && this.documentoValido && this.tipoDocumentoValido;
     },
   },
   methods: {
+    validarFecha(Valid) {
+      this.fechaValida = Valid;
+    },
+    validarDocumento(Valid){
+      this.documentoValido = Valid;
+    },
+    validarTipoDocumento(Valid){
+      this.tipoDocumentoValido = Valid;
+    },
   },
 };
 </script>

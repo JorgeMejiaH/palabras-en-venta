@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       DocumentType: "",
-      isValidDocumentType: true,
+      isValidDocumentType: false,
     };
   },
   methods: {
@@ -33,6 +33,9 @@ export default {
 
       if (isValid) {
         this.DocumentType = inputText;
+        this.$emit("tipoDocumentoValido", true)
+      } else {
+        this.$emit("tipoDocumentoValido", false)
       }
     },
   },
