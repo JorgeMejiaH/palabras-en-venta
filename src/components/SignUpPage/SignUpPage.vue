@@ -1,32 +1,34 @@
 <template>
-  <sign-up-header />
   <div class="background-container">
-    <div class="register-container">
-      <div class="first-column">
-        <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
-        <h2 class="txt-register">Crea tu cuenta</h2>
-        <user-names-last-names />
-        <date-input @fechaValida="manejarValidacion" />
-        <place-of-birth />
-        <user-direction />
-        <user-gender />
-        <spam-checkbox />
-      </div>
-      <div class="second-column">
-        <div class="link-container">
-          <p class="txt-not-account">¿Ya tienes cuenta?</p>
-          <router-link to="/login" class="link-login">
-            Ingresa Aquí
-          </router-link>
+    <sign-up-header />
+    <div>
+      <div class="register-container">
+        <div class="first-column">
+          <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
+          <h2 class="txt-register">Crea tu cuenta</h2>
+          <user-names-last-names />
+          <date-input @fechaValida="manejarValidacion" />
+          <place-of-birth />
+          <user-direction />
+          <user-gender />
+          <spam-checkbox />
         </div>
-        <document-type />
-        <document-number @documentoValido="manejarValidacion"/>
-        <user-email />
-        <username-input-sign-up />
-        <password-input-sign-up />
-        <button class="btn-continue" :disabled="!formularioValido">
-          Siguiente
-        </button>
+        <div class="second-column">
+          <div class="link-container">
+            <p class="txt-not-account">¿Ya tienes cuenta?</p>
+            <router-link to="/login" class="link-login">
+              Ingresa Aquí
+            </router-link>
+          </div>
+          <document-type />
+          <document-number @documentoValido="manejarValidacion" />
+          <user-email />
+          <username-input-sign-up />
+          <password-input-sign-up />
+          <button class="btn-continue" :disabled="!formularioValido">
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -63,7 +65,7 @@ export default {
   data() {
     return {
       fechaValida: false,
-      documentoValido: false,
+      documentoValido: true,
     };
   },
   computed: {
@@ -72,13 +74,6 @@ export default {
     },
   },
   methods: {
-    manejarValidacion(valido, tipo) {
-      if (tipo === 'fecha') {
-        this.fechaValida = valido;
-      } else if (tipo === 'documento') {
-        this.documentoValido = valido;
-      }
-    },
   },
 };
 </script>
@@ -89,20 +84,21 @@ export default {
   background-size: cover;
   background-position: center;
   background-color: #050835;
-  height: 100%;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 92vh;
 }
 .register-container {
-  display: grid;
+  display: flex;
   grid-template-columns: 1fr 1fr;
   background-color: white;
   border-radius: 20px;
   margin-top: 5%;
   margin-bottom: 5%;
   padding: 1%;
+  width: 105%;
+  height: 110%;
 }
 .txt-welcome-sign-up {
   font-size: 220%;
@@ -119,6 +115,9 @@ export default {
 }
 .second-column {
   margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .in-user-input {
   width: 90%;

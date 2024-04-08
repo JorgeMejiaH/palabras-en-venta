@@ -15,7 +15,7 @@ export default {};
   left: 0;
   background-color: #5c6972;
   width: 100%;
-  height: 10%;
+  height: 11%;
   z-index: -1;
 }
 .img-logo {
