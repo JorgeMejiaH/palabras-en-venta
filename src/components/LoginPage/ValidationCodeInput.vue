@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="validation_input_container">
 
     <input
       type="text"
@@ -27,3 +27,15 @@ export default {
   },
 }
 </script>
+
+
+<style scoped>
+
+.validation_input_container{
+  height: 3.5vh;
+  display: flex;
+  margin-left: 12%;
+}
+
+
+</style>

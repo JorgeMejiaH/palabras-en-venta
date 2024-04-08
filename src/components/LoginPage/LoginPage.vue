@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="@/assets/Logo.png" alt="Logo de la pagina" class="img-logo" />
+    <img src="@/assets/logo.png" alt="Logo de la pagina" class="img-logo" />
     <img
       src="@/assets/LoginBackground.png"
       alt="Fondo de la pagina"
