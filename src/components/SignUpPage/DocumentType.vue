@@ -10,7 +10,7 @@
       id="document-type"
       class="in-user-input"
     />
-    <div v-if="!isValidDocumentType" class="error-message">
+    <div v-if="docTypeError" class="error-message">
       Ingresa un tipo de documento valido.
     </div>
   </div>
@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       DocumentType: "",
+      docTypeError: false,
       isValidDocumentType: false,
     };
   },
@@ -30,11 +31,13 @@ export default {
       const isValid = /^[a-zA-Z\s]+$/.test(inputText);
 
       this.isValidDocumentType = isValid;
+      this.DocumentType = inputText;
 
       if (isValid) {
-        this.DocumentType = inputText;
+        this.docTypeError = false;
         this.$emit("tipoDocumentoValido", true)
       } else {
+        this.docTypeError=true;
         this.$emit("tipoDocumentoValido", false)
       }
     },

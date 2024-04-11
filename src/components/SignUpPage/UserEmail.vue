@@ -28,10 +28,8 @@ export default {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       this.isValidEmail = emailRegex.test(inputText);
-
-      if (this.isValidEmail) {
-        this.Email = inputText;
-      }
+      this.$emit("validEmail", this.isValidEmail);
+      this.Email = inputText;
     },
   },
 };

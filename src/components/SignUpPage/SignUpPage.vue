@@ -6,11 +6,11 @@
         <div class="first-column">
           <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
           <h2 class="txt-register">Crea tu cuenta</h2>
-          <user-names-last-names />
+          <user-names-last-names @validNames="validarNombres"/>
           <date-input @fechaValida="validarFecha" />
-          <place-of-birth />
-          <user-direction />
-          <user-gender />
+          <place-of-birth @validBirthPlace="validarLugarNacimiento"/>
+          <user-direction @validDirection="validarDireccion"/>
+          <user-gender @validGenre="validarGenero"/>
           <spam-checkbox />
         </div>
         <div class="second-column">
@@ -20,11 +20,11 @@
               Ingresa Aquí
             </router-link>
           </div>
-          <document-type @tipoDocumentoValido="validarTipoDocumento"/>
+          <document-type @tipoDocumentoValido="validarTipoDocumento" />
           <document-number @documentoValido="validarDocumento" />
-          <user-email />
-          <username-input-sign-up />
-          <password-input-sign-up />
+          <user-email @validEmail="validarEmail"/>
+          <username-input-sign-up @validUsername="validarUsername"/>
+          <password-input-sign-up @contraseñaValida="validarContraseña" />
           <button class="btn-continue" :disabled="!formularioValido">
             Siguiente
           </button>
@@ -67,22 +67,61 @@ export default {
       fechaValida: false,
       documentoValido: false,
       tipoDocumentoValido: false,
+      validPassword: false,
+      validNames: false,
+      validBirthPlace:false,
+      validDirection: false,
+      validGenre: false,
+      validEmail: false,
+      validUsername: false,
     };
   },
   computed: {
     formularioValido() {
-      return this.fechaValida && this.documentoValido && this.tipoDocumentoValido;
+      return (
+        this.fechaValida &&
+        this.documentoValido &&
+        this.tipoDocumentoValido &&
+        this.validPassword &&
+        this.validNames &&
+        this.validBirthPlace &&
+        this.validDirection &&
+        this.validGenre &&
+        this.validEmail &&
+        this.validUsername
+      );
     },
   },
   methods: {
     validarFecha(Valid) {
       this.fechaValida = Valid;
     },
-    validarDocumento(Valid){
+    validarDocumento(Valid) {
       this.documentoValido = Valid;
     },
-    validarTipoDocumento(Valid){
+    validarTipoDocumento(Valid) {
       this.tipoDocumentoValido = Valid;
+    },
+    validarContraseña(Valid) {
+      this.validPassword = Valid;
+    },
+    validarNombres(Valid){
+      this.validNames = Valid;
+    },
+    validarLugarNacimiento(Valid){
+      this.validBirthPlace = Valid;
+    },
+    validarDireccion(Valid){
+      this.validDirection = Valid;
+    },
+    validarGenero(Valid){
+      this.validGenre = Valid;
+    },
+    validarEmail(Valid){
+      this.validEmail = Valid;
+    },
+    validarUsername(Valid){
+      this.validUsername = Valid;
     },
   },
 };
@@ -101,7 +140,6 @@ export default {
 }
 .register-container {
   display: flex;
-  grid-template-columns: 1fr 1fr;
   background-color: white;
   border-radius: 20px;
   margin-top: 5%;
@@ -109,6 +147,10 @@ export default {
   padding: 1%;
   width: 105%;
   height: 110%;
+}
+.first-column,
+.second-column{
+  flex: 1;
 }
 .txt-welcome-sign-up {
   font-size: 220%;

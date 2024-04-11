@@ -3,7 +3,7 @@
     <label for="firstName" class="lbl-user-name">Nombres:</label>
     <input
       type="text"
-      :value="firstName"
+      :value="nombre"
       @input="handleChange"
       class="in-user-input-names"
       id="name"
@@ -11,11 +11,12 @@
     <label for="lastName" class="lbl-user-lastname">Apellidos:</label>
     <input
       type="text"
-      :value="lastName"
+      :value="apellido"
       @input="handleChange"
       class="in-user-input-names"
       id="lastName"
     />
+    <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
   </div>
 </template>
 
@@ -23,19 +24,35 @@
 export default {
   data() {
     return {
-      firstName: "",
-      lastName: "",
+      nombre: "",
+      apellido: "",
     };
   },
   methods: {
     handleChange(event) {
-      this[property] = event.target.value;
+      const property = event.target.id === "name" ? "nombre" : "apellido";
+      const value = event.target.value.trim(); // Elimina los espacios en blanco al principio y al final
+
+      if (value) {
+        this[property] = value;
+        this.errorMessage = "";
+      } else {
+        // Si el valor está vacío, establece el valor de la propiedad en una cadena vacía
+        this[property] = "";
+        // Puedes mostrar un mensaje de error o realizar alguna otra acción para indicar al usuario que el campo es obligatorio
+        this.errorMessage = `El ${property} no puede estar vacío`;
+      }
+      this.$emit("validNames", this.nombre && this.apellido);
     },
   },
 };
 </script>
 
 <style>
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
 .user-input-container {
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -43,7 +60,7 @@ export default {
 
 .lbl-user-name,
 .lbl-user-lastname {
-  grid-row: 1; 
+  grid-row: 1;
 }
 
 .in-user-input-names {

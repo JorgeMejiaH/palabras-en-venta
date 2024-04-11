@@ -1,7 +1,7 @@
 <template>
   <div class="place-of-birth-container">
     <label for="PlaceOfBirth" class="lbl-birth-place"
-      >Lugar de nacimiento:</label
+      >Ciudad de nacimiento:</label
     >
     <input
       type="text"
@@ -30,6 +30,7 @@ export default {
       const isValid = /^[a-zA-Z\s]+$/.test(inputText);
 
       this.isValidPlaceOfBirth = isValid;
+      this.$emit("validBirthPlace", isValid);
 
       if (isValid) {
         this.PlaceOfBirth = inputText;

@@ -8,6 +8,9 @@
       id="user-direction"
       class="in-user-input"
     />
+    <div v-if="!isValidDirection" class="error-message">
+      Ingresa una dirección válida.
+    </div>
   </div>
 </template>
 
@@ -16,17 +19,30 @@ export default {
   data() {
     return {
       Direction: "",
+      isValidDirection:true,
     };
   },
   methods: {
     handleChange(event) {
-      this.Direction = event.target.value;
+      const inputText = event.target.value;
+      const isValid = /^[a-zA-Z\s0-9\#]+$/.test(inputText);
+
+      this.isValidDirection = isValid;
+      this.$emit("validDirection", isValid);
+
+      if(isValid){
+        this.Direction = inputText;
+      }
     },
   },
 };
 </script>
 
 <style>
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
 .direction-container{
   display: grid;
   grid-template-rows: 1fr 1fr;

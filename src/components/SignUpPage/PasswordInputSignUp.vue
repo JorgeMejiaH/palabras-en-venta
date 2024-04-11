@@ -30,6 +30,7 @@ export default {
       password: "",
       showPassword: false,
       passwordError: true,
+      validPassword: false,
       passwordErrorMessage: "",
     };
   },
@@ -37,15 +38,18 @@ export default {
     handlePasswordChange(event) {
       this.password = event.target.value;
       const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\#])[A-Za-z\d@$!%*?&\#]{8,}$/;
       if (!passwordRegex.test(this.password)) {
         this.passwordError = true;
         this.passwordErrorMessage =
-          "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un caracter especial.";
+          "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un digito y un caracter especial.";
+        this.validPassword=false;
       } else {
         this.passwordError = false;
         this.passwordErrorMessage = "";
+        this.validPassword=true;
       }
+      this.$emit("contraseñaValida", this.validPassword)
     },
     toggleShowPassword() {
       this.showPassword = !this.showPassword;

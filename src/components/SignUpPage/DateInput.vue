@@ -19,7 +19,8 @@ export default {
   data() {
     return {
       dob: null,
-      dobError: true,
+      dobError: false,
+      validDate: false,
       flatpickrConfig: {
         dateFormat: "d-m-Y",
       },
@@ -51,10 +52,12 @@ export default {
         selectedDate > eighteenYearsAgo
       ) {
         this.dobError = true;
-        this.$emit("fechaValida", false);
+        this.validDate = false;
+        this.$emit("fechaValida", this.validDate);
       } else {
         this.dobError = false;
-        this.$emit("fechaValida", true);
+        this.validDate = true;
+        this.$emit("fechaValida", this.validDate);
       }
     },
   },
