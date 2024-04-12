@@ -137,6 +137,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 92vh;
+  width: 100%;
 }
 .register-container {
   display: flex;
@@ -145,8 +146,6 @@ export default {
   margin-top: 5%;
   margin-bottom: 5%;
   padding: 1%;
-  width: 105%;
-  height: 110%;
 }
 .first-column,
 .second-column{
