@@ -3,7 +3,7 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Iniciar Secion</router-link> |
     <router-link to="/sign-up">Registro</router-link> |
-    <router-link to="/genre-selection">Genero</router-link>
+    <router-link to="/genre-select">Genero</router-link>
   </nav>
   <router-view />
 </template>
