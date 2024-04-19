@@ -28,7 +28,7 @@
         this.isSelected = !this.isSelected;
         // Agrega lógica aquí para manejar la selección del contenedor
         console.log("Contenedor seleccionado");
-        this.$emit("Selected", this.isSelected)
+        this.$emit("Selected", 'ClassicFiction', this.isSelected)
       },
     },
   };
