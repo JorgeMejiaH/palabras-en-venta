@@ -23,16 +23,18 @@
     background-color: #222121;
     width: 20%;
     opacity: 0.5;
-    height: 40%;
-    margin-top: 175px;
-    margin-left: 12px;
+    height: 70%;
+    margin-top: 20%;
+    margin-left: 2%;
     border-radius: 25px;
     z-index: 1;
+    display: flex;
 }
 
 .item{
     color: white;
     margin-left: 10px;
+    flex: 1;
 }
 
 
