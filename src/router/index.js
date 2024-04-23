@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 import GenreSelectionView from "@/views/GenreSelectionView.vue"
+import UserInfoView from "@/views/UserInfoView.vue";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: "/genre-select",
     name: "genre-select",
     component: GenreSelectionView,
+  },
+  {
+    path: "/user-info",
+    name: "user-info",
+    component: UserInfoView
   },
 ];
 
