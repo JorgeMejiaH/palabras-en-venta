@@ -4,6 +4,7 @@ import LoginView from "../views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 import GenreSelectionView from "@/views/GenreSelectionView.vue"
 import UserInfoView from "@/views/UserInfoView.vue";
+import UserInfoEditView from "@/views/UserInfoEditView"
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/user-info",
     name: "user-info",
     component: UserInfoView
+  },
+  {
+    path: "/user-info-edit",
+    name: "user-info-edit",
+    component: UserInfoEditView
   },
 ];
 
