@@ -1,16 +1,14 @@
 <template>
-  <div class="home">
-    <h1>Home</h1>
-    
+  <div class="login">
+    <login-page />
   </div>
 </template>
 
 <script>
-
+import LoginPage from "@/components/LoginPage/LoginPage.vue";
 
 export default {
-  components: { },
-  name: "HomeView",
-
+  name: "Login",
+  components: { LoginPage },
 };
 </script>
