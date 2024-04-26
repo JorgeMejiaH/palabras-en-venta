@@ -25,7 +25,7 @@
           <user-email @validEmail="validarEmail"/>
           <username-input-sign-up @validUsername="validarUsername"/>
           <password-input-sign-up @contraseñaValida="validarContraseña" />
-          <button class="btn-continue" :disabled="!formularioValido">
+          <button class="btn-continue" :disabled="!formularioValido" @click="navigateToGenreSelection">
             Siguiente
           </button>
         </div>
@@ -122,6 +122,9 @@ export default {
     },
     validarUsername(Valid){
       this.validUsername = Valid;
+    },
+    navigateToGenreSelection() {
+      this.$router.push('/genre-select');
     },
   },
 };
