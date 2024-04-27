@@ -33,7 +33,7 @@ export default {
   components: { UsernameInput, PasswordInput },
   data(){
     return {
-      validUser: true,
+      validUser: false,
     };
   },
   methods: {
