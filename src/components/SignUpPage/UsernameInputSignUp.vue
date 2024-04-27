@@ -8,6 +8,7 @@
       class="in-user-input"
       id="username"
     />
+    <div v-if="error" class="error-message">{{ errorMessage }}</div>
   </div>
 </template>
 
@@ -16,13 +17,26 @@ export default {
   data() {
     return {
       username: "",
+      error: false,
+      errorMessage: ""
     };
   },
   methods: {
     handleChange(event) {
-      this.username = event.target.value;
-    },
-  },
+      const value = event.target.value.trim(); // Elimina los espacios en blanco al principio y al final
+
+      if (value) {
+        this.username = value;
+        this.error = false; // No hay error si el nombre de usuario no está vacío
+        this.errorMessage = "";
+      } else {
+        this.username = "";
+        this.error = true; // Hay un error si el nombre de usuario está vacío
+        this.errorMessage = "El nombre de usuario no puede estar vacío";
+      }
+      this.$emit("validUsername", value);
+    }
+  }
 };
 </script>
 

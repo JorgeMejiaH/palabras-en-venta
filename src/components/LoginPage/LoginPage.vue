@@ -10,7 +10,7 @@
       src="@/assets/WhiteBackground.png"
       alt="fondo blanco"
       class="white-background"
-    />
+    /> 
     <div class="link-container">
       <p class="txt-not-account">¿Aún no tienes cuenta?</p>
       <router-link to="/sign-up" class="link-sign-up">Regístrate</router-link>
@@ -21,7 +21,7 @@
     <form @submit.prevent="handleSubmit" class="block-inputs" name="login-form">
       <UsernameInput />
       <PasswordInput />
-      <button type="submit" class="btn-login">Iniciar Sesión</button>
+      <button type="submit" class="btn-login" :disabled="!validUser" @click="navigateToUserInfo">Iniciar Sesión</button>
     </form>
   </div>
 </template>
@@ -31,6 +31,16 @@ import PasswordInput from "@/components/LoginPage/PasswordInputLogin.vue";
 import UsernameInput from "@/components/LoginPage/UsernameInputLogin.vue";
 export default {
   components: { UsernameInput, PasswordInput },
+  data(){
+    return {
+      validUser: true,
+    };
+  },
+  methods: {
+    navigateToUserInfo() {
+      this.$router.push('/user-info');
+    },
+  },
 };
 </script>
 

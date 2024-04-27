@@ -57,6 +57,7 @@ export default {
   background-color: #050835;
   width: 100%; 
   height: 200px;
+  padding: 0%;
 }
 .nav-img-logo {
   position: relative;

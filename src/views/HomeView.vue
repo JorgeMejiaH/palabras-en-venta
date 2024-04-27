@@ -1,16 +1,14 @@
 <template>
-  <div class="home">
-    <h1>Home</h1>
-    <navbar />
+  <div class="login">
+    <login-page />
   </div>
 </template>
 
 <script>
-import Navbar from "@/components/Navbar/Navbar.vue";
-// @ is an alias to /src
+import LoginPage from "@/components/LoginPage/LoginPage.vue";
 
 export default {
-  name: "HomeView",
-  components: { Navbar },
+  name: "Login",
+  components: { LoginPage },
 };
 </script>

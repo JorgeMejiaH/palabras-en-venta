@@ -1,7 +1,8 @@
 <template>
   <div class="gender-container">
     <label for="gender" class="lbl-gender">Género:</label>
-    <select v-model="selectedGender" id="gender">
+    <select v-model="selectedGender" id="gender" @change="validateGender">
+      <option value="" disabled selected>Seleccione su género</option>
       <option value="male">Masculino</option>
       <option value="female">Femenino</option>
       <option value="other">Otro</option>
@@ -16,6 +17,15 @@ export default {
       selectedGender: "",
     };
   },
+  methods: {
+    validateGender() {
+      if (!this.selectedGender) {
+        this.$emit("validGenre", false);
+      } else {
+        this.$emit("validGenre", true);
+      }
+    }
+  }
 };
 </script>
 

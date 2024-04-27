@@ -3,6 +3,9 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 import ValidationCodePage from "@/components/LoginPage/ValidationCodePage.vue";
+import GenreSelectionView from "@/views/GenreSelectionView.vue"
+import UserInfoView from "@/views/UserInfoView.vue";
+import UserInfoEditView from "@/views/UserInfoEditView"
 
 const routes = [
   {
@@ -24,7 +27,22 @@ const routes = [
     path: "/validation-code",
     name: "validation-code",
     component: ValidationCodePage,
-  }
+  },
+  {
+    path: "/genre-select",
+    name: "genre-select",
+    component: GenreSelectionView,
+  },
+  {
+    path: "/user-info",
+    name: "user-info",
+    component: UserInfoView
+  },
+  {
+    path: "/user-info-edit",
+    name: "user-info-edit",
+    component: UserInfoEditView
+  },
 ];
 
 const router = createRouter({

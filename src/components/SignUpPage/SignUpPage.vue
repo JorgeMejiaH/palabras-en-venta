@@ -1,28 +1,34 @@
 <template>
-  <sign-up-header />
   <div class="background-container">
-    <div class="register-container">
-      <div class="first-column">
-        <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
-        <h2 class="txt-register">Crea tu cuenta</h2>
-        <user-names-last-names />
-        <date-input />
-        <place-of-birth />
-        <user-direction />
-        <user-gender />
-      </div>
-      <div class="second-column">
-        <div class="link-container">
-          <p class="txt-not-account">¿Ya tienes cuenta?</p>
-          <router-link to="/login" class="link-login">
-            Ingresa Aquí
-          </router-link>
+    <sign-up-header />
+    <div>
+      <div class="register-container">
+        <div class="first-column">
+          <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
+          <h2 class="txt-register">Crea tu cuenta</h2>
+          <user-names-last-names @validNames="validarNombres"/>
+          <date-input @fechaValida="validarFecha" />
+          <place-of-birth @validBirthPlace="validarLugarNacimiento"/>
+          <user-direction @validDirection="validarDireccion"/>
+          <user-gender @validGenre="validarGenero"/>
+          <spam-checkbox />
         </div>
-        <document-type />
-        <document-number />
-        <user-email />
-        <username-input-sign-up />
-        <password-input-sign-up />
+        <div class="second-column">
+          <div class="link-container">
+            <p class="txt-not-account">¿Ya tienes cuenta?</p>
+            <router-link to="/login" class="link-login">
+              Ingresa Aquí
+            </router-link>
+          </div>
+          <document-type @tipoDocumentoValido="validarTipoDocumento" />
+          <document-number @documentoValido="validarDocumento" />
+          <user-email @validEmail="validarEmail"/>
+          <username-input-sign-up @validUsername="validarUsername"/>
+          <password-input-sign-up @contraseñaValida="validarContraseña" />
+          <button class="btn-continue" :disabled="!formularioValido" @click="navigateToGenreSelection">
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -40,6 +46,7 @@ import UsernameInputSignUp from "./UsernameInputSignUp.vue";
 import PasswordInputSignUp from "./PasswordInputSignUp.vue";
 import UserEmail from "./UserEmail.vue";
 import UserGender from "./UserGender.vue";
+import SpamCheckbox from "./SpamCheckbox.vue";
 export default {
   components: {
     SignUpHeader,
@@ -53,6 +60,72 @@ export default {
     PasswordInputSignUp,
     UserEmail,
     UserGender,
+    SpamCheckbox,
+  },
+  data() {
+    return {
+      fechaValida: false,
+      documentoValido: false,
+      tipoDocumentoValido: false,
+      validPassword: false,
+      validNames: false,
+      validBirthPlace:false,
+      validDirection: false,
+      validGenre: false,
+      validEmail: false,
+      validUsername: false,
+    };
+  },
+  computed: {
+    formularioValido() {
+      return (
+        this.fechaValida &&
+        this.documentoValido &&
+        this.tipoDocumentoValido &&
+        this.validPassword &&
+        this.validNames &&
+        this.validBirthPlace &&
+        this.validDirection &&
+        this.validGenre &&
+        this.validEmail &&
+        this.validUsername
+      );
+    },
+  },
+  methods: {
+    validarFecha(Valid) {
+      this.fechaValida = Valid;
+    },
+    validarDocumento(Valid) {
+      this.documentoValido = Valid;
+    },
+    validarTipoDocumento(Valid) {
+      this.tipoDocumentoValido = Valid;
+    },
+    validarContraseña(Valid) {
+      this.validPassword = Valid;
+    },
+    validarNombres(Valid){
+      this.validNames = Valid;
+    },
+    validarLugarNacimiento(Valid){
+      this.validBirthPlace = Valid;
+    },
+    validarDireccion(Valid){
+      this.validDirection = Valid;
+    },
+    validarGenero(Valid){
+      this.validGenre = Valid;
+    },
+    validarEmail(Valid){
+      this.validEmail = Valid;
+    },
+    validarUsername(Valid){
+      this.validUsername = Valid;
+    },
+    navigateToGenreSelection() {
+      this.$router.push('/genre-select');
+    },
   },
 };
 </script>
@@ -63,35 +136,42 @@ export default {
   background-size: cover;
   background-position: center;
   background-color: #050835;
-  height: 100%;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 92vh;
+  width: 100%;
 }
 .register-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   background-color: white;
   border-radius: 20px;
   margin-top: 5%;
   margin-bottom: 5%;
+  padding: 1%;
+}
+.first-column,
+.second-column{
+  flex: 1;
 }
 .txt-welcome-sign-up {
   font-size: 220%;
   color: #3b63a8;
   font-weight: bold;
   margin-top: 5%;
-  margin-right: 45%;
+  margin-right: 30%;
 }
 .txt-register {
   margin-top: -5%;
-  margin-right: 45%;
-  font-size: 201%;
+  margin-right: 30%;
+  font-size: 185%;
   font-weight: bold;
 }
 .second-column {
   margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .in-user-input {
   width: 90%;
@@ -102,5 +182,12 @@ export default {
 }
 .link-container {
   margin-right: 5%;
+}
+.btn-continue {
+  margin-top: 5%;
+  width: 40%;
+  height: 5%;
+  border-radius: 8px;
+  font-weight: bold;
 }
 </style>

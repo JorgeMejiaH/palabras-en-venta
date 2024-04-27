@@ -10,7 +10,7 @@
       id="document-number"
       class="in-user-input"
     />
-    <div v-if="!isValidDocumentNumber" class="error-message">
+    <div v-if="docNumberError" class="error-message">
       Ingresa un numero de documento valido.
     </div>
   </div>
@@ -21,7 +21,8 @@ export default {
   data() {
     return {
       DocumentNumber: "",
-      isValidDocumentNumber: true,
+      docNumberError: false,
+      isValidDocumentNumber: false,
     };
   },
   methods: {
@@ -30,9 +31,14 @@ export default {
       const isValid = /^\d+$/.test(inputText);
 
       this.isValidDocumentNumber = isValid;
+      this.DocumentNumber = inputText;
 
       if (isValid) {
-        this.DocumentNumber = inputText;
+        this.docNumberError=false;
+        this.$emit("documentoValido", true);
+      } else {
+        this.docNumberError=true;
+        this.$emit("documentoValido", false);
       }
     },
   },
