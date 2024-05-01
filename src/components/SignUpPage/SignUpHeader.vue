@@ -16,7 +16,6 @@ export default {};
   background-color: #5c6972;
   width: 100%;
   height: 11%;
-  z-index: -1;
 }
 .img-logo {
   position: absolute;
