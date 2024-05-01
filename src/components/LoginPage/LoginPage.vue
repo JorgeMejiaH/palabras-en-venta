@@ -33,7 +33,7 @@ export default {
   components: { UsernameInput, PasswordInput },
   data(){
     return {
-      validUser: false,
+      validUser: true,
     };
   },
   methods: {
@@ -67,7 +67,7 @@ export default {
 
 .link-container {
   text-align: end;
-  margin-top: -2.5%;
+  margin-top: 1%;
 }
 
 .txt-not-account,
