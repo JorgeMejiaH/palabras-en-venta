@@ -35,10 +35,10 @@ export default { components: { SignUpHeader, ValidationCodeInput }
 }
 
 .background-validation-container {
-    height: 90vh;
+    height: 90lvh;
     background-color: #050835;
     background-image: url(/src/assets/registerBackground.png);
-    display: flex; 
+    display: flex;
     justify-content: center; 
     align-items: center; 
 }
