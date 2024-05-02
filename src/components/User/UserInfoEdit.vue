@@ -1,11 +1,13 @@
 <template>
   <div class="user-info-edit-background">
     <navbar />
+    <options routeOptionsContainer="user-info-edit-options-routes" />
     <div class="user-info-edit-container">
       <div class="user-info-edit-navigator">
-        <router-link to="/user-info" class="user-info-edit-router"
-          >Información personal/Contraseña</router-link
-        >
+        <router-link to="/user-info" class="user-info-edit-router">
+          <img src="@/assets/angle-left.png" alt="flecha-izquierda" />
+          Información personal/Contraseña
+        </router-link>
         <img
           src="@/assets/pen-to-square.png"
           alt="edit-symbol"
@@ -49,6 +51,7 @@ import DocumentType from "../SignUpPage/DocumentType.vue";
 import DocumentNumber from "../SignUpPage/DocumentNumber.vue";
 import SpamCheckbox from "../SignUpPage/SpamCheckbox.vue";
 import Footer from "../Footer.vue";
+import Options from "../UserPage/Options.vue";
 export default {
   components: {
     Navbar,
@@ -60,6 +63,7 @@ export default {
     DocumentNumber,
     SpamCheckbox,
     Footer,
+    Options,
   },
   data() {
     return {
@@ -113,7 +117,18 @@ export default {
 </script>
 
 <style>
-.footer-container-user-info-edit{
+.user-info-edit-options-routes {
+  position: absolute;
+  background-color: rgba(34, 33, 33, 0.6);
+  width: 20%;
+  height: auto;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  display: flex;
+  top: 45%;
+  left: 15%;
+}
+.footer-container-user-info-edit {
   position: relative;
   top: 95%;
 }
@@ -127,6 +142,12 @@ export default {
   margin-left: 0;
   font-weight: bold;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-info-edit-router img {
+  margin-right: 5px;
 }
 .user-info-edit-title {
   margin-left: 0;
@@ -150,7 +171,7 @@ export default {
   background-color: white;
   width: 60%;
   position: absolute;
-  right: 0; 
+  right: 0;
   top: 25%;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;

@@ -115,7 +115,7 @@ export default {
 <style>
 .user-info-routes{
   position: absolute;
-  background-color: #222121;
+  background-color: rgba(34, 33, 33, 0.6);
   width: 20%;
   height: auto;
   border-top-left-radius: 25px;

@@ -1,18 +1,18 @@
 <template>
-  <div class="container" :class="routeOptionsContainer">
+  <div :class="routeOptionsContainer">
     <div class="item">
-      <p>
+      <router-link to="/user-info" class="options-router">
         <img src="@/assets/user.png" alt="usuario" class="icono-usuario" />
         Información personal <br />/ contraseña
-      </p>
-      <p>
+      </router-link>
+      <router-link to="/address" class="options-router">
         <img
           src="@/assets/location-dot.png"
           alt="locacion"
           class="icono-locacion"
         />
         Libreta de direcciones
-      </p>
+      </router-link>
       <p>
         <img src="@/assets/list-check.png" alt="lista" class="icono-lista" />
         Compras / reservas <br />y cancelaciones
@@ -52,16 +52,16 @@ export default {
 
 <style>
 .container {
+  position: absolute;
   background-color: #222121;
   width: 20%;
-  height: 70%;
-  margin-top: 20%;
-  margin-left: 2%;
-  border-radius: 25px;
-  z-index: 1;
-  position: relative;
+  height: auto;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
   display: flex;
-  backdrop-filter: blur(10px) opacity(0.5);
+  top: 45%;
+  left: 20%;
+ 
 }
 
 .item {
@@ -69,6 +69,10 @@ export default {
   margin-left: 10px;
   flex: 1;
   opacity: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .icono-usuario,
@@ -81,5 +85,14 @@ export default {
 .icono-camion,
 .icono-xmark {
   width: 6%;
+}
+.options-router{
+  color: white;
+  opacity: 0.75;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+.options-router:hover {
+  opacity: 1; 
 }
 </style>
