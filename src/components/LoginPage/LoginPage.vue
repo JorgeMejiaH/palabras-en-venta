@@ -21,7 +21,7 @@
     <form @submit.prevent="handleSubmit" class="block-inputs" name="login-form">
       <UsernameInput />
       <PasswordInput />
-      <router-link to="/email" class="forgot-password-router">¿Olvidaste tu contraseña?</router-link>
+      <router-link to="/recovery-email" class="forgot-password-router">¿Olvidaste tu contraseña?</router-link>
       <button type="submit" class="btn-login" :disabled="!validUser" @click="navigateToUserInfo">Iniciar Sesión</button>
     </form>
   </div>
