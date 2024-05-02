@@ -1,5 +1,6 @@
 <template>
     <div>
+        <sign-up-header/>
         <img
         src="@/assets/registerBackground.png"
         alt="Fondo de la pagina"
@@ -46,7 +47,11 @@
 </template>
 
 <script>
+import SignUpHeader from '@/components/SignUpPage/SignUpHeader.vue'
+    
 export default {
+  components:{SignUpHeader},
+    
   data() {
     return {
       Email: "",
