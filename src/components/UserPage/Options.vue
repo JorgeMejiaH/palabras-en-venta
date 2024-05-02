@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="routeOptionsContainer">
     <div class="item">
       <p>
         <img src="@/assets/user.png" alt="usuario" class="icono-usuario" />
@@ -41,6 +41,12 @@
 <script>
 export default {
   name: "Options",
+  props: {
+    routeOptionsContainer: {
+      type: String,
+      default: '',
+    },
+  },
 };
 </script>
 
@@ -48,19 +54,21 @@ export default {
 .container {
   background-color: #222121;
   width: 20%;
-  opacity: 0.5;
   height: 70%;
   margin-top: 20%;
   margin-left: 2%;
   border-radius: 25px;
   z-index: 1;
+  position: relative;
   display: flex;
+  backdrop-filter: blur(10px) opacity(0.5);
 }
 
 .item {
   color: white;
   margin-left: 10px;
   flex: 1;
+  opacity: 1;
 }
 
 .icono-usuario,

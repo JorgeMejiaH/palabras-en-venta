@@ -7,6 +7,7 @@ import GenreSelectionView from "@/views/GenreSelectionView.vue"
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView";
 import AddressView from "@/views/UserAddressView";
+import PasswordChangeView from "@/views/PasswordChangeView"
 
 
 const routes = [
@@ -49,6 +50,11 @@ const routes = [
     path: "/address",
     name: "adress",
     component: AddressView,
+  },
+  {
+    path: "/password-change",
+    name: "assword-change",
+    component: PasswordChangeView,
   },
 ];
 

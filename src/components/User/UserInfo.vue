@@ -1,6 +1,7 @@
 <template>
   <div class="user-info-bckgr-container">
     <navbar />
+    <options routeOptionsContainer="user-info-routes" />
     <div class="user-info-container">
       <h1 class="your-account">Tu Cuenta</h1>
       <div class="user-info-username-container">
@@ -50,7 +51,7 @@
       </div>
       <div class="user-info-password-container">
         <h1 class="user-info-password-title">Contraseña</h1>
-        <button class="user-info-btn">
+        <button class="user-info-btn"  @click="navigateToPasswordChange">
           <span class="user-info-btn-content">Editar</span>
           <img
             src="@/assets/pen-to-square.png"
@@ -89,6 +90,7 @@ import PoliticsBooks from "../GenreSelection/PoliticsBooks.vue";
 import Navbar from "../Navbar/Navbar.vue";
 import UserInfoSpamCheckbox from "./UserInfoSpamCheckbox.vue";
 import Footer from "../Footer.vue";
+import Options from '../UserPage/Options.vue';
 export default {
   components: {
     Navbar,
@@ -97,16 +99,31 @@ export default {
     FilosofyBooks,
     PoliticsBooks,
     Footer,
+    Options,
   },
   methods: {
     navigateToUserInfoEdit() {
       this.$router.push("/user-info-edit");
+    },
+    navigateToPasswordChange() {
+      this.$router.push("/password-change");
     },
   },
 };
 </script>
 
 <style>
+.user-info-routes{
+  position: absolute;
+  background-color: #222121;
+  width: 20%;
+  height: auto;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  display: flex;
+  top: 45%;
+  left: 20%;
+}
 .footer-container-user-info{
   position: relative;
   top: 120%;
