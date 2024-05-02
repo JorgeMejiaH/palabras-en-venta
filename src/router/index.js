@@ -6,10 +6,8 @@ import ValidationCodePage from "@/components/LoginPage/ValidationCodePage.vue";
 import GenreSelectionView from "@/views/GenreSelectionView.vue"
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView";
-import Address from "@/components/Account/Address.vue";
-import AddAddress from "@/components/Account/AddAddress.vue";
-import EditAddress from "@/components/Account/EditAddress.vue";
-import EmailMessage from "@/components/EmailMessage.vue";
+import AddressView from "@/views/UserAddressView";
+
 
 const routes = [
   {
@@ -50,25 +48,7 @@ const routes = [
   {
     path: "/address",
     name: "adress",
-    component: Address,
-  },
-
-  {
-    path: "/add",
-    name: "addaddress",
-    component: AddAddress,
-  },
-
-  {
-    path: "/edit/:id",
-    name: "editaddress",
-    component: EditAddress,
-  },
-
-  {
-    path: "/email",
-    name: "emailmassage",
-    component: EmailMessage,
+    component: AddressView,
   },
 ];
 
