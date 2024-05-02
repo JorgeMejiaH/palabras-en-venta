@@ -1,15 +1,13 @@
 <template>
-    <div class="password-change-view">
-      <password-change/>
+    <div class = 'passchange'>
+        <password-change-page/>
     </div>
-  </template>
-  
-  <script>
-import PasswordChange from '@/components/UserPage/PasswordChange.vue';
-  
-  export default {
-    name: "password-change-view",
-    components: {PasswordChange  },
-  };
-  </script>
-  
+</template>
+
+<script>
+import PasswordChangePage from "@/components/PasswordChange/PasswordChangePage.vue";
+export default {
+    name: 'PasswordChange',
+    components: {PasswordChangePage},
+};
+</script>

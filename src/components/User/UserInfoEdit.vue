@@ -51,7 +51,7 @@ import DocumentType from "../SignUpPage/DocumentType.vue";
 import DocumentNumber from "../SignUpPage/DocumentNumber.vue";
 import SpamCheckbox from "../SignUpPage/SpamCheckbox.vue";
 import Footer from "../Footer.vue";
-import Options from "../UserPage/Options.vue";
+import Options from "../User/Options.vue";
 export default {
   components: {
     Navbar,

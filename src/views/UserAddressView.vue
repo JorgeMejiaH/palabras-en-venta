@@ -5,7 +5,7 @@
   </template>
   
   <script>
-  import Address from '@/components/UserPage/Address.vue'
+  import Address from '@/components/User/Address.vue'
   export default {
     components: { Address },
   

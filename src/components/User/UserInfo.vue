@@ -90,7 +90,7 @@ import PoliticsBooks from "../GenreSelection/PoliticsBooks.vue";
 import Navbar from "../Navbar/Navbar.vue";
 import UserInfoSpamCheckbox from "./UserInfoSpamCheckbox.vue";
 import Footer from "../Footer.vue";
-import Options from '../UserPage/Options.vue';
+import Options from '../User/Options.vue';
 export default {
   components: {
     Navbar,
