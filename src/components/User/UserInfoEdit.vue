@@ -24,13 +24,13 @@
           <user-email @validEmail="validarEmail" />
           <document-type @tipoDocumentoValido="validarTipoDocumento" />
           <document-number @documentoValido="validarDocumento" />
-          <spam-checkbox />
+          <spam-checkbox @SpamChecked="validarCheckbox"/>
         </div>
         <div class="user-info-edit-btn">
           <button
             class="user-info-btn-save"
             :disabled="!formularioValido"
-            @click="navigateToUserInfo"
+            @click="saveAndNavigateToUserInfo"
           >
             Guardar cambios
           </button>
@@ -109,7 +109,10 @@ export default {
     validarEmail(Valid) {
       this.validEmail = Valid;
     },
-    navigateToUserInfo() {
+    validarCheckbox(value){
+      console.log(value);
+    },
+    saveAndNavigateToUserInfo() {
       this.$router.push("/user-info");
     },
   },

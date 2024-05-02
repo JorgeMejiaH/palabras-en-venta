@@ -5,7 +5,7 @@ import SignUpView from "@/views/SignUpView.vue";
 import ValidationCodePage from "../views/ValidationCodePageView.vue";
 import PasswordChangePage from "../views/PasswordChangeView.vue";
 import UserGenrePage from "../views/LiteraryGenresPageView.vue";
-import UserPassChange from "../views/UserPassChangeview.vue";
+import UserPasswordChangeView from "../views/UserPasswordChangeView.vue";
 import GenreSelectionView from "@/views/GenreSelectionView.vue"
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView"
@@ -82,7 +82,7 @@ const routes = [
   {
     path: "/user-pass-edit",
     name: "/user-pass-edit",
-    component: UserPassChange,
+    component: UserPasswordChangeView ,
   },
   {
     path: "/recovery-email",

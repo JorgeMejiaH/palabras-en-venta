@@ -6,7 +6,7 @@
       <h1 class="your-account">Tu Cuenta</h1>
       <div class="user-info-username-container">
         <h1 class="user-info-hello">Hola</h1>
-        <h2 class="user-info-username">Jorge</h2>
+        <h2 class="user-info-username">{{UserName}}</h2>
         <p class="user-info-welcome">Bienvenido a tu cuenta</p>
       </div>
       <div class="user-info-personal-container">
@@ -22,30 +22,30 @@
         <div class="user-info-personal-column1">
           <div class="user-info-names">
             <h3>Nombre(s)</h3>
-            <p>Jorge A</p>
+            <p>{{userNames}}</p>
           </div>
           <div class="user-info-email">
             <h3>Correo electrónico</h3>
-            <p>jmejia@utp.co</p>
+            <p>{{userEmail}}</p>
           </div>
           <div class="user-info-document-type">
             <h3>Tipo de documento</h3>
-            <p>cc</p>
+            <p>{{userDocType}}</p>
           </div>
           <user-info-spam-checkbox />
         </div>
         <div class="user-info-personal-column2">
           <div class="user-info-lastnames">
             <h3>Apellido(s)</h3>
-            <p>Mejia</p>
+            <p>{{userLastNames}}</p>
           </div>
           <div class="user-info-place-date">
             <h3>Lugar y fecha de nacimiento</h3>
-            <p>Pereira 10/12/2000</p>
+            <p>{{userBirthPlace}} {{userDateBirth}}</p>
           </div>
           <div class="user-info-document-number">
             <h3>Número de documento</h3>
-            <p>123456789</p>
+            <p>{{userDocNumber}}</p>
           </div>
         </div>
       </div>
@@ -101,12 +101,25 @@ export default {
     Footer,
     Options,
   },
+  data(){
+    return{
+      UserName: "Jorge",
+      userNames: "Jorge Alejandro",
+      userEmail: "j.mejia2@utp",
+      userDocType: "cc",
+      userLastNames: "Mejia",
+      userBirthPlace: "",
+      userDateBirth: "",
+      userDocNumber: "",
+      
+    }  
+  },
   methods: {
     navigateToUserInfoEdit() {
       this.$router.push("/user-info-edit");
     },
     navigateToPasswordChange() {
-      this.$router.push("/password-change");
+      this.$router.push("/user-pass-edit");
     },
   },
 };
