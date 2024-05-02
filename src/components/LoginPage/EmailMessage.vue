@@ -65,10 +65,13 @@ export default {
       }
     },
     cancelarV(){
-    this.$router.push("/login");
-  }
+        this.$router.push("/login");
+      },
+    sendValidationCode(){
+      this.$router.push('/validation-code')
+    },
   },
-  sendVerificationCode() {
+  /* sendVerificationCode() {
       if (!this.isValidEmail) return;
 
       // Aquí enviarías el código de verificación al correo electrónico ingresado
@@ -103,7 +106,7 @@ export default {
         .catch((error) => {
           console.error("Error al enviar el código de verificación:", error);
       });
-  },
+  }, */
 
   
 }
