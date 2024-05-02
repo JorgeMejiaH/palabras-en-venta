@@ -5,6 +5,7 @@
       type="text"
       :value="code"
       @input="handleChange"
+      placeholder="   Código"
       class="in-validation-code"
       id="validation-code"
     />
@@ -32,9 +33,12 @@ export default {
 <style scoped>
 
 .validation_input_container{
-  height: 3.5vh;
+  height: 3.5lvh;
   display: flex;
-  margin-left: 12%;
+}
+.in-validation-code{
+  border-radius: 8px;
+  width: 35lvh;
 }
 
 

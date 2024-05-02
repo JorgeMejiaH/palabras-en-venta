@@ -3,7 +3,9 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Iniciar Secion</router-link> |
     <router-link to="/sign-up">Registro</router-link> |
-    <router-link to="/validation-code" > Pagina de Validacion</router-link>
+    <router-link to="/validation-code" > Pagina de Validacion</router-link> |
+    <router-link to = "/password-change"> Cambio de contraseña</router-link> |
+    <router-link to = "/UserPage"> User </router-link>
 
   </nav>
   <router-view />
