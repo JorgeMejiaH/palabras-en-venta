@@ -7,6 +7,7 @@ import GenreSelectionView from "@/views/GenreSelectionView.vue"
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView";
 import AddressView from "@/views/UserAddressView";
+import EmailMessage from "@/components/EmailMessage.vue";
 
 
 const routes = [
@@ -49,6 +50,12 @@ const routes = [
     path: "/address",
     name: "adress",
     component: AddressView,
+  },
+
+  {
+    path: "/email",
+    name: "email",
+    component: EmailMessage,
   },
 ];
 
