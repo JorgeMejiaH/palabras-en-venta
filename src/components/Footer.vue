@@ -1,8 +1,8 @@
 <template>
   <div :class="containerClass">
-    <footer class="footer-main">
+    <footer class="footer-main-container">
       <div class="flex-container">
-        <div class="item item-1">
+        <div class="footer-item-1">
           <p><strong>INFORMACIÓN LEGAL</strong></p>
           <p>
             <router-link to="/"
@@ -11,8 +11,8 @@
                 alt="logo computador"
                 class="computador"
               />
-              palabrasenventa.com</router-link
-            >
+              palabrasenventa.com
+            </router-link>
           </p>
           <p>
             <img
@@ -52,7 +52,7 @@
             >
           </p>
         </div>
-        <div class="item item-2">
+        <div class="footer-item-2">
           <img
             src="@/assets/imagen_seguridad_pago.png"
             alt="Logo seguridad de pagos"
@@ -72,7 +72,7 @@
             >
           </div>
         </div>
-        <div class="item item-3">
+        <div class="footer-item-3">
           <img
             src="@/assets/imagen-camara-comercio.png"
             alt="Logo camara de comercio"
@@ -111,29 +111,34 @@ export default {
   props: {
     containerClass: {
       type: String,
-      default: '',
+      default: "",
     },
   },
 };
 </script>
 
 <style>
+.footer-main-container {
+  margin-top: 110px;
+  left: 0;
+}
 .flex-container {
   display: flex;
   justify-content: space-between;
   background-color: white;
 }
 
-.item {
+.footer-item-1 {
   width: 25%;
   vertical-align: middle;
 }
 
-.item-2 {
+.footer-item-2 {
   text-align: center;
+  margin-top: 2%;
 }
 
-.item-3 {
+.footer-item-3 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,12 +162,6 @@ export default {
 .redes a {
   margin: 0 10px;
 }
-
-.footer-main {
-  margin-top: 110px;
-  left: 0;
-}
-
 .footer-bottom {
   background-color: black;
   padding: 20px;

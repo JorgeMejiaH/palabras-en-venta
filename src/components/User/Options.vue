@@ -1,6 +1,6 @@
 <template>
   <div :class="routeOptionsContainer">
-    <div class="item">
+    <div class="options-routes-items">
       <router-link to="/user-info" class="options-router">
         <img src="@/assets/user.png" alt="usuario" class="icono-usuario" />
         Información personal <br />/ contraseña
@@ -64,7 +64,7 @@ export default {
  
 }
 
-.item {
+.options-routes-items {
   color: white;
   margin-left: 10px;
   flex: 1;
