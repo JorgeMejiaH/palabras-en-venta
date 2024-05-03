@@ -56,6 +56,7 @@ export default {
     return {
       Email: "",
       isValidEmail: true,
+      showError: false
     };
   },
   methods: {
@@ -73,7 +74,15 @@ export default {
         this.$router.push("/login");
       },
     sendValidationCode(){
-      this.$router.push('/validation-code')
+      if(this.isValidEmail){
+        if(this.Email.trim() === ""){
+          this.showError = true
+        }else{
+          this.$router.push('/validation-code')
+        }
+      } else{
+        this.$router.push('/email')
+      }
     },
   },
   /* sendVerificationCode() {
