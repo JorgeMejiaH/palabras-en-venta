@@ -1,9 +1,9 @@
 <template>
   <div class="titulo-boton">
     <h1 class="titulo-txt">Direcciones</h1>
-    <button class="boton-nueva-direccion" @click="añadirDireccion">
+    <!-- <button class="boton-nueva-direccion" @click="añadirDireccion">
       <img class="img-plus" src="@/assets/add.png" /> Agregar nueva dirección
-    </button>
+    </button> -->
   </div>
   <div class="informacion">
     <div class="contenedor-titulo-edit">
@@ -16,24 +16,24 @@
       <div>
         <p class="columna" id="nombre-direccion">
           <strong>Nombre de la dirección</strong><br />{{
-            nameDirection
+            formData.nameDirection
           }}
         </p>
         <p class="columna" id="direccion">
-          <strong>Dirección</strong><br />{{ address }}
+          <strong>Dirección</strong><br />{{ formData.address }}
         </p>
       </div>
       <div>
         <p class="columna" id="tipo-vivienda">
-          <strong>Tipo de vivienda</strong><br />{{ selectType }}
+          <strong>Tipo de vivienda</strong><br />{{ formData.selectType }}
         </p>
         <p class="columna" id="ciudad">
-          <strong>Ciudad</strong><br />{{ city }}
+          <strong>Ciudad</strong><br />{{ formData.city }}
         </p>
       </div>
     </div>
   </div>
-  <div class="informacion2">
+  <!-- <div class="informacion2">
     <div class="contenedor-titulo-edit2">
       <h1 class="titulo-ingresar-direccion">Ingresar dirección</h1>
       <button class="edit-boton" @click="editarDireccion">
@@ -44,19 +44,19 @@
       <div>
         <p class="columna" id="nombre-direccion">
           <strong>Nombre de la dirección</strong><br />{{
-            nameDirection
+            formData.nameDirection
           }}
         </p>
         <p class="columna" id="direccion">
-          <strong>Dirección</strong><br />{{ address }}
+          <strong>Dirección</strong><br />{{ formData.address }}
         </p>
       </div>
       <div>
         <p class="columna" id="tipo-vivienda">
-          <strong>Tipo de vivienda</strong><br />{{ selectType }}
+          <strong>Tipo de vivienda</strong><br />{{ formData.selectType }}
         </p>
         <p class="columna" id="ciudad">
-          <strong>Ciudad</strong><br />{{ city }}
+          <strong>Ciudad</strong><br />{{ formData.city }}
         </p>
       </div>
     </div>
@@ -72,58 +72,44 @@
       <div>
         <p class="columna" id="nombre-direccion">
           <strong>Nombre de la dirección</strong><br />{{
-            nameDirection
+            formData.nameDirection
           }}
         </p>
         <p class="columna" id="direccion">
-          <strong>Dirección</strong><br />{{ address }}
+          <strong>Dirección</strong><br />{{ formData.address }}
         </p>
       </div>
       <div>
         <p class="columna" id="tipo-vivienda">
-          <strong>Tipo de vivienda</strong><br />{{ selectType }}
+          <strong>Tipo de vivienda</strong><br />{{ formData.selectType }}
         </p>
         <p class="columna" id="ciudad">
-          <strong>Ciudad</strong><br />{{ city }}
+          <strong>Ciudad</strong><br />{{ formData.city }}
         </p>
       </div>
     </div>
-  </div>
+  </div> -->
+
 </template>
 
 <script>
-//import AddAddressInfo from './AddAddressInfo.vue';
 
 export default {
-  //components: {AddAddressInfo},
-
   name: "AddressInfo",
 
-  data(){
-    return{
-      nameDirection: "1",
-      address: "a",
-      selectType: "ad",
-      city: "pe",
-    };
-  },
-
- /* created() {
+  created() {
     const storedData = localStorage.getItem("formData");
     if (storedData) {
       this.formData = JSON.parse(storedData);
     }
-
-    const id = this.$route.params.id;
   },
-*/
+
   methods: {
-    añadirDireccion() {
+    /* añadirDireccion() {  
       this.$router.push("/add");
-    },
+    }, */
     editarDireccion() {
-      const id = 1;
-      this.$router.push("/edit/${id}");
+      this.$router.push("/edit");
     },
   },
 };
