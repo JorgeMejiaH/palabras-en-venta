@@ -14,7 +14,7 @@
               palabrasenventa.com
             </router-link>
           </p>
-          <p>
+          <p class='texto'>
             <img
               src="@/assets/teléfono.png"
               alt="logo telefono"
@@ -22,7 +22,7 @@
             />
             3225988459
           </p>
-          <p>
+          <p class='texto'>
             <img
               src="@/assets/locacion.png"
               alt="logo locacion"
@@ -30,7 +30,7 @@
             />
             Calle 11 #23-57 Pereira-Risaralda
           </p>
-          <p>
+          <p class='texto'>
             <img
               src="@/assets/locacion.png"
               alt="logo locacion"
@@ -39,13 +39,13 @@
             Horario de atención: Lunes a Viernes de 8:30 AM a 6:00 PM, Sábado de
             9:00 AM a 5:00 PM.
           </p>
-          <p>
+          <p class='texto'>
             Para peticiones, quejas y reclamos dirigirse a:
             <a href="mailto:servicioalcliente@palabrasenventa.com"
               >servicioalcliente@palabrasenventa.com</a
             >
           </p>
-          <p>
+          <p class='texto'>
             Para cotizaciones y ventas a clientes institucionales dirigirse a:
             <a href="mailto:compras@palabrasenventa.com"
               >compras@palabrasenventa.com</a
@@ -186,6 +186,11 @@ export default {
 
 .text-container {
   margin-top: 20px; /* Reduce el espacio superior */
+  color: black
+}
+
+.texto{
+  color: black;
 }
 
 /* Media queries para hacer el diseño responsive */
