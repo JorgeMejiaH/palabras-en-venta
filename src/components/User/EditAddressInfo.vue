@@ -15,14 +15,14 @@
                 <label for="name-direction">Nombre de la dirección:</label>
                 <input
                     type="text"
-                    :value="formData.nameDirection"
+                    v-model="formData.nameDirection"
                     id="name-direction"
                     class="in-user-input"
                 />
                 <label for="direction">Dirección</label>
                 <input
                     type="text"
-                    :value="formData.address"
+                    v-model="formData.address"
                     id="direction"
                     class="in-user-input"
                 />
@@ -39,7 +39,7 @@
                 <label for="name-city">Ciudad</label>
                 <input
                     type="text"
-                    :value="formData.city"
+                    v-model="formData.city"
                     id="name-city"
                     class="in-user-input"
                 />
@@ -48,7 +48,7 @@
         <label for="text-description">Descripción</label>
             <input
                 type="text"
-                :value="formData.description"
+                v-model="formData.description"
                 id="text-description"
                 class="input-description"
             />
@@ -71,10 +71,6 @@
                     description:"",
                 }
             };
-        },
-
-        created(){
-            const id = this.$route.params
         },
 
         methods: {
