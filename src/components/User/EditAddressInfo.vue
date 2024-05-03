@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="libreta-editar">
-            <router-link to="/address"><img class="atras" src="@/assets/felcha-izquierda.png"> Libreta de direcciones</router-link>
+            <router-link to="/address"><img class="atras" src="@/assets/angle-left.png"> Libreta de direcciones</router-link>
         </div>
         <div class="icono-edicion">
             <p><img class="edit-img-edicion" src="@/assets/pen-to-square.png">Edición</p>

@@ -1,6 +1,6 @@
 <template>
     <div class="user-address-view">
-      <address/>
+      <Address/>
     </div>
   </template>
   

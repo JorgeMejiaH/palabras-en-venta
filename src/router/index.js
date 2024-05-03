@@ -9,8 +9,9 @@ import UserPasswordChangeView from "../views/UserPasswordChangeView.vue";
 import GenreSelectionView from "@/views/GenreSelectionView.vue"
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView"
-import AddressView from "@/views/UserAddressView"
+import UserAddressView from "@/views/UserAddressView"
 import RecoveryEmailView from "@/views/RecoveryEmailView.vue";
+import UserAddressEditView from "@/views/UserAddressEditView"
 
 
 const routes = [
@@ -67,7 +68,12 @@ const routes = [
   {
     path: "/address",
     name: "adress",
-    component: AddressView,
+    component: UserAddressView,
+  },
+  {
+    path: "/address-edit",
+    name: "adress-edit",
+    component: UserAddressEditView,
   },
   {
     path : "/password-change",

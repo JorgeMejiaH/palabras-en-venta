@@ -16,19 +16,19 @@
       <div>
         <p class="columna" id="nombre-direccion">
           <strong>Nombre de la dirección</strong><br />{{
-            formData.nameDirection
+            nameDirection
           }}
         </p>
         <p class="columna" id="direccion">
-          <strong>Dirección</strong><br />{{ formData.address }}
+          <strong>Dirección</strong><br />{{ address }}
         </p>
       </div>
       <div>
         <p class="columna" id="tipo-vivienda">
-          <strong>Tipo de vivienda</strong><br />{{ formData.selectType }}
+          <strong>Tipo de vivienda</strong><br />{{ selectType }}
         </p>
         <p class="columna" id="ciudad">
-          <strong>Ciudad</strong><br />{{ formData.city }}
+          <strong>Ciudad</strong><br />{{ city }}
         </p>
       </div>
     </div>
@@ -44,19 +44,19 @@
       <div>
         <p class="columna" id="nombre-direccion">
           <strong>Nombre de la dirección</strong><br />{{
-            formData.nameDirection
+            nameDirection
           }}
         </p>
         <p class="columna" id="direccion">
-          <strong>Dirección</strong><br />{{ formData.address }}
+          <strong>Dirección</strong><br />{{ address }}
         </p>
       </div>
       <div>
         <p class="columna" id="tipo-vivienda">
-          <strong>Tipo de vivienda</strong><br />{{ formData.selectType }}
+          <strong>Tipo de vivienda</strong><br />{{ selectType }}
         </p>
         <p class="columna" id="ciudad">
-          <strong>Ciudad</strong><br />{{ formData.city }}
+          <strong>Ciudad</strong><br />{{ city }}
         </p>
       </div>
     </div>
@@ -72,19 +72,19 @@
       <div>
         <p class="columna" id="nombre-direccion">
           <strong>Nombre de la dirección</strong><br />{{
-            formData.nameDirection
+            nameDirection
           }}
         </p>
         <p class="columna" id="direccion">
-          <strong>Dirección</strong><br />{{ formData.address }}
+          <strong>Dirección</strong><br />{{ address }}
         </p>
       </div>
       <div>
         <p class="columna" id="tipo-vivienda">
-          <strong>Tipo de vivienda</strong><br />{{ formData.selectType }}
+          <strong>Tipo de vivienda</strong><br />{{ selectType }}
         </p>
         <p class="columna" id="ciudad">
-          <strong>Ciudad</strong><br />{{ formData.city }}
+          <strong>Ciudad</strong><br />{{ city }}
         </p>
       </div>
     </div>
@@ -99,7 +99,16 @@ export default {
 
   name: "AddressInfo",
 
-  created() {
+  data(){
+    return{
+      nameDirection: "1",
+      address: "a",
+      selectType: "ad",
+      city: "pe",
+    };
+  },
+
+ /* created() {
     const storedData = localStorage.getItem("formData");
     if (storedData) {
       this.formData = JSON.parse(storedData);
@@ -107,7 +116,7 @@ export default {
 
     const id = this.$route.params.id;
   },
-
+*/
   methods: {
     añadirDireccion() {
       this.$router.push("/add");

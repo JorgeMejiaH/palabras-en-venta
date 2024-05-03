@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import  Options  from "@/components/UserPage/Options.vue";
-import EditAddressInfo from "@/components/UserPage/EditAddressInfo.vue";
+import  Options  from "@/components/User/Options.vue";
+import EditAddressInfo from "@/components/User/EditAddressInfo.vue";
 export default{
     components: {Options, EditAddressInfo},
 
