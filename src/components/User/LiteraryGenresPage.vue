@@ -12,90 +12,13 @@
           <h1> Géneros Literarios</h1>
           <div class = 'LiteraryGenresUser-selectcontainer'>           
               <div class = 'LiteraryGenresUser-item'>
-                  <div class="item">
-                      <img src="@/assets/filosofyBooks.png" alt="filosofy genre" class = 'item-image-genre'>
+                <div v-for="(genre, index) in genres" :key="index" class="item" @click="toggleSelection(genre)">
+                  <div :class="{'selected': selectedGenres.includes(genre)}"></div>
+                  <img :src="getImagePath(genre)" :alt="`${genre} genre`" class = 'item-image-genre'>
                       <div class = 'checkbox-genres-container'>
-                        <h5 class="genre-name-txt"> Filosofía</h5>
-                        <input type="checkbox" class="checkbox-GenresUser-filosofia" >
+                        <h5 class="genre-name-txt">{{ genre }}</h5>
+                        <input type="checkbox" :class="'checkbox-GenresUser-' + genre.toLowerCase()" v-model="selectedGenres" :value="genre">
                       </div>
-                  </div>
-                  <div class = 'item'>
-                      <img src="@/assets/historyBooks.png" alt="history genre" class = 'item-image-genre'>
-                      <div class = 'checkbox-genres-container'>
-                        <h5 class="genre-name-txt"> Historia</h5>
-                        <input type="checkbox" class="checkbox-GenresUser-historia" >
-                      </div>
-                  </div>
-                  <div class = 'item'>
-                      <img src="@/assets/acctionAdventureBooks.png" alt="action adventure genre" class = 'item-image-genre'>
-                      <div class = 'checkbox-genres-container'>
-                        <h5 class="genre-name-txt"> Acción y Aventura</h5>
-                        <input type="checkbox" class="checkbox-GenresUser-aventura" >
-                      </div>
-                  </div>
-                  <div class="item">
-                      <img src="@/assets/juvenileBooks.png" alt="genero juvenil" class = 'item-image-genre' >
-                      <div class = 'checkbox-genres-container'>
-                          <h5 class="genre-name-txt"> Infantil y juvenil</h5>
-                          <input type="checkbox" class="checkbox-GenresUser-juvenil" >
-                      </div>
-                  </div>
-                  <div class = 'item'>
-                        <img src="@/assets/cienceFictionBooks.png" alt="genero ficcion" class="item-image-genre">
-                        <div class = 'checkbox-genres-container'>
-                            <h5 class="genre-name-txt"> Ciencia ficción</h5>
-                            <input type="checkbox" class="checkbox-GenresUser-ficcion" >
-                        </div>
-                    </div>
-                    <div class = 'item'>
-                        <img src="@/assets/fantasyBooks.png" alt="fantasia genero" class="item-image-genre">
-                        <div class = 'checkbox-genres-container'>
-                            <h5 class="genre-name-txt"> Fantasía</h5>
-                            <input type="checkbox" class="checkbox-GenresUser-fantasía" >
-                        </div>
-                    </div>
-                    <div class = 'item'>
-                        <img src="@/assets/politicsBooks.png" alt="politics genre" class="item-image-genre">
-                        <div class = 'checkbox-genres-container'>
-                            <h5 class="genre-name-txt"> Política</h5>
-                            <input type="checkbox" class="checkbox-GenresUser-Política" >
-                        </div>
-                    </div>
-                    <div class = 'item'>
-                        <img src="@/assets/anthologyBooks.png" alt="anthology genre" class="item-image-genre">
-                        <div class = 'checkbox-genres-container'>
-                            <h5 class="genre-name-txt"> Antologías</h5>
-                            <input type="checkbox" class="checkbox-GenresUser-Antologías" >
-                        </div>
-                    </div>
-                    <div class = 'item'>
-                        <img src="@/assets/classicFictionBooks.png" alt="Classic fiction genre" class="item-image-genre">
-                        <div class = 'checkbox-genres-container'>
-                            <h5 class="genre-name-txt"> Ficción clásica</h5>
-                            <input type="checkbox" class="checkbox-GenresUser-Clásica" >
-                        </div>
-                    </div>
-                    <div class = 'item'>
-                        <img src="@/assets/psicologyBooks.png" alt="psicology genre" class="item-image-genre">
-                        <div class = 'checkbox-genres-container'>
-                            <h5 class="genre-name-txt"> Psicología</h5>
-                            <input type="checkbox" class="checkbox-GenresUser-psicología" >
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="@/assets/languageBooks.png" alt="language genre" class="item-image-genre">
-                        <div class = 'checkbox-genres-container'>
-                            <h5 class="genre-name-txt"> Lingüistica</h5>
-                            <input type="checkbox" class="checkbox-GenresUser-lingüistica" >
-                        </div>
-                    </div>
-                    <div class = "item">
-                        <img src="@/assets/childStoriesBooks.png" alt="child sotires genre" class="item-image-genre">
-                        <div class = 'checkbox-genres-container'>
-                            <h5 class="genre-name-txt"> Cuentos</h5>
-                            <input type="checkbox" class="checkbox-GenresUser-cuentos" >
-                        </div>
-
                     </div>
                   </div>
               </div>
@@ -111,22 +34,23 @@ export default {
   components: { Navbar, Options },
   data() {
     return {
+      genres: ['Filosofía', 'Historia', 'Acción y Aventura', 'Infantil y juvenil', 'Ciencia ficción', 'Fantasía', 'Política', 'Antologías', 'Ficción clásica', 'Psicología', 'Lingüistica', 'Cuentos'],
       selectedGenres: [], // Array para almacenar los géneros seleccionados
     };
   },
   methods: {
-    toggleSelection(index) {
+    toggleSelection(genre) {
       // Toggle para agregar o quitar el índice del género seleccionado
-      if (this.selectedGenres.includes(index)) {
-        this.selectedGenres.splice(this.selectedGenres.indexOf(index), 1);
+      if (this.selectedGenres.includes(genre)){
+        this.selectedGenres = this.selectedGenres.filter(selectedGenre => selectedGenre !== genre);
+
       } else {
-        this.selectedGenres.push(index);
+        this.selectedGenres.push(genre);;
       }
     },
-    isSelected(index) {
-      // Verifica si un género está seleccionado
-      return this.selectedGenres.includes(index);
-    },
+    getImagePath(genre) {
+      return require(`@/assets/${genre.toLowerCase()}Books.png`);
+    }
   },
 };
 </script>
@@ -163,8 +87,8 @@ export default {
       margin-left: 5%;  
   }
 
-  .selected-item {
-  border-width: 4px; /* Cambia el ancho del borde */
+  .selected img {
+  border: 5px solid red; /* Puedes ajustar el color y el grosor del borde aquí */
 }
 
   .LiteraryGenresUser-selected{
