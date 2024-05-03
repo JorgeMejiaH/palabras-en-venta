@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Navbar/>
         <Options/>
         <img
         src="@/assets/config-background.png"
@@ -9,14 +10,17 @@
         <div class="container-edit-address">
             <EditAddressInfo/>
         </div>
+        <Footer class="footer-address"/>
     </div>
 </template>
 
 <script>
 import  Options  from "@/components/User/Options.vue";
 import EditAddressInfo from "@/components/User/EditAddressInfo.vue";
+import Navbar from "../Navbar/Navbar.vue";
+import Footer from '@/components/Footer.vue';
 export default{
-    components: {Options, EditAddressInfo},
+    components: {Options, EditAddressInfo, Navbar, Footer},
 
     
 };
