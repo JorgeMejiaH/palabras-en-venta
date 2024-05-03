@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Navbar/>
         <Options/>
         <img
         src="@/assets/config-background.png"
@@ -9,14 +10,17 @@
         <div class="container-address">
             <AddressInfo/>
         </div>
+        <Footer class="footer-address"/>
     </div>
 </template>
 
 <script>
 import  Options  from "@/components/User/Options.vue";
 import AddressInfo from "@/components/User/AddressInformation.vue";
+import Footer from '@/components/Footer.vue';
+import Navbar from "../Navbar/Navbar.vue";
 export default{
-    components: {Options, AddressInfo},
+    components: {Options, AddressInfo, Footer, Navbar},
 };
 </script>
 
@@ -41,6 +45,11 @@ export default{
     background-color: white;
     z-index: 1;
     border-radius: 20px;
+}
+
+.footer-address{
+    position: relative;
+    top: 600px;
 }
 
 </style>
