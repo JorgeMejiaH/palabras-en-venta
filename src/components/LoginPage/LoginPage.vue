@@ -91,6 +91,12 @@ export default {
 </script>
 
 <style>
+.forgot-password-router{
+  margin-top: 3%;
+  color: black;
+  text-decoration: none;
+  display: block;
+}
 .in-user-login {
   width: 30%;
   padding: 8px;
@@ -167,7 +173,7 @@ export default {
 }
 
 .btn-login {
-  margin-top: 5%;
+  margin-top: 3%;
   width: 30%;
   height: 15%;
   padding: 8px;

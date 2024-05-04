@@ -1,5 +1,5 @@
 <template>
-    <div> class="validation">
+    <div>
       <validation-code-page ></validation-code-page>
     </div>
   </template>

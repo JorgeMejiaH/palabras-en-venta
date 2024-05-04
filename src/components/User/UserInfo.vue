@@ -1,6 +1,7 @@
 <template>
   <div class="user-info-bckgr-container">
     <navbar />
+    <options routeOptionsContainer="user-info-routes" />
     <div class="user-info-container">
       <h1 class="your-account">Tu Cuenta</h1>
       <div class="user-info-username-container">
@@ -50,7 +51,7 @@
       </div>
       <div class="user-info-password-container">
         <h1 class="user-info-password-title">Contraseña</h1>
-        <button class="user-info-btn">
+        <button class="user-info-btn"  @click="navigateToPasswordChange">
           <span class="user-info-btn-content">Editar</span>
           <img
             src="@/assets/pen-to-square.png"
@@ -89,6 +90,7 @@ import PoliticsBooks from "../GenreSelection/PoliticsBooks.vue";
 import Navbar from "../Navbar/Navbar.vue";
 import UserInfoSpamCheckbox from "./UserInfoSpamCheckbox.vue";
 import Footer from "../Footer.vue";
+import Options from '../User/Options.vue';
 import Cookies from 'js-cookie';
 import hostMixin from "@/mixins/host.js";
 import axios from 'axios';
@@ -103,6 +105,44 @@ export default {
     FilosofyBooks,
     PoliticsBooks,
     Footer,
+    Options,
+  },
+  data(){
+    return{
+      UserName: "Jorge",
+      userNames: "Jorge Alejandro",
+      userEmail: "j.mejia2@utp",
+      userDocType: "cc",
+      userLastNames: "Mejia",
+      userBirthPlace: "",
+      userDateBirth: "",
+      userDocNumber: "",
+      
+    }  
+  },
+  data(){
+    return {
+      sessionInfo: null,
+      userInfo: {
+          first_name: null, 
+          last_name: null,
+          birth_date: null,
+          place_birth: null,
+          document_type: null,
+          document_number: null,
+          want_spam: null,
+          gender: null,
+          notice_selection: null,
+          literary_genres: null,
+          is_active: null,
+      },
+    };
+  },
+  beforeMount(){
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+    this.getUserInfo();
   },
   data(){
     return {
@@ -154,6 +194,17 @@ export default {
 </script>
 
 <style>
+.user-info-routes{
+  position: absolute;
+  background-color: rgba(34, 33, 33, 0.6);
+  width: 20%;
+  height: auto;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  display: flex;
+  top: 45%;
+  left: 20%;
+}
 .footer-container-user-info{
   position: relative;
   top: 120%;

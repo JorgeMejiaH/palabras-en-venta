@@ -20,7 +20,7 @@ export default {
   methods: {
     handleChange() {
       // Este método se ejecutará cada vez que el estado del checkbox cambie
-      console.log("Estado actual del checkbox:", this.isChecked);
+      this.$emit("SpamChecked", this.isChecked);
     },
   },
 };

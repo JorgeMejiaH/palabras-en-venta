@@ -1,8 +1,8 @@
 <template>
   <div :class="containerClass">
-    <footer class="footer-main">
+    <footer class="footer-main-container">
       <div class="flex-container">
-        <div class="item item-1">
+        <div class="footer-item-1">
           <p><strong>INFORMACIÓN LEGAL</strong></p>
           <p>
             <router-link to="/"
@@ -11,10 +11,10 @@
                 alt="logo computador"
                 class="computador"
               />
-              palabrasenventa.com</router-link
-            >
+              palabrasenventa.com
+            </router-link>
           </p>
-          <p>
+          <p class='texto'>
             <img
               src="@/assets/teléfono.png"
               alt="logo telefono"
@@ -22,7 +22,7 @@
             />
             3225988459
           </p>
-          <p>
+          <p class='texto'>
             <img
               src="@/assets/locacion.png"
               alt="logo locacion"
@@ -30,7 +30,7 @@
             />
             Calle 11 #23-57 Pereira-Risaralda
           </p>
-          <p>
+          <p class='texto'>
             <img
               src="@/assets/locacion.png"
               alt="logo locacion"
@@ -39,20 +39,20 @@
             Horario de atención: Lunes a Viernes de 8:30 AM a 6:00 PM, Sábado de
             9:00 AM a 5:00 PM.
           </p>
-          <p>
+          <p class='texto'>
             Para peticiones, quejas y reclamos dirigirse a:
             <a href="mailto:servicioalcliente@palabrasenventa.com"
               >servicioalcliente@palabrasenventa.com</a
             >
           </p>
-          <p>
+          <p class='texto'>
             Para cotizaciones y ventas a clientes institucionales dirigirse a:
             <a href="mailto:compras@palabrasenventa.com"
               >compras@palabrasenventa.com</a
             >
           </p>
         </div>
-        <div class="item item-2">
+        <div class="footer-item-2">
           <img
             src="@/assets/imagen_seguridad_pago.png"
             alt="Logo seguridad de pagos"
@@ -72,7 +72,7 @@
             >
           </div>
         </div>
-        <div class="item item-3">
+        <div class="footer-item-3">
           <img
             src="@/assets/imagen-camara-comercio.png"
             alt="Logo camara de comercio"
@@ -111,29 +111,34 @@ export default {
   props: {
     containerClass: {
       type: String,
-      default: '',
+      default: "",
     },
   },
 };
 </script>
 
 <style>
+.footer-main-container {
+  margin-top: 110px;
+  left: 0;
+}
 .flex-container {
   display: flex;
   justify-content: space-between;
   background-color: white;
 }
 
-.item {
+.footer-item-1 {
   width: 25%;
   vertical-align: middle;
 }
 
-.item-2 {
+.footer-item-2 {
   text-align: center;
+  margin-top: 2%;
 }
 
-.item-3 {
+.footer-item-3 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,12 +162,6 @@ export default {
 .redes a {
   margin: 0 10px;
 }
-
-.footer-main {
-  margin-top: 110px;
-  left: 0;
-}
-
 .footer-bottom {
   background-color: black;
   padding: 20px;
@@ -187,6 +186,11 @@ export default {
 
 .text-container {
   margin-top: 20px; /* Reduce el espacio superior */
+  color: black
+}
+
+.texto{
+  color: black;
 }
 
 /* Media queries para hacer el diseño responsive */
