@@ -42,7 +42,11 @@ export default {
         // Puedes mostrar un mensaje de error o realizar alguna otra acción para indicar al usuario que el campo es obligatorio
         this.errorMessage = `El ${property} no puede estar vacío`;
       }
-      this.$emit("validNames", this.nombre && this.apellido);
+      this.$emit("validNames", {
+        is_valid: this.nombre && this.apellido,
+        name: this.nombre,
+        last_name: this.apellido
+      });
     },
   },
 };

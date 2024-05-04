@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const app = createApp(App);
 

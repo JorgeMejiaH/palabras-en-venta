@@ -53,11 +53,17 @@ export default {
       ) {
         this.dobError = true;
         this.validDate = false;
-        this.$emit("fechaValida", this.validDate);
+        this.$emit("fechaValida", {
+          is_valid: this.validDate,
+          select_date: selectedDate.toISOString().split('T')[0]
+          });
       } else {
         this.dobError = false;
         this.validDate = true;
-        this.$emit("fechaValida", this.validDate);
+        this.$emit("fechaValida", {
+          is_valid: this.validDate,
+          select_date: selectedDate.toISOString().split('T')[0]
+          });
       }
     },
   },

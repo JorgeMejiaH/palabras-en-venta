@@ -35,10 +35,16 @@ export default {
 
       if (isValid) {
         this.docNumberError=false;
-        this.$emit("documentoValido", true);
+        this.$emit("documentoValido", {
+          is_valid: true,
+          document: this.DocumentNumber
+        });
       } else {
         this.docNumberError=true;
-        this.$emit("documentoValido", false);
+        this.$emit("documentoValido", {
+          is_valid: false,
+          document: this.DocumentNumber
+        });
       }
     },
   },

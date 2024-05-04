@@ -21,6 +21,7 @@ export default {
   methods: {
     handleChange(event) {
       this.username = event.target.value;
+      this.$emit('SendUsername', this.username);
     },
   },
 };

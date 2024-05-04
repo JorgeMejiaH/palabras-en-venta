@@ -49,7 +49,10 @@ export default {
         this.passwordErrorMessage = "";
         this.validPassword=true;
       }
-      this.$emit("contraseñaValida", this.validPassword)
+      this.$emit("contraseñaValida", {
+        is_valid: this.validPassword,
+        password: this.password
+      })
     },
     toggleShowPassword() {
       this.showPassword = !this.showPassword;

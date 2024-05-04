@@ -28,7 +28,10 @@ export default {
       const isValid = /^[a-zA-Z\s0-9\#]+$/.test(inputText);
 
       this.isValidDirection = isValid;
-      this.$emit("validDirection", isValid);
+      this.$emit("validDirection", {
+        is_valid: isValid,
+        direction: inputText
+      });
 
       if(isValid){
         this.Direction = inputText;

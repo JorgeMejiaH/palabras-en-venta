@@ -11,7 +11,7 @@
           <place-of-birth @validBirthPlace="validarLugarNacimiento"/>
           <user-direction @validDirection="validarDireccion"/>
           <user-gender @validGenre="validarGenero"/>
-          <spam-checkbox />
+          <spam-checkbox  @checkbox_value="checkboxValue"/>
         </div>
         <div class="second-column">
           <div class="link-container">
@@ -25,11 +25,18 @@
           <user-email @validEmail="validarEmail"/>
           <username-input-sign-up @validUsername="validarUsername"/>
           <password-input-sign-up @contraseñaValida="validarContraseña" />
-          <button class="btn-continue" :disabled="!formularioValido" @click="navigateToGenreSelection">
-            Siguiente
+          <button class="btn-continue" :disabled="!formularioValido" @click="registerProcess">
+            Crear
           </button>
         </div>
+        
       </div>
+    </div>
+    <div v-if="message" id="message-container" class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" @click="closeMessage">
+            <span aria-hidden="true">&times;</span>
+          </button>
     </div>
   </div>
 </template>
@@ -47,7 +54,11 @@ import PasswordInputSignUp from "./PasswordInputSignUp.vue";
 import UserEmail from "./UserEmail.vue";
 import UserGender from "./UserGender.vue";
 import SpamCheckbox from "./SpamCheckbox.vue";
+import axios from 'axios';
+import hostMixin from "@/mixins/host.js";
+
 export default {
+  mixins: [hostMixin],
   components: {
     SignUpHeader,
     UserNamesLastNames,
@@ -64,6 +75,9 @@ export default {
   },
   data() {
     return {
+
+      message: "",
+
       fechaValida: false,
       documentoValido: false,
       tipoDocumentoValido: false,
@@ -74,6 +88,18 @@ export default {
       validGenre: false,
       validEmail: false,
       validUsername: false,
+
+      fecha: false,
+      documento: false,
+      tipoDocumento: false,
+      Password: false,
+      Names: false,
+      BirthPlace:false,
+      Direction: false,
+      Genre: false,
+      Email: false,
+      Username: false,
+      spam: false,
     };
   },
   computed: {
@@ -93,38 +119,96 @@ export default {
     },
   },
   methods: {
+    closeMessage() {
+      this.message = null;
+    },
+    checkboxValue(Valid) {
+      console.log(Valid)
+      this.spam = Valid;
+    },
     validarFecha(Valid) {
-      this.fechaValida = Valid;
+      console.log(Valid)
+      this.fechaValida = Valid.is_valid;
+      this.fecha = Valid.select_date;
     },
     validarDocumento(Valid) {
-      this.documentoValido = Valid;
+      console.log(Valid)
+      this.documentoValido = Valid.is_valid;
+      this.documento = Valid.document;
     },
     validarTipoDocumento(Valid) {
-      this.tipoDocumentoValido = Valid;
+      console.log(Valid)
+      this.tipoDocumentoValido = Valid.is_valid;
+      this.tipoDocumento = Valid.type_value;
     },
     validarContraseña(Valid) {
-      this.validPassword = Valid;
+      console.log(Valid)
+      this.validPassword = Valid.is_valid;
+      this.password = Valid.password;
     },
     validarNombres(Valid){
-      this.validNames = Valid;
+      console.log(Valid)
+      this.validNames = Valid.is_valid;
+      this.Names = {
+        name: Valid.name,
+        last_name: Valid.last_name
+      }
     },
     validarLugarNacimiento(Valid){
-      this.validBirthPlace = Valid;
+      console.log(Valid)
+      this.validBirthPlace = Valid.is_valid;
+      this.BirthPlace = Valid.city_id;
     },
     validarDireccion(Valid){
-      this.validDirection = Valid;
+      console.log(Valid)
+      this.validDirection = Valid.is_valid;
+      this.Direction = Valid.direction;
     },
     validarGenero(Valid){
-      this.validGenre = Valid;
+      console.log(Valid)
+      this.validGenre = Valid.is_valid;
+      this.Genre = Valid.gender;
     },
     validarEmail(Valid){
-      this.validEmail = Valid;
+      console.log(Valid)
+      this.validEmail = Valid.is_valid;
+      this.Email = Valid.email;
     },
     validarUsername(Valid){
-      this.validUsername = Valid;
+      console.log(Valid)
+      this.validUsername = Valid.is_valid;
+      this.Username = Valid.username;
     },
-    navigateToGenreSelection() {
-      this.$router.push('/genre-select');
+    navigateToLogin() {
+      this.$router.push('/');
+    },
+    registerProcess() {
+      const data = {
+        first_name: this.Names.name,
+        last_name: this.Names.last_name,
+        birth_date: this.fecha,
+        place_birth: this.BirthPlace,
+        document_type: this.tipoDocumento,
+        document_number: this.documento,
+        username: this.Username,
+        email: this.Email,
+        password: this.password,
+        want_spam: this.spam,
+        gender: this.Genre,
+        notice_selection: false,
+        literary_genres: []
+      }
+
+      console.log(data)
+      axios.post(hostMixin.data().host + 'api/register/', data)
+        .then(response => {
+          console.log(response.data)
+          this.navigateToLogin()
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error.response.data);
+          this.message = error.response.data;
+        });
     },
   },
 };
@@ -137,6 +221,7 @@ export default {
   background-position: center;
   background-color: #050835;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;

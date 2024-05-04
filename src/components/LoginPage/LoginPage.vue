@@ -19,27 +19,73 @@
     <h1 class="txt-welcome">¡Bienvenido!</h1>
     <h2 class="txt-login">Ingresa a tu cuenta</h2>
     <form @submit.prevent="handleSubmit" class="block-inputs" name="login-form">
-      <UsernameInput />
-      <PasswordInput />
-      <button type="submit" class="btn-login" :disabled="!validUser" @click="navigateToUserInfo">Iniciar Sesión</button>
+      <UsernameInput @SendUsername="setUsername" />
+      <PasswordInput @SendPassword="setPassword" />
+      <button type="submit" class="btn-login" :disabled="!validUser" @click="makeLogin">Iniciar Sesión</button>
     </form>
+
+    <div v-if="message" class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" @click="closeMessage">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import PasswordInput from "@/components/LoginPage/PasswordInputLogin.vue";
 import UsernameInput from "@/components/LoginPage/UsernameInputLogin.vue";
+import hostMixin from "@/mixins/host.js";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
+
 export default {
   components: { UsernameInput, PasswordInput },
+  mixins: [hostMixin],
   data(){
     return {
       validUser: true,
+      username: "",
+      password: "",
+      message: "",
     };
   },
   methods: {
+    saveTokenToCookie(token) {
+      Cookies.set('loginToken', token, { expires: 1 });
+    },
     navigateToUserInfo() {
       this.$router.push('/user-info');
     },
+    setUsername(username) {
+      this.username = username;
+    },
+    setPassword(password) {
+      this.password = password;
+    },
+    closeMessage() {
+      // Close the message pop-up box
+      this.message = null;
+    },
+    makeLogin(){
+     const data = {
+          username: this.username,
+          password: this.password
+      }
+
+      axios.post(hostMixin.data().host + 'api/token/', data)
+        .then(response => {
+          console.log(response.data)
+          this.saveTokenToCookie(JSON.stringify(response.data))
+          this.navigateToUserInfo()
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error.response.data);
+          this.message = error.response.data.detail;
+        });
+    }
   },
 };
 </script>

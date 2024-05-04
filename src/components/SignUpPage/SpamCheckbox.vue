@@ -21,6 +21,8 @@ export default {
     handleChange() {
       // Este método se ejecutará cada vez que el estado del checkbox cambie
       console.log("Estado actual del checkbox:", this.isChecked);
+      this.$emit("checkbox_value",this.isChecked)
+  
     },
   },
 };

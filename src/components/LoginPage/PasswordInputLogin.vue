@@ -21,8 +21,11 @@
   </div>
 </template>
 
+
+
 <script>
 export default {
+  
   data() {
     return {
       password: "",
@@ -32,6 +35,7 @@ export default {
   methods: {
     handlePasswordChange(event) {
       this.password = event.target.value;
+      this.$emit('SendPassword', this.password);
     },
     toggleShowPassword() {
       this.showPassword = !this.showPassword;

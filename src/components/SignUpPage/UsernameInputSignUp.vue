@@ -34,7 +34,11 @@ export default {
         this.error = true; // Hay un error si el nombre de usuario está vacío
         this.errorMessage = "El nombre de usuario no puede estar vacío";
       }
-      this.$emit("validUsername", value);
+      this.$emit("validUsername", {
+        is_valid: !this.error,
+        username: value
+      
+      });
     }
   }
 };

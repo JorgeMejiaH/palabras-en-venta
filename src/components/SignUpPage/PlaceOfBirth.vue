@@ -3,13 +3,10 @@
     <label for="PlaceOfBirth" class="lbl-birth-place"
       >Ciudad de nacimiento:</label
     >
-    <input
-      type="text"
-      :value="PlaceOfBirth"
-      @input="handleChange"
-      id="birth-place"
-      class="in-user-input"
-    />
+    <select v-model="placeOfBirth" @change="handleChange" id="birth-place" class="in-user-input">
+      <option value="null" disabled >Selecciona una ciudad</option>
+      <option v-for="city in cities" :key="city.id" :value="city.id">{{ city.name }}</option>
+    </select>
     <div v-if="!isValidPlaceOfBirth" class="error-message">
       Ingresa un lugar de nacimiento válido.
     </div>
@@ -17,24 +14,49 @@
 </template>
 
 <script>
+import axios from 'axios';
+import hostMixin from "@/mixins/host.js";
+
+
 export default {
+  mixins: [hostMixin],
+  beforeMount(){
+    this.fetchCities();
+  },
   data() {
     return {
-      PlaceOfBirth: "",
+      cities: [],
+      PlaceOfBirth: null,
       isValidPlaceOfBirth: true,
     };
   },
   methods: {
+
+    fetchCities() {
+      // Make a GET request to fetch cities
+      axios.get(hostMixin.data().host + '/api/cities/')
+        .then(response => {
+          // Update the cities array with the fetched data
+          this.cities = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching cities:', error);
+        });
+    },
     handleChange(event) {
-      const inputText = event.target.value;
-      const isValid = /^[a-zA-Z\s]+$/.test(inputText);
 
-      this.isValidPlaceOfBirth = isValid;
-      this.$emit("validBirthPlace", isValid);
+      const city_id = event.target.value;
 
-      if (isValid) {
-        this.PlaceOfBirth = inputText;
+      if(city_id == 'null'){
+        this.isValidPlaceOfBirth = false;
+      }else{
+        this.isValidPlaceOfBirth = true;
       }
+
+      this.$emit("validBirthPlace", {
+        city_id: city_id,
+        is_valid: city_id != 'null' ? true : false
+      });
     },
   },
 };

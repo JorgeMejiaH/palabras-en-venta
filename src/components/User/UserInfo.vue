@@ -5,7 +5,7 @@
       <h1 class="your-account">Tu Cuenta</h1>
       <div class="user-info-username-container">
         <h1 class="user-info-hello">Hola</h1>
-        <h2 class="user-info-username">Jorge</h2>
+        <h2 class="user-info-username">{{userInfo.first_name}}</h2>
         <p class="user-info-welcome">Bienvenido a tu cuenta</p>
       </div>
       <div class="user-info-personal-container">
@@ -21,30 +21,30 @@
         <div class="user-info-personal-column1">
           <div class="user-info-names">
             <h3>Nombre(s)</h3>
-            <p>Jorge A</p>
+            <p>{{userInfo.first_name}}</p>
           </div>
           <div class="user-info-email">
             <h3>Correo electrónico</h3>
-            <p>jmejia@utp.co</p>
+            <p>{{userInfo.email}}</p>
           </div>
           <div class="user-info-document-type">
             <h3>Tipo de documento</h3>
-            <p>cc</p>
+            <p>{{ userInfo.document_type }}</p>
           </div>
           <user-info-spam-checkbox />
         </div>
         <div class="user-info-personal-column2">
           <div class="user-info-lastnames">
             <h3>Apellido(s)</h3>
-            <p>Mejia</p>
+            <p>{{userInfo.last_name}}</p>
           </div>
           <div class="user-info-place-date">
-            <h3>Lugar y fecha de nacimiento</h3>
-            <p>Pereira 10/12/2000</p>
+            <h3>fecha de nacimiento</h3>
+            <p>{{ userInfo.birth_date }}</p>
           </div>
           <div class="user-info-document-number">
             <h3>Número de documento</h3>
-            <p>123456789</p>
+            <p>{{userInfo.document_number}}</p>
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@
         </div>
       </div>
     </div>
-    <Footer containerClass="footer-container-user-info" />
+    <footer containerClass="footer-container-user-info" />
   </div>
 </template>
 
@@ -89,7 +89,13 @@ import PoliticsBooks from "../GenreSelection/PoliticsBooks.vue";
 import Navbar from "../Navbar/Navbar.vue";
 import UserInfoSpamCheckbox from "./UserInfoSpamCheckbox.vue";
 import Footer from "../Footer.vue";
+import Cookies from 'js-cookie';
+import hostMixin from "@/mixins/host.js";
+import axios from 'axios';
+
+
 export default {
+  mixins: [hostMixin],
   components: {
     Navbar,
     UserInfoSpamCheckbox,
@@ -98,10 +104,51 @@ export default {
     PoliticsBooks,
     Footer,
   },
+  data(){
+    return {
+      sessionInfo: null,
+      userInfo: {
+          first_name: null, 
+          last_name: null,
+          birth_date: null,
+          place_birth: null,
+          document_type: null,
+          document_number: null,
+          want_spam: null,
+          gender: null,
+          notice_selection: null,
+          literary_genres: null,
+          is_active: null,
+      },
+    };
+  },
+  beforeMount(){
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+    this.getUserInfo();
+  },
   methods: {
     navigateToUserInfoEdit() {
       this.$router.push("/user-info-edit");
     },
+    getTokenFromCookie() {
+      // Retrieve the token from the cookie
+      return Cookies.get('loginToken');
+    },
+    getUserInfo(){
+      
+      axios.get(hostMixin.data().host + 'api/user/' + this.sessionInfo.user.uuid, {
+      headers: {
+            }
+          })
+        .then(response => {
+          this.userInfo = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching cities:', error);
+        });
+    }
   },
 };
 </script>
