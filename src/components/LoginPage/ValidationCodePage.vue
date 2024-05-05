@@ -1,11 +1,19 @@
 <template>
-  <div class="background-validation-container">
-    <sign-up-header />
-    <div class="validation_container">
-      <div class="validation-content">
-        <div class="validationcodetxt-container">
-          <h1 class="txt-code-validation">Código de validación</h1>
-          <h2 class="txt-code">introduce el código que se envió a tu correo</h2>
+    <div class="background-validation-container">
+        <sign-up-header/>
+        <div class="validation_container">
+            <div class="validation-content">
+                <div class = 'validationcodetxt-container'>
+                    <h1 class="txt-code-validation">Código de validación</h1>
+                    <h2 class="txt-code">introduce el código que se envió a tu correo</h2>
+                </div>        
+            <form @submit.prevent="handleSubmit" class="code-input" name="validation-code-form">
+                <validation-code-input/>
+                <button type="submit" class="btn-code-validation">Validar código</button>
+            </form>
+            
+            <router-link to="/" class="link-resend-code">¿No recibiste tu código?</router-link>
+            </div>
         </div>
         <form
           @submit.prevent="handleSubmit"

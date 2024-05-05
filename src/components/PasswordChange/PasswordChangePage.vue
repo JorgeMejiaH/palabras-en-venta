@@ -1,31 +1,30 @@
 <template>
-  <sign-up-header />
-  <div class="passwordpage-background">
-    <div class="passwordchanging-container">
-      <div class="passwordchangetxt-container">
-        <h1 class="passchange-txt">Cambiar contraseña</h1>
-        <h2 class="passchange2-txt">Ingresa tu nueva contraseña</h2>
-      </div>
-      <div class="passwordchange-inputs-container">
-        <new-password-input />
-        <div class="passwordchange-inputs-container2">
-          <verify-password-input />
+  <sign-up-header/>
+  <div class = 'passwordpage-background'>
+    <div class = 'passwordchanging-container'>
+        <div class = 'passwordchangetxt-container'>
+            <h1 class = 'passchange-txt'>Cambiar contraseña</h1>
+            <h2 class = 'passchange2-txt'>Ingresa tu nueva contraseña</h2>
         </div>
-      </div>
-      <div class="conditionsforpassword-container">
-        <h4 class="password-contidions-txt">
-          . Su contraseña no debe asemejarse a su informacion personal <br />.
-          Su contraseña debe contener 8 Caracteres <br />. Su contraseña no
-          puede ser una clave utilizada anteriormente <br />. Su contraseña no
-          puede ser completamente numerica
-        </h4>
-      </div>
-      <div class="btn-changingpass-container">
-        <button type="submit" class="btn-save-password-change-page" @click="safeNewPassword">
-          Guardar cambios
-        </button>
-      </div>
+        <div class = 'passwordchange-inputs-container'>
+            <new-password-input/>
+        <div class = 'passwordchange-inputs-container2'>
+          <verify-password-input/>
+        </div>
+        </div>
+        <div class = 'conditionsforpassword-container'>
+            <h4 class = 'password-contidions-txt'>. Su contraseña no debe asemejarse a su informacion personal
+            <br>. Su contraseña debe contener 8 Caracteres
+            <br>. Su contraseña no puede ser una clave utilizada anteriormente
+            <br>. Su contraseña no puede ser completamente numerica</h4>
+        </div>
+        <div class="btn-changingpass-container">
+            <button type="submit" class="btn-save-password-change-page">Guardar cambios</button>
+        </div>
+
+
     </div>
+
   </div>
 </template>
 
