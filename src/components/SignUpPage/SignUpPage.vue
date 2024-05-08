@@ -265,15 +265,6 @@ export default {
   border-radius: 8px;
   font-weight: bold;
 }
-.genre-background-container {
-  background-image: url(/src/assets/registerBackground.png);
-  background-size: cover;
-  background-position: center;
-  background-color: #050835;
-  width: 100vw; /* Ancho igual al 100% del viewport */
-  height: 100vh; /* Altura igual al 100% del viewport */
-  overflow-y: auto; /* Evita que el contenido se desborde fuera del contenedor */
-}
 .genre-container {
   margin-top: 10%;
   margin-bottom: 10%;

@@ -4,9 +4,7 @@ import LoginView from "../views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 import ValidationCodePage from "../views/ValidationCodePageView.vue";
 import PasswordChangePage from "../views/PasswordChangeView.vue";
-import UserGenrePage from "../views/LiteraryGenresPageView.vue";
 import UserPasswordChangeView from "../views/UserPasswordChangeView.vue";
-import GenreSelectionView from "@/views/GenreSelectionView.vue"
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView"
 import UserAddressView from "@/views/UserAddressView"
@@ -47,11 +45,6 @@ const routes = [
     component: ValidationCodePage,
   },
   {
-    path: "/genre-select",
-    name: "genre-select",
-    component: GenreSelectionView,
-  },
-  {
     path: "/user-info",
     name: "user-info",
     component: UserInfoView
@@ -75,11 +68,6 @@ const routes = [
     path : "/password-change",
     name: "password-change",
     component: PasswordChangePage,
-  },
-  {
-    path: "/user-genre-edit",
-    name: "/user-genre-edit",
-    component: UserGenrePage,
   },
   {
     path: "/user-pass-edit",
