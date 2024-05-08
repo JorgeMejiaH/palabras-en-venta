@@ -32,7 +32,6 @@
             <h3>Tipo de documento</h3>
             <p>{{userDocType}}</p>
           </div>
-          <user-info-spam-checkbox />
         </div>
         <div class="user-info-personal-column2">
           <div class="user-info-lastnames">
@@ -63,7 +62,7 @@
       <div class="user-info-genre-container">
         <div class="user-info-genre-title">
           <h1>Géneros literarios</h1>
-          <button class="user-info-btn">
+          <button class="user-info-btn" @click="navigateToGenreEdit">
             <span class="user-info-btn-content">Editar</span>
             <img
               src="@/assets/pen-to-square.png"
@@ -72,8 +71,6 @@
             />
           </button>
         </div>
-        <div class="user-info-genre-selection">
-        </div>
       </div>
     </div>
     <Footer containerClass="footer-container-user-info" />
@@ -81,14 +78,12 @@
 </template>
 
 <script>
-import Navbar from "../Navbar/Navbar.vue";
-import UserInfoSpamCheckbox from "./UserInfoSpamCheckbox.vue";
-import Footer from "../Footer.vue";
-import Options from '../User/Options.vue';
+import Navbar from "@/components/Navbar/Navbar.vue";
+import Footer from "@/components/Footer.vue";
+import Options from '@/components/User/Options.vue';
 export default {
   components: {
     Navbar,
-    UserInfoSpamCheckbox,
     Footer,
     Options,
   },
@@ -112,6 +107,9 @@ export default {
     navigateToPasswordChange() {
       this.$router.push("/user-pass-edit");
     },
+    navigateToGenreEdit(){
+      this.$router.push("/genre-edit");
+    }
   },
 };
 </script>
@@ -195,6 +193,9 @@ export default {
 .user-info-btn:hover {
   background-color: #cccccc;
 }
+.user-info-btn-content {
+  margin-right: 5px; 
+}
 .user-info-password-container {
   border: 1px solid gray;
   border-radius: 30px;
@@ -246,8 +247,5 @@ export default {
 }
 .user-info-edit-edit-symbol-btn {
   justify-self: center;
-}
-.user-info-btn-content {
-  margin-right: 5px; 
 }
 </style>

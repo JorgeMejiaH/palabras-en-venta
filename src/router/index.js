@@ -12,6 +12,7 @@ import UserInfoEditView from "@/views/UserInfoEditView"
 import UserAddressView from "@/views/UserAddressView"
 import RecoveryEmailView from "@/views/RecoveryEmailView.vue";
 import UserAddressEditView from "@/views/UserAddressEditView"
+import GenreEditView from "@/views/GenreEditView"
 
 
 const routes = [
@@ -90,6 +91,11 @@ const routes = [
     name: "recovery-email",
     component: RecoveryEmailView,
   },
+  {
+    path: "/genre-edit",
+    name: "genre-edit",
+    component: GenreEditView,
+  }
 ];
 
 const router = createRouter({

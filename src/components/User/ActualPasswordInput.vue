@@ -8,8 +8,7 @@
             :value = "password"
             @input="handlePasswordChange"
             class = "actual-pass-in"
-        />
-             
+        />            
     </div>
 </template>
 
