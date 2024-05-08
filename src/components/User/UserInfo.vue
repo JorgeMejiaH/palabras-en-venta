@@ -73,9 +73,6 @@
           </button>
         </div>
         <div class="user-info-genre-selection">
-          <filosofy-books />
-          <action-adventure-books />
-          <politics-books />
         </div>
       </div>
     </div>
@@ -84,9 +81,6 @@
 </template>
 
 <script>
-import ActionAdventureBooks from "../GenreSelection/ActionAdventureBooks.vue";
-import FilosofyBooks from "../GenreSelection/FilosofyBooks.vue";
-import PoliticsBooks from "../GenreSelection/PoliticsBooks.vue";
 import Navbar from "../Navbar/Navbar.vue";
 import UserInfoSpamCheckbox from "./UserInfoSpamCheckbox.vue";
 import Footer from "../Footer.vue";
@@ -95,9 +89,6 @@ export default {
   components: {
     Navbar,
     UserInfoSpamCheckbox,
-    ActionAdventureBooks,
-    FilosofyBooks,
-    PoliticsBooks,
     Footer,
     Options,
   },

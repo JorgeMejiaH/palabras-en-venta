@@ -6,7 +6,7 @@
       <div class="personalinfo-edit">
         <router-link to="/user-info">
           <h1 class="txt-genre-edit-back">
-             informacion personal / Géneros literarios
+            informacion personal / Géneros literarios
           </h1>
         </router-link>
         <h6>Edición</h6>
@@ -44,11 +44,11 @@
 
 <script>
 import Navbar from "../Navbar/Navbar.vue";
-import Options from "../Options.vue";
+import Options from "@/components/User/Options.vue";
 export default {
   components: { Navbar, Options },
   data() {
-    return {
+    return{
       genres: [
         "Filosofía",
         "Historia",
