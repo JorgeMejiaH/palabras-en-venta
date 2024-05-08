@@ -31,11 +31,6 @@ const routes = [
     component: SignUpView,
   },
   {
-    path: "/genre-select",
-    name: "genre-select",
-    component: GenreSelectionView,
-  },
-  {
     path: "/user-info",
     name: "user-info",
     component: UserInfoView,
