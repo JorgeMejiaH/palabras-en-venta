@@ -308,7 +308,7 @@ export default {
   border-bottom-left-radius: 25px;
   display: flex;
   top: 45%;
-  left: 15%;
+  left: 20%;
 }
 .footer-container-user-info-edit {
   position: relative;

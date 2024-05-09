@@ -3,7 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 import ValidationCodePage from "../views/ValidationCodePageView.vue";
-import PasswordChangePage from "../views/PasswordChangeView.vue";
+import PasswordChangePage from "../views/PasswordRecoveryView.vue";
 import UserPasswordChangeView from "../views/UserPasswordChangeView.vue";
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView"
@@ -43,16 +43,6 @@ const routes = [
     path: "/validation-code",
     name: "validation-code",
     component: ValidationCodePage,
-  },
-  {
-    path: "/user-info",
-    name: "user-info",
-    component: UserInfoView
-  },
-  {
-    path: "/user-info-edit",
-    name: "user-info-edit",
-    component: UserInfoEditView
   },
   {
     path: "/address",

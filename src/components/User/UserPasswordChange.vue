@@ -105,16 +105,10 @@
 
 <script>
 import Options from "./Options.vue";
-import ActualPasswordInput from "./ActualPasswordInput.vue";
-import NewPasswordInput from "./NewPasswordInput.vue";
-import VerifyPasswordInput from "./VerifyPasswordInput.vue";
 import Navbar from "../Navbar/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 export default {
   components: {
-    ActualPasswordInput,
-    NewPasswordInput,
-    VerifyPasswordInput,
     Options,
     Navbar,
     Footer,

@@ -4,10 +4,9 @@
     <options routeOptionsContainer="user-genre-edit-routes" />
     <div class="LiteraryGenresUser-container">
       <div class="personalinfo-edit">
-        <router-link to="/user-info">
-          <h1 class="txt-genre-edit-back">
-            informacion personal / Géneros literarios
-          </h1>
+        <router-link to="/user-info" class="txt-genre-edit-back">
+          <img src="@/assets/angle-left.png" alt="flecha-izquierda" />
+          informacion personal / Géneros literarios
         </router-link>
         <h6>Edición</h6>
       </div>
@@ -46,7 +45,7 @@
 <script>
 import Navbar from "@/components/Navbar/Navbar.vue";
 import Options from "@/components/User/Options.vue";
-import Footer from "@/components/Footer.vue"
+import Footer from "@/components/Footer.vue";
 export default {
   components: { Navbar, Options, Footer },
   data() {
@@ -165,6 +164,9 @@ export default {
 }
 .txt-genre-edit-back {
   font-size: 100%;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
 }
 
 .checkbox-genres-container {
@@ -174,7 +176,7 @@ export default {
   height: 5lvh;
   justify-content: space-between;
 }
-.footer-container-user-genre-edit{
+.footer-container-user-genre-edit {
   position: relative;
   top: 95%;
   width: 100vw;

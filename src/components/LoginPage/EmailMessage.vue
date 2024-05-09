@@ -1,66 +1,71 @@
 <template>
-    <div>
-        <sign-up-header/>
-        <img
-        src="@/assets/registerBackground.png"
-        alt="Fondo de la pagina"
-        class="fondo-mensaje"
-        />
-        <div class="container-mensaje-email">
-            <h1>Actualizar contraseña</h1>
-            <label for="Email" class="lbl-user-email">Te enviaremos un email con un código para que puedas restablecer tu contraseña:</label>
-            <input
-                type="text"
-                :value="Email"
-                @input="handleChange" 
-                id="user-email"
-                class="in-user-input"
-            />
-            <div v-if="!isValidEmail" class="error-message">
-                Ingresa un correo electrónico válido.
-            </div>
-            <div class="botones">
-              <button class="boton-recuperar" @click="sendValidationCode">Recuperar contraseña</button>
-              <button class="boton-cancelar" @click="cancelarV">Cancelar</button>
-          </div>
-        </div>
-        <div class="redesRecuperar">
-        <a href="https://www.facebook.com/" target="_blank"
-          ><img
-            src="@/assets/facebook.png"
-            alt="logo facebook"
-            class="logo-facebook"
-        /></a>
-        <a href="https://twitter.com/" target="_blank"
-          ><img src="@/assets/x.png" alt="logo x" class="logo-x"
-        /></a>
-        <a href="https://www.instagram.com/" target="_blank"
-          ><img
-            src="@/assets/instagram.png"
-            alt="logo instagram"
-            class="logo-instagram"
-          />
-        </a>
-        <p class="texto-redes">Siguenos en nuestras redes sociales</p>
+  <div>
+    <sign-up-header />
+    <img
+      src="@/assets/registerBackground.png"
+      alt="Fondo de la pagina"
+      class="fondo-mensaje"
+    />
+    <div class="container-mensaje-email">
+      <h1 class="txt-message-email">Actualizar contraseña</h1>
+      <label for="Email" class="lbl-user-email"
+        >Te enviaremos un email con un código para que puedas restablecer tu
+        contraseña:</label
+      >
+      <input
+        type="text"
+        :value="Email"
+        @input="handleEmail"
+        id="user-email"
+        class="in-user-input"
+      />
+      <div v-if="showError" class="error-message">
+        Ingresa un correo electrónico válido.
+      </div>
+      <div class="botones">
+        <button class="boton-recuperar" @click="sendValidationCode">
+          Recuperar contraseña
+        </button>
+        <button class="boton-cancelar" @click="cancelarV">Cancelar</button>
       </div>
     </div>
+    <div class="redesRecuperar">
+      <a href="https://www.facebook.com/" target="_blank"
+        ><img
+          src="@/assets/facebook.png"
+          alt="logo facebook"
+          class="logo-facebook"
+      /></a>
+      <a href="https://twitter.com/" target="_blank"
+        ><img src="@/assets/x.png" alt="logo x" class="logo-x"
+      /></a>
+      <a href="https://www.instagram.com/" target="_blank"
+        ><img
+          src="@/assets/instagram.png"
+          alt="logo instagram"
+          class="logo-instagram"
+        />
+      </a>
+      <p class="texto-redes">Siguenos en nuestras redes sociales</p>
+    </div>
+  </div>
 </template>
 
 <script>
-import SignUpHeader from '@/components/SignUpPage/SignUpHeader.vue'
-    
+import SignUpHeader from "@/components/SignUpPage/SignUpHeader.vue";
+
 export default {
-  components:{SignUpHeader},
-    
+  components: { SignUpHeader },
+
   data() {
     return {
       Email: "",
       isValidEmail: true,
-      showError: false
+      showError: false,
     };
   },
   methods: {
-    handleChange(event) {
+    handleEmail(event) {
       const inputText = event.target.value;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -70,18 +75,18 @@ export default {
         this.Email = inputText;
       }
     },
-    cancelarV(){
-        this.$router.push("/login");
-      },
-    sendValidationCode(){
-      if(this.isValidEmail){
-        if(this.Email.trim() === ""){
-          this.showError = true
-        }else{
-          this.$router.push('/validation-code')
+    cancelarV() {
+      this.$router.push("/login");
+    },
+    sendValidationCode() {
+      if (this.isValidEmail) {
+        if (this.Email.trim() === "") {
+          this.showError = true;
+        } else {
+          this.$router.push("/validation-code");
         }
-      } else{
-        this.$router.push('/email')
+      } else {
+        this.$router.push("/email");
       }
     },
   },
@@ -121,55 +126,67 @@ export default {
           console.error("Error al enviar el código de verificación:", error);
       });
   }, */
-
-  
-}
+};
 </script>
 
 <style>
 .fondo-mensaje {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200vh;
-    height: 100vh;
-    z-index: -2;
-    background-color: #050835;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background-color: #050835;
 }
 
-.container-mensaje-email{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: 30%;
-    margin-top: 10%;
-    width: 603px;
-    height: 341px;
-    background-color: white;
-    border-radius: 20px;
-}
-
-.botones{
+.container-mensaje-email {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30%;
+  margin-top: 10%;
+  width: 603px;
+  height: 341px;
+  background-color: white;
+  border-radius: 20px;
+}
+.txt-message-email {
+  font-family: Raleway;
+  font-weight: 700;
+  color: black;
+}
+.lbl-user-email {
+  font-family: Raleway;
+  font-weight: 400;
+}
+.botones {
+  position: relative;
+  top: 5%;
+  right: 23%;
+  display: flex;
+  gap: 5px;
 }
 
-.boton-recuperar{
+.boton-recuperar {
+  border-radius: 10px;
   background-color: #050835;
   color: white;
   cursor: pointer;
 }
 
-.boton-cancelar{
+.boton-cancelar {
+  border-radius: 10px;
   cursor: pointer;
 }
 
-.texto-redes{
+.texto-redes {
   color: white;
 }
 
-.redesRecuperar{
-  position:fixed;
+.redesRecuperar {
+  position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);

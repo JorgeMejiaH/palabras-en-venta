@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import PasswordChangePage from "@/components/PasswordChange/PasswordChangePage.vue";
+import PasswordChangePage from "@/components/PasswordChange/PasswordRecoveryPage.vue";
 export default {
     name: 'PasswordChange',
     components: {PasswordChangePage},
