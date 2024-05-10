@@ -14,11 +14,63 @@
             
             <div class = 'passwords-inputs-container'>
                 <div class = 'actualp-container'>
-                    <actual-password-input/>
+                    <div class ="actualp-input-container">
+        <label for = "actual-password" class="lbl-actual-password-in"> Contraseña actual: </label>
+        <input
+            :type="showPassword ? 'text' : 'password'"
+            id="actual-password"
+            placeholder="******************** "
+            :v-model = "password"
+            @input="handlePasswordChange"
+            class = "actual-pass-in"
+        />
+             
+    </div>
                 </div>
                 <div class="new-password-inputs">
-                    <new-password-input/>
-                    <verify-password-input/>
+                    <div class="new-password-container">
+      <label for="password" class="lbl-new-user-password">Nueva contraseña:</label>
+      <input
+        :type="showPassword ? 'text' : 'password'"
+        id="new-password"
+        placeholder="******************** "
+        v-model="newPassword"
+        @input="emitPassword"
+        class="new-user-password-input"
+      />
+  
+      <label for="showPassword" class="lbl-user-show">
+        Mostrar Contraseña:
+        <input
+          id="showPassword"
+          type="checkbox"
+          :checked="showPassword"
+          @change="toggleShowPassword"
+        />
+      </label>
+    </div>
+    <div class="verify-new-password-container">
+      <label for="password" class="lbl-new-user-sign-up">Repetir nueva contraseña:</label>
+      <input
+        :type="showPassword ? 'text' : 'password'"
+        placeholder="******************** "
+        id="repeatPassword"
+        v-model="repeatPassword"
+        @input="checkPasswordMatch"
+        class="verify-new-user-password-input"
+      />
+  
+      <label for="showPassword" class="lbl-user-show">
+        Mostrar Contraseña:
+        <input
+          id="showPassword"
+          type="checkbox"
+          :checked="showPassword"
+          @change="toggleShowPassword"
+        />
+      </label>
+      <div v-if="!passwordsMatch && repeatPassword !== ''" class="error-message">Las contraseñas no coinciden</div>
+    </div>
                 </div>
                 <div class="btn-save-password-change-container">
                     <button type="submit" class="btn-save-password-change">Guardar cambios</button>
@@ -32,13 +84,36 @@
 
 <script>
 import Options from '../Options.vue';
-import ActualPasswordInput from './ActualPasswordInput.vue'
-import NewPasswordInput from './NewPasswordInput.vue'
-import VerifyPasswordInput from './VerifyPasswordInput.vue'
 export default {
-  components: { ActualPasswordInput, NewPasswordInput, VerifyPasswordInput, Options },
+  components: { Options },
+  data() {
+    return {
+      password: "",
+      newPassword:"",
+      repeatPassword: "",
+      showPassword: false,
+      passwordsMatch: true
+    };
+  },
+  methods: {
+    handlePasswordChange(event) {
+      this.password = event.target.value;
+    },
+    emitPassword() {
 
-}
+      this.newPassword = event.target.value;
+      this.checkPasswordMatch(); 
+    },
+    toggleShowPassword() {
+      this.showPassword = !this.showPassword;
+    },
+    checkPasswordMatch() {
+      this.passwordsMatch = this.newPassword === this.repeatPassword;
+    }
+  },
+};
+
+
 </script>
 
 <style>
@@ -69,6 +144,43 @@ export default {
     border-top: 3px ridge;
     border-bottom: 3px ridge;
   
+}
+.actualp-input-container{
+  display: flex;
+  flex-direction: column;
+  
+
+}
+
+.actual-pass-in{
+  margin-top: 2.5%;
+  width: 40lvh;
+  height: 3.8lvh;
+  border-radius: 8px;
+}
+.lbl-actual-password-in{
+  font-family: Raleway;
+  font-weight: bold;
+  font-size: 2lvh;
+  display: flex;
+}
+.verify-new-password-container{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.verify-new-user-password-input{
+    margin-top: 2.5%;
+    width: 40lvh;
+    height: 3.8lvh;
+    border-radius: 8px;
+}
+.lbl-new-user-sign-up{
+    font-family: Raleway;
+    font-weight: bold;
+    font-size: 2lvh;
+    display: flex;   
 }
 
 .passwords-inputs-container{
@@ -140,5 +252,24 @@ export default {
     color: white;
     border-radius: 7px;
 
+}
+
+.new-password-container{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 5%;
+}
+.new-user-password-input{
+    margin-top: 2.5%;
+    width: 40lvh;
+    height: 3.8lvh;
+    border-radius: 8px;
+}
+.lbl-new-user-password{
+    font-family: Raleway;
+    font-weight: bold;
+    font-size: 2lvh;
+    display: flex;
 }
 </style>
