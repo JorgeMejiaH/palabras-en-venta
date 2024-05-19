@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <Options />
+    <Options routeOptionsContainer="address-info-routes"/>
     <img
       src="@/assets/config-background.png"
       alt="Fondo de la pagina"
@@ -10,16 +10,21 @@
     <div class="container-address">
       <div class="titulo-boton">
         <h1 class="titulo-txt">Direcciones</h1>
-        <!-- <button class="boton-nueva-direccion" @click="añadirDireccion">
+        <button class="boton-nueva-direccion" @click="añadirDireccion">
       <img class="img-plus" src="@/assets/add.png" /> Agregar nueva dirección
-    </button> -->
+    </button>
       </div>
       <div v-for="(direccion, index) in direcciones" :key="index" class="informacion">
         <div class="contenedor-titulo-edit">
           <h1 class="titulo-ingresar-direccion">Ingresar dirección</h1>
-          <button class="edit-boton" @click="editarDireccion">
-            Editar <img class="edit-img" src="@/assets/pen-to-square.png" />
-          </button>
+          <button class="user-info-btn"  @click="navigateToPasswordChange">
+          <span class="user-info-btn-content">Editar</span>
+          <img
+            src="@/assets/pen-to-square.png"
+            alt="edit-symbol"
+            class="user-info-edit-edit-symbol-btn"
+          />
+        </button>
         </div>
         <div class="datos">
           <div>
@@ -41,7 +46,7 @@
         </div>
       </div>
     </div>
-    <Footer class="footer-address" />
+    <Footer containerClass="footer-address-info" />
   </div>
 </template>
 
@@ -66,6 +71,18 @@ export default {
         selectType: "ofice",
         city: "perira"
       },
+      {
+        nameDirection: "oficina",
+        address: "cra 5",
+        selectType: "ofice",
+        city: "perira"
+      },
+      {
+        nameDirection: "oficina",
+        address: "cra 5",
+        selectType: "ofice",
+        city: "perira"
+      },
     ]
     };
   },
@@ -73,6 +90,17 @@ export default {
 </script>
 
 <style>
+.address-info-routes{
+  position: absolute;
+  background-color: rgba(34, 33, 33, 0.6);
+  width: 20%;
+  height: auto;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  display: flex;
+  top: 45%;
+  left: 3%;
+}
 .config-background {
   position: absolute;
   top: 0;
@@ -89,15 +117,18 @@ export default {
   top: 30%;
   right: 0;
   width: 78%;
-  height: 1000px;
   background-color: white;
-  z-index: 1;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding-bottom: 5%;
 }
 
-.footer-address {
-  position: relative;
-  top: 600px;
+.footer-address-info{
+  position: absolute;
+  top: 200%;
+  width: 100vw;
 }
 .titulo-txt {
   width: 226px;
@@ -112,9 +143,9 @@ export default {
 }
 
 .boton-nueva-direccion {
-  height: 55px;
-  width: 200px;
-  padding: 10px;
+  width: 20%;
+  height: auto;
+  padding: 8px;
   margin-top: 10%;
   margin-bottom: 2%;
   margin-right: 8%;
@@ -122,17 +153,16 @@ export default {
   color: white;
   cursor: pointer;
   border: none;
-  border-radius: 19px;
+  border-radius: 12px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.boton-nueva-direccion:hover {
+  background-color: #426fbe;
 }
 
 .titulo-boton {
   display: flex;
   justify-content: space-between;
-}
-
-.boton-nueva-direccion:hover {
-  background-color: #426fbe;
 }
 
 .img-plus {
@@ -157,6 +187,8 @@ export default {
 .contenedor-titulo-edit {
   display: flex;
   justify-content: space-between;
+  width: 90%;
+  height: 25%;
   gap: 200px;
 }
 
@@ -188,7 +220,8 @@ export default {
 
 .datos {
   display: grid;
-  grid-template-columns: 200px 200px;
+  width: 90%;
+  grid-template-columns: 1fr 1fr;
   grid-column-gap: 200px;
   margin-left: 3%;
 }
@@ -204,31 +237,6 @@ export default {
   grid-column-gap: 200px;
   margin-left: 3%;
 }
-
-.informacion2 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-  height: 250px;
-  margin-left: 5.5%;
-  margin-top: 20px;
-  border-radius: 20px;
-  border: 1px solid gray;
-}
-
-.informacion3 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 87%;
-  height: 250px;
-  margin-left: 5.5%;
-  margin-top: 20px;
-  border-radius: 20px;
-  border: 1px solid gray;
-}
-
 .contenedor-titulo-edit2 {
   display: flex;
   justify-content: space-between;
