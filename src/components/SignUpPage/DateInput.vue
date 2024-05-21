@@ -23,12 +23,13 @@ export default {
       validDate: false,
       flatpickrConfig: {
         dateFormat: "d-m-Y",
+        defaultDate: this.getEighteenYearsAgo(),
       },
     };
   },
   methods: {
     validateDob() {
-      const dobParts = this.dob.split('-'); 
+      const dobParts = this.dob.split("-");
       const selectedDate = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]);
       const currentDate = new Date();
       currentDate.setHours(0, 0, 0, 0);
@@ -59,6 +60,14 @@ export default {
         this.validDate = true;
         this.$emit("fechaValida", this.validDate);
       }
+    },
+    getEighteenYearsAgo() {
+      const today = new Date();
+      return new Date(
+        today.getFullYear() - 18,
+        today.getMonth(),
+        today.getDate()
+      );
     },
   },
   mounted() {

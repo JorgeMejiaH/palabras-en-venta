@@ -67,21 +67,6 @@
               {{ pobError }}
             </div>
           </div>
-          <div class="email-container">
-            <label for="Email" class="lbl-user-email"
-              >Correo electrónico:</label
-            >
-            <input
-              type="text"
-              :value="Email"
-              @input="handleEmail"
-              id="user-email"
-              class="in-user-input"
-            />
-            <div v-if="emailError" class="error-message">
-              {{ emailError }}
-            </div>
-          </div>
           <div class="document-type-container">
             <label for="DocumentType" class="lbl-document-type"
               >Tipo de documento:</label
@@ -155,7 +140,6 @@ export default {
       apellido: "",
       dob: null,
       PlaceOfBirth: "",
-      Email: "",
       DocumentType: "",
       DocumentNumber: "",
       spamIsChecked: false,
@@ -164,7 +148,6 @@ export default {
       validBirthPlace: false,
       documentoValido: false,
       tipoDocumentoValido: false,
-      validEmail: false,
       dobError: false,
       flatpickrConfig: {
         dateFormat: "d-m-Y",
@@ -178,8 +161,7 @@ export default {
         this.validDate &&
         this.documentoValido &&
         this.tipoDocumentoValido &&
-        this.validBirthPlace &&
-        this.validEmail
+        this.validBirthPlace
       );
     },
   },
@@ -247,18 +229,6 @@ export default {
         this.pobError = "";
       } else {
         this.pobError = "Ingrese un lugar de nacimiento válido.";
-      }
-    },
-    handleEmail(event) {
-      const inputText = event.target.value;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputText);
-
-      this.validEmail = emailRegex;
-      this.Email = inputText;
-      if (emailRegex) {
-        this.emailError = "";
-      } else {
-        this.emailError = "Ingresa un correo electrónico válido.";
       }
     },
     handleDocType(event) {
