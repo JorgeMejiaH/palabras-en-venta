@@ -3,15 +3,14 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 import ValidationCodePage from "../views/ValidationCodePageView.vue";
-import PasswordChangePage from "../views/PasswordChangeView.vue";
-import UserGenrePage from "../views/LiteraryGenresPageView.vue";
+import PasswordChangePage from "../views/PasswordRecoveryView.vue";
 import UserPasswordChangeView from "../views/UserPasswordChangeView.vue";
-import GenreSelectionView from "@/views/GenreSelectionView.vue"
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView"
 import UserAddressView from "@/views/UserAddressView"
 import RecoveryEmailView from "@/views/RecoveryEmailView.vue";
 import UserAddressEditView from "@/views/UserAddressEditView"
+import GenreEditView from "@/views/GenreEditView"
 
 
 const routes = [
@@ -31,11 +30,6 @@ const routes = [
     component: SignUpView,
   },
   {
-    path: "/genre-select",
-    name: "genre-select",
-    component: GenreSelectionView,
-  },
-  {
     path: "/user-info",
     name: "user-info",
     component: UserInfoView,
@@ -49,21 +43,6 @@ const routes = [
     path: "/validation-code",
     name: "validation-code",
     component: ValidationCodePage,
-  },
-  {
-    path: "/genre-select",
-    name: "genre-select",
-    component: GenreSelectionView,
-  },
-  {
-    path: "/user-info",
-    name: "user-info",
-    component: UserInfoView
-  },
-  {
-    path: "/user-info-edit",
-    name: "user-info-edit",
-    component: UserInfoEditView
   },
   {
     path: "/address",
@@ -81,11 +60,6 @@ const routes = [
     component: PasswordChangePage,
   },
   {
-    path: "/user-genre-edit",
-    name: "/user-genre-edit",
-    component: UserGenrePage,
-  },
-  {
     path: "/user-pass-edit",
     name: "/user-pass-edit",
     component: UserPasswordChangeView ,
@@ -95,6 +69,11 @@ const routes = [
     name: "recovery-email",
     component: RecoveryEmailView,
   },
+  {
+    path: "/genre-edit",
+    name: "genre-edit",
+    component: GenreEditView,
+  }
 ];
 
 const router = createRouter({

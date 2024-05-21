@@ -18,13 +18,111 @@
       <h1 class="user-info-edit-title">Información personal</h1>
       <div class="user-info-edit-input-container">
         <div class="user-info-edit-inputs">
-          <user-names-last-names @validNames="validarNombres" />
-          <date-input @fechaValida="validarFecha" />
-          <place-of-birth @validBirthPlace="validarLugarNacimiento" />
-          <user-email @validEmail="validarEmail" />
-          <document-type @tipoDocumentoValido="validarTipoDocumento" />
-          <document-number @documentoValido="validarDocumento" />
-          <spam-checkbox @SpamChecked="validarCheckbox"/>
+          <div class="user-input-container">
+            <label for="firstName" class="lbl-user-name">Nombres:</label>
+            <input
+              type="text"
+              :value="nombre"
+              @input="handleNamesLastnames"
+              class="in-user-input-names"
+              id="name"
+            />
+            <label for="lastName" class="lbl-user-lastname">Apellidos:</label>
+            <input
+              type="text"
+              :value="apellido"
+              @input="handleNamesLastnames"
+              class="in-user-input-names"
+              id="lastName"
+            />
+            <div v-if="nameErrorMessage" class="error-message">
+              {{ nameErrorMessage }}
+            </div>
+          </div>
+          <div class="date-input-container">
+            <label for="dobPicker">Fecha de Nacimiento:</label>
+            <input
+              id="dobPicker"
+              v-model="dob"
+              :config="flatpickrConfig"
+              @input="validateDob"
+              class="date-input"
+            />
+            <div v-if="dobError" class="error-message">
+              Ingresa una fecha de nacimiento válida.
+            </div>
+          </div>
+          <div class="place-of-birth-container">
+            <label for="PlaceOfBirth" class="lbl-birth-place"
+              >Ciudad de nacimiento:</label
+            >
+            <input
+              type="text"
+              :value="PlaceOfBirth"
+              @input="handlePlaceOfBirth"
+              id="birth-place"
+              class="in-user-input"
+            />
+            <div v-if="pobError" class="error-message">
+              {{ pobError }}
+            </div>
+          </div>
+          <div class="email-container">
+            <label for="Email" class="lbl-user-email"
+              >Correo electrónico:</label
+            >
+            <input
+              type="text"
+              :value="Email"
+              @input="handleEmail"
+              id="user-email"
+              class="in-user-input"
+            />
+            <div v-if="emailError" class="error-message">
+              {{ emailError }}
+            </div>
+          </div>
+          <div class="document-type-container">
+            <label for="DocumentType" class="lbl-document-type"
+              >Tipo de documento:</label
+            >
+            <input
+              type="text"
+              :value="DocumentType"
+              @input="handleDocType"
+              id="document-type"
+              class="in-user-input"
+            />
+            <div v-if="docTypeError" class="error-message">
+              {{ docTypeError }}
+            </div>
+          </div>
+          <div class="document-number-container">
+            <label for="DocumentNumber" class="lbl-document-number"
+              >Numero de documento:</label
+            >
+            <input
+              type="text"
+              :value="DocumentNumber"
+              @input="handleDocNumber"
+              id="document-number"
+              class="in-user-input"
+            />
+            <div v-if="docNumberError" class="error-message">
+              {{ docNumberError }}
+            </div>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              id="myCheckbox"
+              v-model="isChecked"
+              @change="handleSpamCheckbox"
+            />
+            <label for="myCheckbox" class="checkbox-label"
+              >Permite recibir novedades via email</label
+            >
+          </div>
         </div>
         <div class="user-info-edit-btn">
           <button
@@ -43,78 +141,159 @@
 
 <script>
 import Navbar from "../Navbar/Navbar.vue";
-import DateInput from "../SignUpPage/DateInput.vue";
-import PlaceOfBirth from "../SignUpPage/PlaceOfBirth.vue";
-import UserNamesLastNames from "../SignUpPage/UserNamesLastNames.vue";
-import UserEmail from "../SignUpPage/UserEmail.vue";
-import DocumentType from "../SignUpPage/DocumentType.vue";
-import DocumentNumber from "../SignUpPage/DocumentNumber.vue";
-import SpamCheckbox from "../SignUpPage/SpamCheckbox.vue";
 import Footer from "../Footer.vue";
 import Options from "../User/Options.vue";
 export default {
   components: {
     Navbar,
-    UserNamesLastNames,
-    DateInput,
-    PlaceOfBirth,
-    UserEmail,
-    DocumentType,
-    DocumentNumber,
-    SpamCheckbox,
     Footer,
     Options,
   },
   data() {
     return {
-      fechaValida: false,
+      nombre: "",
+      apellido: "",
+      dob: null,
+      PlaceOfBirth: "",
+      Email: "",
+      DocumentType: "",
+      DocumentNumber: "",
+      spamIsChecked: false,
+      validNames: false,
+      validDate: false,
+      validBirthPlace: false,
       documentoValido: false,
       tipoDocumentoValido: false,
-      validNames: false,
-      validBirthPlace: false,
       validEmail: false,
+      dobError: false,
+      flatpickrConfig: {
+        dateFormat: "d-m-Y",
+      },
     };
   },
   computed: {
     formularioValido() {
       return (
-        this.fechaValida &&
+        this.validNames &&
+        this.validDate &&
         this.documentoValido &&
         this.tipoDocumentoValido &&
-        this.validNames &&
         this.validBirthPlace &&
         this.validEmail
       );
     },
   },
   methods: {
-    validarFecha(Valid) {
-      this.fechaValida = Valid;
-    },
-    validarDocumento(Valid) {
-      this.documentoValido = Valid;
-    },
-    validarTipoDocumento(Valid) {
-      this.tipoDocumentoValido = Valid;
-    },
-    validarNombres(Valid) {
-      this.validNames = Valid;
-    },
-    validarLugarNacimiento(Valid) {
-      this.validBirthPlace = Valid;
-    },
-    validarGenero(Valid) {
-      this.validGenre = Valid;
-    },
-    validarEmail(Valid) {
-      this.validEmail = Valid;
-    },
-    validarCheckbox(value){
-      console.log(value);
-    },
     saveAndNavigateToUserInfo() {
       this.$router.push("/user-info");
     },
+    handleNamesLastnames(event) {
+      const property = event.target.id === "name" ? "nombre" : "apellido";
+      const value = event.target.value.trim(); // Elimina los espacios en blanco al principio y al final
+      const isValid = value !== "";
+      this.validNames = isValid;
+
+      if (isValid) {
+        this[property] = value;
+        this.nameErrorMessage = "";
+      } else {
+        // Si el valor está vacío, establece el valor de la propiedad en una cadena vacía
+        this[property] = "";
+        // Puedes mostrar un mensaje de error o realizar alguna otra acción para indicar al usuario que el campo es obligatorio
+        this.nameErrorMessage = `El ${property} no puede estar vacío`;
+      }
+    },
+    validateDob() {
+      const dobParts = this.dob.split("-");
+      const selectedDate = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]);
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      const eighteenYearsAgo = new Date(
+        currentDate.getFullYear() - 18,
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+      eighteenYearsAgo.setHours(0, 0, 0, 0);
+      const hundredYearsAgo = new Date(
+        currentDate.getFullYear() - 100,
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+      hundredYearsAgo.setHours(0, 0, 0, 0);
+
+      // Validación básica para verificar si la fecha de nacimiento es una fecha válida.
+      if (
+        isNaN(selectedDate.getTime()) ||
+        selectedDate < hundredYearsAgo ||
+        selectedDate > eighteenYearsAgo
+      ) {
+        this.dobError = true;
+        this.validDate = false;
+        this.$emit("fechaValida", this.validDate);
+      } else {
+        this.dobError = false;
+        this.validDate = true;
+        this.$emit("fechaValida", this.validDate);
+      }
+    },
+    handlePlaceOfBirth(event) {
+      const inputText = event.target.value;
+      const isValid = /^[a-zA-Z\s]+$/.test(inputText);
+
+      this.validBirthPlace = isValid;
+
+      if (isValid) {
+        this.PlaceOfBirth = inputText;
+        this.pobError = "";
+      } else {
+        this.pobError = "Ingrese un lugar de nacimiento válido.";
+      }
+    },
+    handleEmail(event) {
+      const inputText = event.target.value;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputText);
+
+      this.validEmail = emailRegex;
+      this.Email = inputText;
+      if (emailRegex) {
+        this.emailError = "";
+      } else {
+        this.emailError = "Ingresa un correo electrónico válido.";
+      }
+    },
+    handleDocType(event) {
+      const inputText = event.target.value;
+      const isValid = /^[a-zA-Z\s]+$/.test(inputText);
+
+      this.tipoDocumentoValido = isValid;
+      this.DocumentType = inputText;
+
+      if (isValid) {
+        this.docTypeError = "";
+      } else {
+        this.docTypeError = "Ingresa un tipo de documento valido.";
+      }
+    },
+    handleDocNumber(event) {
+      const inputText = event.target.value;
+      const isValid = /^\d+$/.test(inputText);
+
+      this.documentoValido = isValid;
+      this.DocumentNumber = inputText;
+
+      if (isValid) {
+        this.docNumberError = "";
+      } else {
+        this.docNumberError = "Ingresa un numero de documento valido.";
+      }
+    },
+    handleSpamCheckbox() {
+      // Este método se ejecutará cada vez que el estado del checkbox cambie
+      console.log("Estado actual del checkbox:", this.isChecked);
+    },
+  },
+  mounted() {
+    flatpickr("#dobPicker", this.flatpickrConfig);
   },
 };
 </script>
@@ -129,7 +308,7 @@ export default {
   border-bottom-left-radius: 25px;
   display: flex;
   top: 45%;
-  left: 15%;
+  left: 20%;
 }
 .footer-container-user-info-edit {
   position: relative;

@@ -1,6 +1,5 @@
 <template>
   <div class="validation_input_container">
-
     <input
       type="text"
       :value="code"
@@ -9,14 +8,12 @@
       class="in-validation-code"
       id="validation-code"
     />
-
-
   </div>
 </template>
 
 <script>
 export default {
-    data() {
+  data() {
     return {
       code: "",
     };
@@ -26,20 +23,16 @@ export default {
       this.code = event.target.value;
     },
   },
-}
+};
 </script>
 
-
 <style scoped>
-
-.validation_input_container{
+.validation_input_container {
   height: 3.5lvh;
   display: flex;
 }
-.in-validation-code{
+.in-validation-code {
   border-radius: 8px;
   width: 35lvh;
 }
-
-
 </style>

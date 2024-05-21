@@ -7,9 +7,53 @@
         <h2 class="passchange2-txt">Ingresa tu nueva contraseña</h2>
       </div>
       <div class="passwordchange-inputs-container">
-        <new-password-input />
+        <div class="new-password-container">
+          <label for="password" class="lbl-new-user-password"
+            >Nueva contraseña:</label
+          >
+          <input
+            :type="showNewPassword ? 'text' : 'password'"
+            id="password"
+            placeholder="******************** "
+            :value="newPassword"
+            @input="handleNewPasswordChange"
+            class="new-user-password-input"
+          />
+
+          <label for="showPassword" class="lbl-user-show">
+            Mostrar Contraseña:
+            <input
+              id="showNewPassword"
+              type="checkbox"
+              :checked="showNewPassword"
+              @change="toggleShowNewPassword"
+            />
+          </label>
+        </div>
         <div class="passwordchange-inputs-container2">
-          <verify-password-input />
+          <div class="verify-new-password-container">
+            <label for="password" class="lbl-new-user-sign-up"
+              >Repetir nueva contraseña:</label
+            >
+            <input
+              :type="verifyPassword ? 'text' : 'password'"
+              placeholder="******************** "
+              id="password"
+              :value="verifiedPassword"
+              @input="handleVerifyPasswordChange"
+              class="verify-new-user-password-input"
+            />
+
+            <label for="showPassword" class="lbl-user-show">
+              Mostrar Contraseña:
+              <input
+                id="showPassword"
+                type="checkbox"
+                :checked="showVerifiedPassword"
+                @change="toggleVerifiedShowPassword"
+              />
+            </label>
+          </div>
         </div>
       </div>
       <div class="conditionsforpassword-container">
@@ -31,12 +75,30 @@
 
 <script>
 import SignUpHeader from "../SignUpPage/SignUpHeader.vue";
-import NewPasswordInput from "../User/NewPasswordInput.vue";
-import VerifyPasswordInput from "../User/VerifyPasswordInput.vue";
 export default {
-  components: { NewPasswordInput, VerifyPasswordInput, SignUpHeader },
+  components: { SignUpHeader },
+  data() {
+    return {
+      newPassword: "",
+      showNewPassword: false,
+      verifiedPassword: "",
+      showVerifiedPassword: false,
+    };
+  },
   methods: {
-    safeNewPassword(){
+    handleNewPasswordChange(event) {
+      this.password = event.target.value;
+    },
+    toggleShowNewPassword() {
+      this.showPassword = !this.showPassword;
+    },
+    handleVerifyPasswordChange(event) {
+      this.password = event.target.value;
+    },
+    toggleShowVerifiedPassword() {
+      this.showPassword = !this.showPassword;
+    },
+    safeNewPassword() {
       this.$router.push("/login");
     },
   },

@@ -1,13 +1,12 @@
 <template>
   <navbar />
   <div class="LiteraryGenresUser-background">
-    <options />
+    <options routeOptionsContainer="user-genre-edit-routes" />
     <div class="LiteraryGenresUser-container">
       <div class="personalinfo-edit">
-        <router-link to="/user-info">
-          <h1 class="txt-genre-edit-back">
-            informacion personal / Géneros literarios
-          </h1>
+        <router-link to="/user-info" class="txt-genre-edit-back">
+          <img src="@/assets/angle-left.png" alt="flecha-izquierda" />
+          informacion personal / Géneros literarios
         </router-link>
         <h6>Edición</h6>
       </div>
@@ -39,16 +38,18 @@
         </div>
       </div>
     </div>
+    <Footer containerClass="footer-container-user-genre-edit" />
   </div>
 </template>
 
 <script>
-import Navbar from "../Navbar/Navbar.vue";
+import Navbar from "@/components/Navbar/Navbar.vue";
 import Options from "@/components/User/Options.vue";
+import Footer from "@/components/Footer.vue";
 export default {
-  components: { Navbar, Options },
+  components: { Navbar, Options, Footer },
   data() {
-    return{
+    return {
       genres: [
         "Filosofía",
         "Historia",
@@ -85,6 +86,17 @@ export default {
 </script>
 
 <style>
+.user-genre-edit-routes {
+  position: absolute;
+  background-color: rgba(34, 33, 33, 0.6);
+  width: 20%;
+  height: auto;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  display: flex;
+  top: 45%;
+  left: 0%;
+}
 .genre-name-txt {
   color: black;
 }
@@ -95,6 +107,9 @@ export default {
 }
 
 .LiteraryGenresUser-container {
+  position: absolute;
+  right: 0;
+  top: 30%;
   display: flex;
   flex-direction: column;
   border-style: groove;
@@ -149,6 +164,9 @@ export default {
 }
 .txt-genre-edit-back {
   font-size: 100%;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
 }
 
 .checkbox-genres-container {
@@ -157,5 +175,11 @@ export default {
   margin-right: 2%;
   height: 5lvh;
   justify-content: space-between;
+}
+.footer-container-user-genre-edit {
+  position: relative;
+  top: 95%;
+  width: 100vw;
+  height: 35%;
 }
 </style>

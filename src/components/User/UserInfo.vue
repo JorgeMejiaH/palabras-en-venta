@@ -32,7 +32,6 @@
             <h3>Tipo de documento</h3>
             <p>{{ userInfo.document_type }}</p>
           </div>
-          <user-info-spam-checkbox />
         </div>
         <div class="user-info-personal-column2">
           <div class="user-info-lastnames">
@@ -63,7 +62,7 @@
       <div class="user-info-genre-container">
         <div class="user-info-genre-title">
           <h1>Géneros literarios</h1>
-          <button class="user-info-btn">
+          <button class="user-info-btn" @click="navigateToGenreEdit">
             <span class="user-info-btn-content">Editar</span>
             <img
               src="@/assets/pen-to-square.png"
@@ -72,11 +71,6 @@
             />
           </button>
         </div>
-        <div class="user-info-genre-selection">
-          <filosofy-books />
-          <action-adventure-books />
-          <politics-books />
-        </div>
       </div>
     </div>
     <footer containerClass="footer-container-user-info" />
@@ -84,13 +78,9 @@
 </template>
 
 <script>
-import ActionAdventureBooks from "../GenreSelection/ActionAdventureBooks.vue";
-import FilosofyBooks from "../GenreSelection/FilosofyBooks.vue";
-import PoliticsBooks from "../GenreSelection/PoliticsBooks.vue";
-import Navbar from "../Navbar/Navbar.vue";
-import UserInfoSpamCheckbox from "./UserInfoSpamCheckbox.vue";
-import Footer from "../Footer.vue";
-import Options from '../User/Options.vue';
+import Navbar from "@/components/Navbar/Navbar.vue";
+import Footer from "@/components/Footer.vue";
+import Options from '@/components/User/Options.vue';
 import Cookies from 'js-cookie';
 import hostMixin from "@/mixins/host.js";
 import axios from 'axios';
@@ -100,10 +90,6 @@ export default {
   mixins: [hostMixin],
   components: {
     Navbar,
-    UserInfoSpamCheckbox,
-    ActionAdventureBooks,
-    FilosofyBooks,
-    PoliticsBooks,
     Footer,
     Options,
   },
@@ -188,6 +174,9 @@ export default {
         .catch(error => {
           console.error('Error fetching cities:', error);
         });
+    },
+    navigateToGenreEdit(){
+      this.$router.push("/genre-edit");
     }
   },
 };
@@ -272,6 +261,9 @@ export default {
 .user-info-btn:hover {
   background-color: #cccccc;
 }
+.user-info-btn-content {
+  margin-right: 5px; 
+}
 .user-info-password-container {
   border: 1px solid gray;
   border-radius: 30px;
@@ -323,8 +315,5 @@ export default {
 }
 .user-info-edit-edit-symbol-btn {
   justify-self: center;
-}
-.user-info-btn-content {
-  margin-right: 5px; 
 }
 </style>

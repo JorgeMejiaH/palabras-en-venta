@@ -31,6 +31,18 @@
         </div>
         
       </div>
+      <div class="genre-button-container">
+        <h2 class="genre-condition">
+          Debes seleccionar al menos una categoría para continuar
+        </h2>
+        <button
+          class="genre-btn-end"
+          :disabled="!validationForm"
+          @click="navigateToLogin"
+        >
+          Finalizar
+        </button>
+      </div>
     </div>
     <div v-if="message" id="message-container" class="alert alert-danger alert-dismissible fade show" role="alert">
           {{ message }}
@@ -83,7 +95,7 @@ export default {
       tipoDocumentoValido: false,
       validPassword: false,
       validNames: false,
-      validBirthPlace:false,
+      validBirthPlace: false,
       validDirection: false,
       validGenre: false,
       validEmail: false,
@@ -103,7 +115,7 @@ export default {
     };
   },
   computed: {
-    formularioValido() {
+    validationForm() {
       return (
         this.fechaValida &&
         this.documentoValido &&
@@ -114,8 +126,12 @@ export default {
         this.validDirection &&
         this.validGenre &&
         this.validEmail &&
-        this.validUsername
+        this.validUsername &&
+        this.selectedGenres.length > 0
       );
+    },
+    OneCategorySelected() {
+      return this.selectedGenres.length > 0;
     },
   },
   methods: {
@@ -215,6 +231,11 @@ export default {
 </script>
 
 <style>
+.link-login{
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
 .background-container {
   background-image: url(/src/assets/registerBackground.png);
   background-size: cover;
@@ -225,19 +246,25 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  overflow-y: auto;
 }
 .register-container {
   display: flex;
   background-color: white;
   border-radius: 20px;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  margin-right: 5%;
+  margin-left: 5%;
   padding: 1%;
 }
 .first-column,
-.second-column{
+.second-column {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .txt-welcome-sign-up {
   font-size: 220%;
@@ -247,16 +274,9 @@ export default {
   margin-right: 30%;
 }
 .txt-register {
-  margin-top: -5%;
   margin-right: 30%;
   font-size: 185%;
   font-weight: bold;
-}
-.second-column {
-  margin-top: 10%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 .in-user-input {
   width: 90%;
@@ -274,5 +294,67 @@ export default {
   height: 5%;
   border-radius: 8px;
   font-weight: bold;
+}
+.genre-container {
+  margin-top: 10%;
+  margin-bottom: 10%;
+  margin-right: 5%;
+  margin-left: 5%;
+  border-radius: 40px;
+  background-color: white;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+.genre-select-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de tamaño igual */
+}
+.genre-selection-item {
+  border: 1px solid gray; /* Borde gris por defecto */
+  margin-bottom: 1%;
+  width: 70%;
+  height: 90%;
+  border-radius: 8px;
+  justify-self: center;
+  cursor: pointer;
+}
+
+.genre-box-container.selected {
+  border: 2px solid #050834;
+}
+.genre-image {
+  margin-top: 3%;
+  width: 90%; /* Ancho fijo */
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.genre-title,
+.genre-subtitle {
+  text-align: left; /* Alinea el texto a la izquierda */
+  margin-left: 5%;
+}
+.genre-title {
+  font-weight: bold;
+}
+.genre-button-container {
+  display: flex;
+  justify-content: flex-end; /* Alinea el contenido a la derecha */
+  align-content: center;
+}
+.genre-btn-end {
+  margin-right: 5%;
+  width: 8%;
+  height: 50px;
+  border-radius: 8px;
+}
+.genre-btn-end:not(:disabled):hover {
+  background-color: #050834; /* Cambia el color de fondo cuando pasas el cursor */
+  color: white;
+  cursor: pointer;
+}
+.genre-condition {
+  margin-right: 2%;
+  color: #5c6972;
 }
 </style>
