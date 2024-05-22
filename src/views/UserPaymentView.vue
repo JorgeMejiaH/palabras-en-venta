@@ -3,13 +3,18 @@
     <navbar />
     <options routeOptionsContainer="user-payment-routes" />
     <div class="user-payment-container">
-      <h1 class="payment-method">Metodos de pago</h1>
+      <div class="payment-method-txt-container">
+        <h1 class="payment-method-txt">Métodos de pago</h1>
+      </div>
       <div class="button-container">
-        <button class="add-payment-method">Agregar método de pago</button>
+        <button class="add-payment-method">
+          <img src="@/assets/add.png" alt="agregrar" class="img-add-user-payment">
+          <span class="add-payment-text">Agregar método de pago</span>
+        </button>
       </div>
       <div class="user-payment-info-container">
-        <div v-for="(card, index) in cards" :key="index" class="payment-card">
-          <h5>{{ card }}</h5>
+        <div v-for="(card, index) in formattedCard" :key="index" class="payment-card">
+          <h4>******{{ card }}</h4>
 
           <img src="@/assets/angle-right.png" alt="flecha-derecha" class="user-payment-flecha-derecha"/>
         </div>
@@ -31,14 +36,35 @@ export default {
   },
   data() {
     return {
-      cards: ["123456789", "987654321"],
+      cards: ["123456789", "987654321", "1466786542", "1465434186"],
     };
   },
   methods: {},
+  computed: {
+  formattedCard() {
+    return this.cards.map(card => card.slice(-4));
+  }
+},
 };
 </script>
 
 <style>
+.img-add-user-payment{
+  margin-right: 10px;
+}
+.add-payment-text {
+  display: inline-block;
+}
+.payment-method-txt{
+  font-weight: bold;
+  color: black;
+}
+.payment-method-txt-container{
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  margin-left: 10%;
+}
 .user-payment-bckgr-container {
   background-image: url(/src/assets/UserInfoBackground.jpg);
   background-size: cover;
@@ -59,7 +85,7 @@ export default {
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
   display: flex;
-  top: 45%;
+  top: 38%;
   left: 20%;
 }
 .user-payment-container {
@@ -73,16 +99,19 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 2%;
 }
 .footer-container-user-payment {
   position: relative;
-  top: 120%;
+  top: 80%;
 }
 .button-container {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
   margin-right: 5%;
+  height: 50%;
+  gap: 10px;
 }
 .add-payment-method {
   width: 30%;

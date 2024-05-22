@@ -5,7 +5,7 @@
         <img src="@/assets/user.png" alt="usuario" class="icono-usuario" />
         Información personal <br />/ contraseña
       </router-link>
-      <p class="options-router">
+      <p>
         <img
           src="@/assets/location-dot.png"
           alt="locacion"
@@ -17,14 +17,14 @@
         <img src="@/assets/list-check.png" alt="lista" class="icono-lista" />
         Compras / reservas <br />y cancelaciones
       </p>
-      <p>
+      <router-link to="/payment-method" class="options-router">
         <img
           src="@/assets/credit-card.png"
           alt="tarjeta"
           class="icono-tarjeta"
         />
         Gestión financiera
-      </p>
+      </router-link>
       <p>
         <img src="@/assets/truck.png" alt="camion" class="icono-camion" /> Sigue
         tu pedido
@@ -33,7 +33,7 @@
         <img src="@/assets/circle-xmark.png" alt="xmark" class="icono-xmark" />
         Información personal / contraseña
       </p>
-      <p>Suspender cuenta</p>
+      <router-link to="/" class="options-router">Cerrrar sesión</router-link>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
   props: {
     routeOptionsContainer: {
       type: String,
-      default: '',
+      default: "",
     },
   },
 };
@@ -61,7 +61,6 @@ export default {
   display: flex;
   top: 45%;
   left: 20%;
- 
 }
 
 .options-routes-items {
@@ -86,13 +85,13 @@ export default {
 .icono-xmark {
   width: 6%;
 }
-.options-router{
+.options-router {
   color: white;
   opacity: 0.75;
   text-decoration: none;
   transition: opacity 0.3s ease;
 }
 .options-router:hover {
-  opacity: 1; 
+  opacity: 1;
 }
 </style>

@@ -32,6 +32,7 @@ export default {
       optionRoutes: {
         "Iniciar seción": "/login",
         "Regístate": "/sign-up",
+        "Informacion personal": "/user-info"
       },
     };
   },

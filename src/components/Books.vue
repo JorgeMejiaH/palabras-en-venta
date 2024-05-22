@@ -1,7 +1,7 @@
 <template>
   <div class="book-container">
     <img
-      :src="getImagePath(TituloLibro)"
+      :src="getBookImagePath(TituloLibro)"
       alt="imagen-libro"
       class="img-libro"
     />
@@ -13,16 +13,22 @@
 
 <script>
 export default {
+  props: {
+    TituloLibro: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
-      TituloLibro: "Nombre",
       NombreAutor: "Autor",
       Precio: "Precio",
     };
   },
   methods: {
-    getImagePath(TituloLibro) {
-      return require(`@/assets/${TituloLibro.toLowerCase()}Books.png`);
+    getBookImagePath(TituloLibro) {
+      const formattedTitle = TituloLibro.toLowerCase().replace(/\s+/g, '');
+      return require(`@/assets/${formattedTitle}.png`);
     },
   },
 };

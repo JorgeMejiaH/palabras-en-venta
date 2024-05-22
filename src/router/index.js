@@ -12,7 +12,7 @@ import RecoveryEmailView from "@/views/RecoveryEmailView.vue";
 import UserAddressEditView from "@/views/UserAddressEditView"
 import GenreEditView from "@/views/GenreEditView"
 import UserPaymentView from "@/views/UserPaymentView";
-
+import Home from "@/views/HomePage"
 
 const routes = [
   {
@@ -79,6 +79,11 @@ const routes = [
     path: "/payment-method",
     name: "payment-method",
     component: UserPaymentView,
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: Home,
   },
 ];
 
