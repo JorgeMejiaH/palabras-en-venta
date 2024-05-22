@@ -76,9 +76,9 @@ const routes = [
     component: GenreEditView,
   },
   {
-    path: "/user-payment",
-    name: "user-payment",
-    componet: UserPaymentView,
+    path: "/payment-method",
+    name: "payment-method",
+    component: UserPaymentView,
   },
 ];
 
