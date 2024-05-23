@@ -7,9 +7,28 @@
             <h2 class = 'passchange2-txt'>Ingresa tu nueva contraseña</h2>
         </div>
         <div class = 'passwordchange-inputs-container'>
-            <new-password-input/>
+          <div class="new-password-container">
+      <label for="password" class="lbl-new-user-password">Nueva contraseña:</label>
+      <input
+        :type="showPassword ? 'text' : 'password'"
+        id="password"
+        placeholder="******************** "
+        :v-model="password"
+        class="new-user-password-input"
+      />
+  
+    </div>
         <div class = 'passwordchange-inputs-container2'>
-          <verify-password-input/>
+          <div class="verify-new-password-container">
+      <label for="password" class="lbl-new-user-sign-up">Repetir nueva contraseña:</label>
+      <input
+        :type="showPassword ? 'text' : 'password'"
+        placeholder="******************** "
+        id="password"
+        :v-model="newPassword"
+        class="verify-new-user-password-input"
+      />
+    </div>
         </div>
         </div>
         <div class = 'conditionsforpassword-container'>
@@ -21,8 +40,6 @@
         <div class="btn-changingpass-container">
             <button type="submit" class="btn-save-password-change-page">Guardar cambios</button>
         </div>
-
-
     </div>
 
   </div>
@@ -30,12 +47,24 @@
 
 <script>
 import SignUpHeader from '../SignUpPage/SignUpHeader.vue'
-import NewPasswordInput from '../User/NewPasswordInput.vue'
-import VerifyPasswordInput from '../User/VerifyPasswordInput.vue'
-export default {
-  components: { NewPasswordInput,VerifyPasswordInput, SignUpHeader },
 
-}
+export default {
+  components: { SignUpHeader },
+  data(){
+    return {
+      password:"",
+      newPassword:""
+
+    };
+  },
+    toggleShowPassword() {
+      this.showPassword = !this.showPassword;
+    },
+    handlePasswordChange(event) {
+      this.password = event.target.value;
+    },
+  }
+
 </script>
 
 <style >
@@ -122,4 +151,41 @@ export default {
   border-radius: 7px;
 
 }
+.new-password-container{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 5%;
+}
+.new-user-password-input{
+    margin-top: 2.5%;
+    width: 40lvh;
+    height: 3.8lvh;
+    border-radius: 8px;
+}
+.lbl-new-user-password{
+    font-family: Raleway;
+    font-weight: bold;
+    font-size: 2lvh;
+    display: flex;
+}
+.verify-new-password-container{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.verify-new-user-password-input{
+    margin-top: 2.5%;
+    width: 40lvh;
+    height: 3.8lvh;
+    border-radius: 8px;
+}
+.lbl-new-user-sign-up{
+    font-family: Raleway;
+    font-weight: bold;
+    font-size: 2lvh;
+    display: flex;   
+}
+
 </style>
