@@ -13,7 +13,8 @@ import UserAddAddressView from "@/views/UserAddAddressView"
 import RecoveryEmailView from "@/views/RecoveryEmailView.vue";
 import GenreEditView from "@/views/GenreEditView"
 import UserPaymentView from "@/views/UserPaymentView";
-import Home from "@/views/HomePage"
+import CardView from "@/views/CardView"
+import Test from "@/views/Test"
 
 const routes = [
   {
@@ -89,18 +90,12 @@ const routes = [
   {
     path: "/test",
     name: "test",
-    component: Home,
+    component: Test,
   },
   {
-    path: "/user-card",
-    name: "user-card",
-    component: PaymentCardView,
-  },
-  {
-    path: "/user-card-edit",
-    name: 'user-card-edit',
-    component: PaymentCardEditView,
-
+    path: "/card-info",
+    name: "card-info",
+    component: CardView,
   },
 ];
 
