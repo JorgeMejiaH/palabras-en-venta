@@ -3,15 +3,82 @@
   <div class="user-pass-change-background">
     <Options />
     <div class="edit-password-container">
-      <div Class="change-password-container">
-        <div class="personalinfo-edit">
-          <router-link to="/user-info" class="txt-personalinfo-password">
-            <img src="@/assets/angle-left.png" alt="flecha-izquierda" />
-            Informacion personal / Contraseña
-          </router-link>
-          <h1 class="txt-edicion">Edicion</h1>
-        </div>
-        <h2 class="txt-Change-Password">Cambiar Contraseña</h2>
+        <div Class="change-password-container">
+            <div class = "personalinfo-edit">
+                <router-link to ='/user-info'>
+                <h1 class="txt-personalinfo-password">< Informacion personal / Contraseña</h1>
+                </router-link>
+                <h1 class = "txt-edicion"> Edicion</h1>
+            </div>      
+                <h2 class="txt-Change-Password">Cambiar Contraseña</h2>   
+            
+            <div class = 'passwords-inputs-container'>
+                <div class = 'actualp-container'>
+                    <div class ="actualp-input-container">
+        <label for = "actual-password" class="lbl-actual-password-in"> Contraseña actual: </label>
+        <input
+            :type="showPassword ? 'text' : 'password'"
+            id="actual-password"
+            placeholder="******************** "
+            :v-model = "password"
+            @input="handlePasswordChange"
+            class = "actual-pass-in"
+        />
+             
+    </div>
+                </div>
+                <div class="new-password-inputs">
+                    <div class="new-password-container">
+      <label for="password" class="lbl-new-user-password">Nueva contraseña:</label>
+      <input
+        :type="showPassword ? 'text' : 'password'"
+        id="new-password"
+        placeholder="******************** "
+        v-model="newPassword"
+        @input="emitPassword"
+        class="new-user-password-input"
+      />
+  
+      <label for="showPassword" class="lbl-user-show">
+        Mostrar Contraseña:
+        <input
+          id="showPassword"
+          type="checkbox"
+          :checked="showPassword"
+          @change="toggleShowPassword"
+        />
+      </label>
+    </div>
+    <div class="verify-new-password-container">
+      <label for="password" class="lbl-new-user-sign-up">Repetir nueva contraseña:</label>
+      <input
+        :type="showPassword ? 'text' : 'password'"
+        placeholder="******************** "
+        id="repeatPassword"
+        v-model="repeatPassword"
+        @input="checkPasswordMatch"
+        class="verify-new-user-password-input"
+      />
+  
+      <label for="showPassword" class="lbl-user-show">
+        Mostrar Contraseña:
+        <input
+          id="showPassword"
+          type="checkbox"
+          :checked="showPassword"
+          @change="toggleShowPassword"
+        />
+      </label>
+      <div v-if="!passwordsMatch && repeatPassword !== ''" class="error-message">Las contraseñas no coinciden</div>
+    </div>
+                </div>
+                <div class="btn-save-password-change-container">
+                    <button type="submit" class="btn-save-password-change">Guardar cambios</button>
+                </div>
+            </div>
+        </div> 
+    </div>   
+    </div>
 
         <div class="passwords-inputs-container">
           <div class="actualp-container">
@@ -33,18 +100,37 @@
 </template>
 
 <script>
-import Options from "../Options.vue";
-import ActualPasswordInput from "./ActualPasswordInput.vue";
-import NewPasswordInput from "./NewPasswordInput.vue";
-import VerifyPasswordInput from "./VerifyPasswordInput.vue";
+import Options from '../Options.vue';
 export default {
-  components: {
-    ActualPasswordInput,
-    NewPasswordInput,
-    VerifyPasswordInput,
-    Options,
+  components: { Options },
+  data() {
+    return {
+      password: "",
+      newPassword:"",
+      repeatPassword: "",
+      showPassword: false,
+      passwordsMatch: true
+    };
+  },
+  methods: {
+    handlePasswordChange(event) {
+      this.password = event.target.value;
+    },
+    emitPassword() {
+
+      this.newPassword = event.target.value;
+      this.checkPasswordMatch(); 
+    },
+    toggleShowPassword() {
+      this.showPassword = !this.showPassword;
+    },
+    checkPasswordMatch() {
+      this.passwordsMatch = this.newPassword === this.repeatPassword;
+    }
   },
 };
+
+
 </script>
 
 <style>
@@ -71,6 +157,43 @@ export default {
   border-left: 3px ridge;
   border-top: 3px ridge;
   border-bottom: 3px ridge;
+}
+.actualp-input-container{
+  display: flex;
+  flex-direction: column;
+  
+
+}
+
+.actual-pass-in{
+  margin-top: 2.5%;
+  width: 40lvh;
+  height: 3.8lvh;
+  border-radius: 8px;
+}
+.lbl-actual-password-in{
+  font-family: Raleway;
+  font-weight: bold;
+  font-size: 2lvh;
+  display: flex;
+}
+.verify-new-password-container{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.verify-new-user-password-input{
+    margin-top: 2.5%;
+    width: 40lvh;
+    height: 3.8lvh;
+    border-radius: 8px;
+}
+.lbl-new-user-sign-up{
+    font-family: Raleway;
+    font-weight: bold;
+    font-size: 2lvh;
+    display: flex;   
 }
 
 .passwords-inputs-container {
@@ -138,5 +261,24 @@ export default {
   background-color: #050835;
   color: white;
   border-radius: 7px;
+}
+
+.new-password-container{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 5%;
+}
+.new-user-password-input{
+    margin-top: 2.5%;
+    width: 40lvh;
+    height: 3.8lvh;
+    border-radius: 8px;
+}
+.lbl-new-user-password{
+    font-family: Raleway;
+    font-weight: bold;
+    font-size: 2lvh;
+    display: flex;
 }
 </style>
