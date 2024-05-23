@@ -1,35 +1,59 @@
 <template>
   <div class="background-container">
     <sign-up-header />
-    <div>
-      <div class="register-container">
-        <div class="first-column">
-          <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
-          <h2 class="txt-register">Crea tu cuenta</h2>
-          <user-names-last-names @validNames="validarNombres"/>
-          <date-input @fechaValida="validarFecha" />
-          <place-of-birth @validBirthPlace="validarLugarNacimiento"/>
-          <user-direction @validDirection="validarDireccion"/>
-          <user-gender @validGenre="validarGenero"/>
-          <spam-checkbox  @checkbox_value="checkboxValue"/>
+    <div class="register-container">
+      <div class="first-column">
+        <h1 class="txt-welcome-sign-up">¡Bienvenido!</h1>
+        <h2 class="txt-register">Crea tu cuenta</h2>
+        <user-names-last-names @validNames="validarNombres" />
+        <date-input @fechaValida="validarFecha" />
+        <place-of-birth @validBirthPlace="validarLugarNacimiento" />
+        <user-direction @validDirection="validarDireccion" />
+        <user-gender @validGenre="validarGenero" />
+        <spam-checkbox />
+      </div>
+      <div class="second-column">
+        <div class="link-container">
+          <p class="txt-not-account">¿Ya tienes cuenta?</p>
+          <router-link to="/login" class="link-login">
+            Ingresa Aquí
+          </router-link>
         </div>
-        <div class="second-column">
-          <div class="link-container">
-            <p class="txt-not-account">¿Ya tienes cuenta?</p>
-            <router-link to="/login" class="link-login">
-              Ingresa Aquí
-            </router-link>
+        <document-type @tipoDocumentoValido="validarTipoDocumento" />
+        <document-number @documentoValido="validarDocumento" />
+        <user-email @validEmail="validarEmail" />
+        <username-input-sign-up @validUsername="validarUsername" />
+        <password-input-sign-up @contraseñaValida="validarContraseña" />
+      </div>
+    </div>
+    <div class="genre-container">
+      <h1 class="genre-title">Escoge uno o más géneros</h1>
+      <h2 class="genre-subtitle">
+        Esto nos ayudará a recomendarte obras o autores que te gusten
+      </h2>
+      <div class="genre-select-container">
+        <div
+          v-for="(genre, index) in genres"
+          :key="index"
+          class="genre-selection-item"
+          @click="toggleSelection(genre)"
+        >
+          <div :class="{ selected: selectedGenres.includes(genre) }"></div>
+          <img
+            :src="getImagePath(genre)"
+            :alt="`${genre} genre`"
+            class="genre-image"
+          />
+          <div class="checkbox-genres-container">
+            <h5 class="genre-name-txt">{{ genre }}</h5>
+            <input
+              type="checkbox"
+              :class="'checkbox-GenresUser-' + genre.toLowerCase()"
+              v-model="selectedGenres"
+              :value="genre"
+            />
           </div>
-          <document-type @tipoDocumentoValido="validarTipoDocumento" />
-          <document-number @documentoValido="validarDocumento" />
-          <user-email @validEmail="validarEmail"/>
-          <username-input-sign-up @validUsername="validarUsername"/>
-          <password-input-sign-up @contraseñaValida="validarContraseña" />
-          <button class="btn-continue" :disabled="!formularioValido" @click="registerProcess">
-            Crear
-          </button>
         </div>
-        
       </div>
       <div class="genre-button-container">
         <h2 class="genre-condition">
@@ -43,12 +67,6 @@
           Finalizar
         </button>
       </div>
-    </div>
-    <div v-if="message" id="message-container" class="alert alert-danger alert-dismissible fade show" role="alert">
-          {{ message }}
-          <button type="button" class="close" @click="closeMessage">
-            <span aria-hidden="true">&times;</span>
-          </button>
     </div>
   </div>
 </template>
@@ -112,6 +130,22 @@ export default {
       Email: false,
       Username: false,
       spam: false,
+
+      genres: [
+        "Filosofía",
+        "Historia",
+        "Acción y Aventura",
+        "Infantil y juvenil",
+        "Ciencia ficción",
+        "Fantasía",
+        "Política",
+        "Antologías",
+        "Ficción clásica",
+        "Psicología",
+        "Lingüistica",
+        "Cuentos",
+      ],
+      selectedGenres: [],
     };
   },
   computed: {
@@ -225,6 +259,19 @@ export default {
           console.error('Error fetching data:', error.response.data);
           this.message = error.response.data;
         });
+    },
+    toggleSelection(genre) {
+      // Toggle para agregar o quitar el índice del género seleccionado
+      if (this.selectedGenres.includes(genre)) {
+        this.selectedGenres = this.selectedGenres.filter(
+          (selectedGenre) => selectedGenre !== genre
+        );
+      } else {
+        this.selectedGenres.push(genre);
+      }
+    },
+    getImagePath(genre) {
+      return require(`@/assets/${genre.toLowerCase()}Books.png`);
     },
   },
 };

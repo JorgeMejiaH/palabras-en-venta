@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import  Options  from "@/components/Options.vue";
+import  Options  from "@/components/User/Options.vue";
 import Footer from '@/components/Footer.vue';
 import Navbar from "@/components/Navbar/Navbar.vue";
 export default{
