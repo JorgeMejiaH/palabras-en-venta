@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import NavbarVue from './Navbar/Navbar.vue'
+import Navbar from './Navbar/Navbar.vue'
 export default {
-    components: { NavbarVue },
+    components: { Navbar },
     data(){
         return {
-            authorName: "",
-            authorDescription: ""
+            authorName: "defaultauthor",
+            authorDescription: " nuestro amigo",
         };
     },
     computed: {
@@ -31,11 +31,16 @@ export default {
 
 <style>
 .author-info-background{
-    background-image: linear-gradient(#3B63A8 90%,white);
+    background-image: linear-gradient(#3B63A8 90%,#ffffff);
     display: flex;
+    justify-content: space-evenly;
+    margin-left: ;
     height: 90lvh;
 }
-
+.author-info-img{
+  margin: 5%;
+  
+}
 .author-description-container{
     display: flex;
     flex-direction: column;

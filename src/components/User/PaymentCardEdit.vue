@@ -4,7 +4,7 @@
     <options/>
     <div Class="change-card-container">
         <div class = 'personalinfo-edit'>
-            <router-link to = /user-card>
+            <router-link to = '/'>
                 <h6 class = 'backto-payment-methods'> < Métodos de pago / Editar tarjeta </h6>
             </router-link>
             <div>
@@ -17,11 +17,11 @@
                         <h6> Card </h6>
                     </div>
                     <div class = 'card-number'>
-                        'card number'
+                        <h3>{{ cardNumber }}</h3>
                     </div>
                     <div class="card-details-3r">
                         <h6> Fecha de expedición </h6>
-                        'expedition-date'
+                        <h5>{{ expeditionDate }}</h5>
                     </div>
                 </div>
                 <div class= 'card-edit-inputs-container'>
@@ -30,7 +30,7 @@
                         <input
                             :type="text"
                             id = "edit-new-card-number"   
-                            :v-model = "editCardNumer"          
+                            v-model = "editCardNumber"          
                             class = "edit-new-card-id"              
                         />
                     </div>
@@ -39,7 +39,7 @@
                         <input
                             :type="text"
                             id = "edit-new-card-name"
-                            :v-model = 'editCardName'
+                            v-model = 'editCardName'
                             class = 'edit-card-input-textfield'
                         />
                     </div>
@@ -48,7 +48,7 @@
                         <input 
                             :type="text"
                             id = 'edit-new-card-lastname'
-                            :v-model="editCardLastname"
+                            v-model="editCardLastname"
                             class="edit-card-input-textfield"
                         />
                     </div>
@@ -57,7 +57,7 @@
                         <input 
                             :type="text"
                             id = 'edit-new-card-expedition'
-                            :v-model = 'editCardExpedition'
+                            v-model = 'editCardExpedition'
                             class="edit-card-input-textfield"
                         />
                     </div>
@@ -66,7 +66,7 @@
                         <input 
                             :type="text"
                             id = 'edit-new-cvc'
-                            :v-model="editCardCVC"
+                            v-model="editCardCVC"
                             class="edit-card-input-textfield"
                         />
                     </div>
@@ -75,16 +75,16 @@
                         <input 
                             :type="text"
                             id="edit-new-card-type"
-                            :v-model="editCardType"
+                            v-model="editCardType"
                             class = "edit-card-input-textfield"
                         />
                     </div>
                     <div class = "card-edit-input" >
                         <label for="card-ammount-in-edit">*Monto total: </label>
                         <input 
-                            :type="int"
+                            :type="number"
                             id = 'edit-new-card-ammount'
-                            :v-model="editCardAmmount"
+                            v-model="editCardAmount"
                             class = "edit-card-input-textfield"
                         />
                     </div>
@@ -106,13 +106,15 @@ export default {
     components: { Options, Navbar },
     data(){
         return {
-            editCardNumer: "",
+            cardNumber: "",
+            expeditionDate: "",
+            editCardNumber: "",
             editCardName: "",
             editCardLastname: "",
             editCardExpedition: "",
             editCardCVC: "",
             editCardType: "",
-            editCardAmmount: "",
+            editCardAmount: "",
         };
     },
 }

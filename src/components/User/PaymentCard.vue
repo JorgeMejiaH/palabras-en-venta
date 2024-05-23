@@ -30,7 +30,7 @@
             </div>
             <div class = 'card-editar-container'>
                 <router-link to="/user-card-edit">
-                    <h6> Editar </h6>
+                    <h3> Editar </h3>
                 </router-link>
             </div>
         </div>
@@ -66,6 +66,7 @@ export default {
     margin-left: 4%;
     height: 70%;
     width: 90%;
+    justify-content: space-between;
 }
 .card-details{
     display: flex;
@@ -99,5 +100,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    margin-right: 8%;
 }
 </style>
