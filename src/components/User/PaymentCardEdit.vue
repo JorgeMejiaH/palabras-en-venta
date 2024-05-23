@@ -5,7 +5,7 @@
     <div Class="change-card-container">
         <div class = 'personalinfo-edit'>
             <router-link to = /user-card>
-                <h6 class = 'backto-payment-methods'> < Métodos de pago / Editar tarjeta </h6>
+                <h6 class = 'backto-payment-methods'> Métodos de pago / Editar tarjeta </h6>
             </router-link>
             <div>
                 <h6> Edicion </h6>

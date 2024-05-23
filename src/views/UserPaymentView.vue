@@ -12,7 +12,7 @@
           <span class="add-payment-text">Agregar método de pago</span>
         </button>
       </div>
-      <div class="user-payment-info-container">
+      <div class="user-payment-info-container" @click="sendToCardView">
         <div v-for="(card, index) in formattedCard" :key="index" class="payment-card">
           <h4>******{{ card }}</h4>
 
@@ -39,7 +39,11 @@ export default {
       cards: ["123456789", "987654321", "1466786542", "1465434186"],
     };
   },
-  methods: {},
+  methods: {
+    sendToCardView(){
+      this.$router.push("/card-info");
+    },
+  },
   computed: {
   formattedCard() {
     return this.cards.map(card => card.slice(-4));

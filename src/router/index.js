@@ -97,11 +97,6 @@ const routes = [
     name: "card-info",
     component: CardView,
   },
-   {
-    path: "/author-info",
-    name: 'author-info',
-    component :AuthorInfoView,
-   },
 ];
 
 const router = createRouter({
