@@ -122,7 +122,8 @@ export default {
     display: flex;
     height: 90lvh;
     width: 100%;
-    background-image: url(/src/assets/UserInfoBackground.jpg) ;
+    background-image: url(/src/assets/UserInfoBackground.jpg);
+    background-color: #58595B;
     
 }
 
