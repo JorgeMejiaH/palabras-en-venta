@@ -91,6 +91,17 @@ const routes = [
     name: "test",
     component: Home,
   },
+  {
+    path: "/user-card",
+    name: "user-card",
+    component: PaymentCardView,
+  },
+  {
+    path: "/user-card-edit",
+    name: 'user-card-edit',
+    component: PaymentCardEditView,
+
+  },
 ];
 
 const router = createRouter({

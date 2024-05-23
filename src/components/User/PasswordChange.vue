@@ -142,11 +142,14 @@ export default {
 </script>
 
 <style>
-.user-pass-change-background {
-  display: flex;
-  height: 90lvh;
-  width: 100%;
-  background-image: url(/src/assets/UserInfoBackground.jpg);
+
+.user-pass-change-background{
+    display: flex;
+    height: 90lvh;
+    width: 100%;
+    background-image: url(/src/assets/UserInfoBackground.jpg);
+    background-color: #58595B;
+    
 }
 
 .edit-password-container {
