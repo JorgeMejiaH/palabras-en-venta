@@ -8,11 +8,13 @@ import UserPasswordChangeView from "../views/UserPasswordChangeView.vue";
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView"
 import UserAddressView from "@/views/UserAddressView"
-import RecoveryEmailView from "@/views/RecoveryEmailView.vue";
 import UserAddressEditView from "@/views/UserAddressEditView"
+import UserAddAddressView from "@/views/UserAddAddressView"
+import RecoveryEmailView from "@/views/RecoveryEmailView.vue";
 import GenreEditView from "@/views/GenreEditView"
 import UserPaymentView from "@/views/UserPaymentView";
-import Home from "@/views/HomePage"
+import CardView from "@/views/CardView"
+import Test from "@/views/Test"
 
 const routes = [
   {
@@ -56,6 +58,11 @@ const routes = [
     component: UserAddressEditView,
   },
   {
+    path: "/add-address",
+    name: "add-adress",
+    component: UserAddAddressView,
+  },
+  {
     path : "/password-change",
     name: "password-change",
     component: PasswordChangePage,
@@ -83,7 +90,12 @@ const routes = [
   {
     path: "/test",
     name: "test",
-    component: Home,
+    component: Test,
+  },
+  {
+    path: "/card-info",
+    name: "card-info",
+    component: CardView,
   },
 ];
 

@@ -22,7 +22,7 @@
               id="validation-code"
             />
           </div>
-          <button type="submit" class="btn-code-validation">
+          <button type="submit" class="btn-code-validation" @click="validateCode">
             Validar código
           </button>
         </form>
