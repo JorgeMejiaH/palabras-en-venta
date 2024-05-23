@@ -5,7 +5,7 @@
     <div Class="change-password-container">
         <div class = 'personalinfo-edit'>
             <router-link to = '/'>
-                <h6 class = 'backto-payment-methods'> < Métodos de pago </h6>
+                <h6 class = 'backto-payment-methods'> Métodos de pago </h6>
             </router-link>
             <div>
                 <h6> Eliminar este producto</h6>
