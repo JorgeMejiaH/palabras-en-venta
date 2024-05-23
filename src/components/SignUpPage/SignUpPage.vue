@@ -145,8 +145,14 @@ export default {
         "Lingüistica",
         "Cuentos",
       ],
+      categories: [],
       selectedGenres: [],
     };
+  },
+  beforeMount(){
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.getBooksGenres();
   },
   computed: {
     validationForm() {
@@ -232,6 +238,35 @@ export default {
     navigateToLogin() {
       this.$router.push('/');
     },
+    getBooksGenres(){
+      axios.get(hostMixin.data().host + 'api/categories', {
+      headers: {
+            }
+          })
+        .then(response => {
+          this.categories = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching categories:', error);
+        });
+        console.log(this.categories);
+    },
+    navigateToGenreEdit(){
+      this.$router.push("/genre-edit");
+    },
+    toggleSelection(genre) {
+      // Toggle para agregar o quitar el índice del género seleccionado
+      if (this.selectedGenres.includes(genre)) {
+        this.selectedGenres = this.selectedGenres.filter(
+          (selectedGenre) => selectedGenre !== genre
+        );
+      } else {
+        this.selectedGenres.push(genre);
+      }
+    },
+    getImagePath(genre) {
+      return require(`@/assets/${genre.toLowerCase()}Books.png`);
+    },
     registerProcess() {
       const data = {
         first_name: this.Names.name,
@@ -246,7 +281,7 @@ export default {
         want_spam: this.spam,
         gender: this.Genre,
         notice_selection: false,
-        literary_genres: []
+        literary_genres: this.selectedGenres
       }
 
       console.log(data)
@@ -259,19 +294,6 @@ export default {
           console.error('Error fetching data:', error.response.data);
           this.message = error.response.data;
         });
-    },
-    toggleSelection(genre) {
-      // Toggle para agregar o quitar el índice del género seleccionado
-      if (this.selectedGenres.includes(genre)) {
-        this.selectedGenres = this.selectedGenres.filter(
-          (selectedGenre) => selectedGenre !== genre
-        );
-      } else {
-        this.selectedGenres.push(genre);
-      }
-    },
-    getImagePath(genre) {
-      return require(`@/assets/${genre.toLowerCase()}Books.png`);
     },
   },
 };
@@ -288,8 +310,6 @@ export default {
   background-size: cover;
   background-position: center;
   background-color: #050835;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -405,3 +425,4 @@ export default {
   color: #5c6972;
 }
 </style>
+

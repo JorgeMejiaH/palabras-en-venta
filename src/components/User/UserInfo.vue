@@ -163,7 +163,7 @@ export default {
       return Cookies.get('loginToken');
     },
     getUserInfo(){
-      
+
       axios.get(hostMixin.data().host + 'api/user/' + this.sessionInfo.user.uuid, {
       headers: {
             }
