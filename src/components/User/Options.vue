@@ -5,14 +5,14 @@
         <img src="@/assets/user.png" alt="usuario" class="icono-usuario" />
         Información personal <br />/ contraseña
       </router-link>
-      <p>
+      <router-link to="/address" class="options-router">
         <img
           src="@/assets/location-dot.png"
           alt="locacion"
           class="icono-locacion"
         />
         Libreta de direcciones
-      </p>
+      </router-link>
       <p>
         <img src="@/assets/list-check.png" alt="lista" class="icono-lista" />
         Compras / reservas <br />y cancelaciones
