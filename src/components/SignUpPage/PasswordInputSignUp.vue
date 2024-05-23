@@ -38,7 +38,7 @@ export default {
     handlePasswordChange(event) {
       this.password = event.target.value;
       const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\#])[A-Za-z\d@$!%*?&\#]{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&()<>#=-_+])[A-Za-z\d@$!%*?&=()<>#-_+]{8,}$/;
       if (!passwordRegex.test(this.password)) {
         this.passwordError = true;
         this.passwordErrorMessage =
