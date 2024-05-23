@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import NavbarVue from '../Navbar/Navbar.vue'
+import NavbarVue from './Navbar/Navbar.vue'
 export default {
     components: { NavbarVue },
     data(){
@@ -33,6 +33,7 @@ export default {
 .author-info-background{
     background-image: linear-gradient(#3B63A8 90%,white);
     display: flex;
+    height: 90lvh;
 }
 
 .author-description-container{

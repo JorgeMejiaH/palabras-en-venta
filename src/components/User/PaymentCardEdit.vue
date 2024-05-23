@@ -4,7 +4,7 @@
     <options/>
     <div Class="change-card-container">
         <div class = 'personalinfo-edit'>
-            <router-link>
+            <router-link to = /user-card>
                 <h6 class = 'backto-payment-methods'> < Métodos de pago / Editar tarjeta </h6>
             </router-link>
             <div>
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <div class = 'card-edit-save'>
-                    <button type="submit" class="btn-save-card-changes">Guardar tarjeta</button>
+                    <button type="submit" class="btn-save-password-change">Guardar tarjeta</button>
                 </div>
             </div>
         </div>

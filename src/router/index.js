@@ -6,11 +6,12 @@ import ValidationCodePage from "../views/ValidationCodePageView.vue";
 import PasswordChangePage from "../views/PasswordChangeView.vue";
 import UserGenrePage from "../views/LiteraryGenresPageView.vue";
 import UserPassChange from "../views/UserPassChangeview.vue";
-import GenreSelectionView from "@/views/GenreSelectionView.vue"
+import GenreSelectionView from "@/views/GenreSelectionView.vue";
 import UserInfoView from "@/views/UserInfoView.vue";
-import UserInfoEditView from "@/views/UserInfoEditView.vue"
-import PaymentCardView from "@/views/PaymentCardView.vue"
-import PaymentCardEditView from "@/views/PaymentCardEditView.vue"
+import UserInfoEditView from "@/views/UserInfoEditView.vue";
+import PaymentCardView from "@/views/PaymentCardView.vue";
+import PaymentCardEditView from "@/views/PaymentCardEditView.vue";
+import AuthorInfoView from "@/views/AuthorInfoView.vue";
 
 
 const routes = [
@@ -75,6 +76,11 @@ const routes = [
     component: PaymentCardEditView,
 
   },
+   {
+    path: "/author-info",
+    name: 'author-info',
+    component :AuthorInfoView,
+   },
 ];
 
 const router = createRouter({
