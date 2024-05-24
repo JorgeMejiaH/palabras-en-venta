@@ -27,14 +27,14 @@
             <label for="name-direction">Nombre de la dirección:</label>
             <input
               type="text"
-              v-model="formData1.nameDirection"
+              v-model="nameDirection"
               id="name-direction"
               class="in-user-input"
             />
             <label for="direction">Dirección</label>
             <input
               type="text"
-              v-model="formData1.address"
+              v-model="address"
               id="direction"
               class="in-user-input"
             />
@@ -42,7 +42,7 @@
           <div class="datoB">
             <label for="tipos">*Tipo de vivienda:</label>
             <select
-              v-model="formData1.selectType"
+              v-model="selectType"
               id="tipos"
               style="width: 90%"
             >
@@ -76,12 +76,12 @@
         <label for="text-description">Descripción</label>
         <input
           type="text"
-          v-model="formData1.description"
+          v-model="description"
           id="text-description"
           class="input-description"
         />
 
-        <button class="boton-guardar" @click="guardarDatos">
+        <button class="boton-guardar" @click="postAddress">
           Guardar dirección
         </button>
       </div>
@@ -104,7 +104,6 @@ export default {
   data() {
     return {
       sessionInfo: null,
-      formData1: {
         nameDirection: "",
         selectType: "",
         address: "",
@@ -112,7 +111,6 @@ export default {
         cities: [],
         PlaceOfBirth: null,
         isValidPlaceOfBirth: true,
-      },
     };
   },
   beforeMount() {
@@ -159,11 +157,11 @@ export default {
     postAddress() {
       const data = {
         user: this.sessionInfo.user.uuid,
-        name: formData1.nameDirection,
-        address_type: formData1.selectType,
-        address_description: formData1.description,
-        address: formData1.address,
-        city: city.id,
+        name: this.nameDirection,
+        address_type: this.selectType,
+        address_description: this.description,
+        address: this.address,
+        city: this.PlaceOfBirth,
       };
       console.log(data)
       axios.post(hostMixin.data().host + 'api/address/', data)

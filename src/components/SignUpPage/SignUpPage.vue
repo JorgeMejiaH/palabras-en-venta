@@ -33,24 +33,24 @@
       </h2>
       <div class="genre-select-container">
         <div
-          v-for="(genre, index) in genres"
-          :key="index"
+          v-for="category in categories"
+          :key="category.uuid"
           class="genre-selection-item"
-          @click="toggleSelection(genre)"
+          @click="toggleSelection(category)"
         >
-          <div :class="{ selected: selectedGenres.includes(genre) }"></div>
+          <div :class="{ selected: selectedGenres.includes(category.uuid) }"></div>
           <img
-            :src="getImagePath(genre)"
-            :alt="`${genre} genre`"
+            :src="getImagePath(category.name)"
+            :alt="`${category.name} genre`"
             class="genre-image"
           />
           <div class="checkbox-genres-container">
-            <h5 class="genre-name-txt">{{ genre }}</h5>
+            <h5 class="genre-name-txt">{{ category.name }}</h5>
             <input
               type="checkbox"
-              :class="'checkbox-GenresUser-' + genre.toLowerCase()"
+              :class="'checkbox-GenresUser-' + category.name.toLowerCase()"
               v-model="selectedGenres"
-              :value="genre"
+              :value="category.uuid"
             />
           </div>
         </div>
@@ -62,7 +62,7 @@
         <button
           class="genre-btn-end"
           :disabled="!validationForm"
-          @click="navigateToLogin"
+          @click="registerProcess"
         >
           Finalizar
         </button>
@@ -130,21 +130,6 @@ export default {
       Email: false,
       Username: false,
       spam: false,
-
-      genres: [
-        "Filosofía",
-        "Historia",
-        "Acción y Aventura",
-        "Infantil y juvenil",
-        "Ciencia ficción",
-        "Fantasía",
-        "Política",
-        "Antologías",
-        "Ficción clásica",
-        "Psicología",
-        "Lingüistica",
-        "Cuentos",
-      ],
       categories: [],
       selectedGenres: [],
     };
@@ -153,8 +138,6 @@ export default {
     // this.fetchDocumentTypes();
     console.log("Creating");
     this.getBooksGenres();
-    console.log(this.categories)
-    console.log(this.genres)
   },
   computed: {
     validationForm() {
@@ -255,15 +238,17 @@ export default {
     navigateToGenreEdit(){
       this.$router.push("/genre-edit");
     },
-    toggleSelection(genre) {
-      // Toggle para agregar o quitar el índice del género seleccionado
-      if (this.selectedGenres.includes(genre)) {
-        this.selectedGenres = this.selectedGenres.filter(
-          (selectedGenre) => selectedGenre !== genre
-        );
-      } else {
-        this.selectedGenres.push(genre);
-      }
+    toggleSelection(category) {
+      // Toggle para agregar o quitar el uuid del género seleccionado
+    const index = this.selectedGenres.indexOf(category.uuid);
+    if (index > -1) {
+      // Si el uuid ya está en selectedGenres, lo elimina
+      this.selectedGenres.splice(index, 1);
+    } else {
+      // Si el uuid no está en selectedGenres, lo añade
+      this.selectedGenres.push(category.uuid);
+    }
+    console.log(this.selectedGenres)
     },
     getImagePath(genre) {
       return require(`@/assets/${genre.toLowerCase()}Books.png`);

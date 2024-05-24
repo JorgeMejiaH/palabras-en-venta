@@ -56,30 +56,44 @@
             <label for="PlaceOfBirth" class="lbl-birth-place"
               >Ciudad de nacimiento:</label
             >
-            <input
-              type="text"
-              :value="PlaceOfBirth"
-              @input="handlePlaceOfBirth"
+            <select
+              v-model="placeOfBirth"
+              @change="handleCities"
               id="birth-place"
               class="in-user-input"
-            />
-            <div v-if="pobError" class="error-message">
-              {{ pobError }}
+            >
+              <option value="null" disabled>Selecciona una ciudad</option>
+              <option v-for="city in cities" :key="city.id" :value="city.id">
+                {{ city.name }}
+              </option>
+            </select>
+            <div v-if="!isValidPlaceOfBirth" class="error-message">
+              Ingresa un lugar de nacimiento válido.
             </div>
           </div>
           <div class="document-type-container">
             <label for="DocumentType" class="lbl-document-type"
               >Tipo de documento:</label
             >
-            <input
-              type="text"
-              :value="DocumentType"
-              @input="handleDocType"
-              id="document-type"
+            <select
+              v-model="DocumentType"
+              @change="handleDocumentType"
+              id="birth-place"
               class="in-user-input"
-            />
+            >
+              <option value="null" disabled>
+                Selecciona una tipo de documento
+              </option>
+              <option
+                v-for="DocumentType in DocumentTypes"
+                :key="DocumentType.value"
+                :value="DocumentType.value"
+              >
+                {{ DocumentType.description }}
+              </option>
+            </select>
             <div v-if="docTypeError" class="error-message">
-              {{ docTypeError }}
+              Ingresa un tipo de documento valido.
             </div>
           </div>
           <div class="document-number-container">
@@ -129,7 +143,7 @@ import Navbar from "../Navbar/Navbar.vue";
 import Footer from "../Footer.vue";
 import Options from "../User/Options.vue";
 import axios from "axios";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import hostMixin from "@/mixins/host.js";
 export default {
   mixins: [hostMixin],
@@ -148,8 +162,8 @@ export default {
       nombre: "",
       apellido: "",
       dob: null,
-      PlaceOfBirth: "",
-      DocumentType: "",
+      cities: [],
+      PlaceOfBirth: null,
       DocumentNumber: "",
       spamIsChecked: false,
       validNames: false,
@@ -162,6 +176,10 @@ export default {
         dateFormat: "d-m-Y",
         defaultDate: this.getEighteenYearsAgo(),
       },
+      DocumentTypes: [],
+      DocumentType: null,
+      docTypeError: false,
+      isValidDocumentType: false,
       sessionInfo: null,
       userInfo: {
         first_name: null,
@@ -178,6 +196,11 @@ export default {
       },
     };
   },
+  beforeMount(){
+    this.fetchCities();
+    console.log(this.cities)
+    this.fetchDocumentTypes()
+  },
   computed: {
     formularioValido() {
       return (
@@ -190,6 +213,57 @@ export default {
     },
   },
   methods: {
+    fetchDocumentTypes(){
+      axios.get(hostMixin.data().host + '/api/choices/users/user/document_type')
+        .then(response => {
+          // Update the cities array with the fetched data
+          this.DocumentTypes = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching cities:', error);
+        });
+    },
+    handleDocumentType(event) {
+      const typeValue = event.target.value;
+      console.log(typeValue)
+
+      if(typeValue == 'null'){
+        this.tipoDocumentoValido = false;
+      }else{
+        this.tipoDocumentoValido = true;
+      }
+    },
+    getEighteenYearsAgo() {
+      const today = new Date();
+      return new Date(
+        today.getFullYear() - 18,
+        today.getMonth(),
+        today.getDate()
+      );
+    },
+    fetchCities() {
+      // Make a GET request to fetch cities
+      axios
+        .get(hostMixin.data().host + "/api/cities/")
+        .then((response) => {
+          // Update the cities array with the fetched data
+          this.cities = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching cities:", error);
+        });
+    },
+    handleCities(event) {
+      const city_id = event.target.value;
+      this.PlaceOfBirth = event.target.value;
+      console.log(city_id)
+
+      if (city_id == "null") {
+        this.validBirthPlace = false;
+      } else {
+        this.validBirthPlace = true;
+      }
+    },
     getTokenFromCookie() {
       // Retrieve the token from the cookie
       return Cookies.get("loginToken");
@@ -243,32 +317,6 @@ export default {
         this.$emit("fechaValida", this.validDate);
       }
     },
-    handlePlaceOfBirth(event) {
-      const inputText = event.target.value;
-      const isValid = /^[a-zA-Z\s]+$/.test(inputText);
-
-      this.validBirthPlace = isValid;
-
-      if (isValid) {
-        this.PlaceOfBirth = inputText;
-        this.pobError = "";
-      } else {
-        this.pobError = "Ingrese un lugar de nacimiento válido.";
-      }
-    },
-    handleDocType(event) {
-      const inputText = event.target.value;
-      const isValid = /^[a-zA-Z\s]+$/.test(inputText);
-
-      this.tipoDocumentoValido = isValid;
-      this.DocumentType = inputText;
-
-      if (isValid) {
-        this.docTypeError = "";
-      } else {
-        this.docTypeError = "Ingresa un tipo de documento valido.";
-      }
-    },
     handleDocNumber(event) {
       const inputText = event.target.value;
       const isValid = /^\d+$/.test(inputText);
@@ -294,7 +342,7 @@ export default {
         first_name: this.nombre,
         last_name: this.apellido,
         birth_date: this.dob,
-        place_birth: 0,
+        place_birth: this.PlaceOfBirth,
         document_type: this.DocumentType,
         document_number: this.DocumentNumber,
         want_spam: this.spamIsChecked,
@@ -302,15 +350,19 @@ export default {
         notice_selection: true,
         literary_genres: [0],
         is_active: true,
-      }
-      console.log(data)
-      axios.post(hostMixin.data().host + 'api/user/'+ this.sessionInfo.user.uuid, data)
-        .then(response => {
-          console.log(response.data)
-          this.saveAndNavigateToUserInfo()
+      };
+      console.log(data);
+      axios
+        .post(
+          hostMixin.data().host + "api/user/" + this.sessionInfo.user.uuid,
+          data
+        )
+        .then((response) => {
+          console.log(response.data);
+          this.saveAndNavigateToUserInfo();
         })
-        .catch(error => {
-          console.error('Error fetching data:', error.response.data);
+        .catch((error) => {
+          console.error("Error fetching data:", error.response.data);
           this.message = error.response.data;
         });
     },
