@@ -107,7 +107,11 @@
 import Options from "./Options.vue";
 import Navbar from "../Navbar/Navbar.vue";
 import Footer from "@/components/Footer.vue";
+import axios from "axios";
+import Cookies from 'js-cookie';
+import hostMixin from "@/mixins/host.js";
 export default {
+  mixins: [hostMixin],
   components: {
     Options,
     Navbar,
@@ -123,6 +127,15 @@ export default {
       showVerifiedPassword: false,
     };
   },
+  beforeMount() {
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+  },
+  getTokenFromCookie() {
+      // Retrieve the token from the cookie
+      return Cookies.get("loginToken");
+    },
   methods: {
     handleActualPasswordChange(event) {
       this.password = event.target.value;
@@ -141,6 +154,22 @@ export default {
     },
     toggleShowVerifiedPassword() {
       this.showPassword = !this.showPassword;
+    },
+    updapePassword(){
+      const data={
+        user: this.sessionInfo.user.uuid,
+        new_password: this. verifiedPassword
+      }
+      console.log(data)
+      axios.post(hostMixin.data().host + 'api/password/change_password/', data)
+        .then(response => {
+          console.log(response.data)
+          this.saveAndNavigateToUserInfo()
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error.response.data);
+          this.message = error.response.data;
+        });
     },
   },
 };

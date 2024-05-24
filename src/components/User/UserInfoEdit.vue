@@ -129,6 +129,7 @@ import Navbar from "../Navbar/Navbar.vue";
 import Footer from "../Footer.vue";
 import Options from "../User/Options.vue";
 import axios from "axios";
+import Cookies from 'js-cookie';
 import hostMixin from "@/mixins/host.js";
 export default {
   mixins: [hostMixin],
