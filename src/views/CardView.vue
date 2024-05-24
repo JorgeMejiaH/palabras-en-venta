@@ -1,32 +1,37 @@
 <template>
   <navbar />
   <div class="card-details-background">
-    <options routeOptionsContainer="user-card-info-routes"/>
+    <options routeOptionsContainer="user-card-info-routes" />
     <div Class="card-detail-container">
       <div class="personalinfo-edit">
         <router-link to="/payment-method">
           <h6 class="backto-payment-methods">Métodos de pago</h6>
         </router-link>
-        <div class="card-delete-container">
-          <img src="@/assets/trash-can.png" alt="trash-can" class="card-trash-can">
+        <div class="card-delete-container" @click="deleteCard(card.uuid)">
+          <img
+            src="@/assets/trash-can.png"
+            alt="trash-can"
+            class="card-trash-can"
+          />
           <h6 class="card-delete-txt">Eliminar este producto</h6>
         </div>
       </div>
       <div class="card-container">
         <div class="card-details">
           <div class="card-details-1r">
-            <img src="@/assets/cardDetailsIcon.png" alt="card-details-icon" class="card-details-icon"/>
+            <img
+              src="@/assets/cardDetailsIcon.png"
+              alt="card-details-icon"
+              class="card-details-icon"
+            />
             <h4>Card</h4>
           </div>
           <div class="card-details-2r">
-            <h3>****</h3>
-            <h3>****</h3>
-            <h3>****</h3>
-            <h3>{{ lastDigits }}</h3>
+            <h3>{{ card.card_number }}</h3>
           </div>
           <div class="card-details-3r">
-            <h5>Fecha de expedición</h5>
-            <h5>{{ expeditionDate }}</h5>
+            <h5>Fecha de expiración</h5>
+            <h5>{{ card.expiration_date }}</h5>
           </div>
         </div>
       </div>
@@ -37,19 +42,55 @@
 <script>
 import Options from "@/components/User/Options.vue";
 import Navbar from "@/components/Navbar/Navbar.vue";
+import hostMixin from "@/mixins/host.js";
+import axios from "axios";
 export default {
   components: { Options, Navbar },
   data() {
     return {
-      lastDigits: "1234",
-      expeditionDate: "52/25",
+      card: {
+        uuid:null,
+        user: null,
+        name: null,
+        card_number: null,
+        expiration_date: null,
+        ccv: null,
+        card_type: null,
+        amount: null,
+      },
     };
+  },
+  created() {
+    const uuid = this.$route.query.uuid;
+    if (uuid) {
+      this.fetchCardDetails(uuid);
+    }
+  },
+  methods: {
+    fetchCardDetails(uuid) {
+      axios
+        .get(hostMixin.data().host + "api/card/" + uuid)
+        .then((response) => {
+          this.card = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching payments:", error);
+        });
+    },
+    deleteCard(uuid){
+      axios
+        .delete(hostMixin.data().host + "api/card/" + uuid)
+        .then(navigateToPaymentView())
+    },
+    navigateToPaymentView(){
+      this.$router.push("/payment-method");
+    },
   },
 };
 </script>
 
 <style>
-.user-card-info-routes{
+.user-card-info-routes {
   position: absolute;
   background-color: rgba(34, 33, 33, 0.6);
   width: 20%;
@@ -67,12 +108,12 @@ export default {
   width: 100vw;
   background-color: #050835;
 }
-.card-delete-container{
+.card-delete-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.card-detail-container{
+.card-detail-container {
   background-color: white;
   width: 45%;
   position: absolute;
@@ -82,7 +123,7 @@ export default {
   border-bottom-left-radius: 50px;
   padding: 2%;
 }
-.card-details-icon{
+.card-details-icon {
   width: 20%;
   height: auto;
 }
@@ -99,12 +140,11 @@ export default {
   background-image: linear-gradient(to right, #d5d5d5 90%, grey);
   border-radius: 10px;
   padding: 2%;
-
 }
 .card-details-1r {
   display: flex;
 }
-.card-delete-txt{
+.card-delete-txt {
   color: red;
 }
 .card-details-2r {

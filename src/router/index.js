@@ -14,6 +14,7 @@ import RecoveryEmailView from "@/views/RecoveryEmailView.vue";
 import GenreEditView from "@/views/GenreEditView"
 import UserPaymentView from "@/views/UserPaymentView";
 import CardView from "@/views/CardView"
+import AddCardView from "@/views/AddCardView"
 import Test from "@/views/Test"
 
 const routes = [
@@ -96,6 +97,11 @@ const routes = [
     path: "/card-info",
     name: "card-info",
     component: CardView,
+  },
+  {
+    path: "/new-card",
+    name: "new-card",
+    component: AddCardView,
   },
 ];
 

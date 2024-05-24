@@ -28,7 +28,11 @@
 import Navbar from "@/components/Navbar/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 import Options from "@/components/User/Options.vue";
+import Cookies from 'js-cookie';
+import hostMixin from "@/mixins/host.js";
+import axios from 'axios';
 export default {
+  mixins: [hostMixin],
   components: {
     Navbar,
     Footer,
@@ -36,17 +40,37 @@ export default {
   },
   data() {
     return {
-      cards: ["123456789", "987654321", "1466786542", "1465434186"],
+      sessionInfo: null,
+      cards: [],
     };
   },
+  beforeMount(){
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+    this.getPaymentMethods();
+  },
   methods: {
-    sendToCardView(){
-      this.$router.push("/card-info");
+    getTokenFromCookie() {
+      // Retrieve the token from the cookie
+      return Cookies.get('loginToken');
+    },
+    sendToCardView(uuid){
+      this.$router.push({path: "/card-info", query: { uuid }});
+    },
+    getPaymentMethods(){
+      axios.get(hostMixin.data().host + 'api/card/' + this.sessionInfo.user.uuid)
+      .then(response => {
+          this.cards = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching payments:', error);
+        });
     },
   },
   computed: {
   formattedCard() {
-    return this.cards.map(card => card.slice(-4));
+    return this.cards.card_number.map(card => card.slice(-4));
   }
 },
 };
