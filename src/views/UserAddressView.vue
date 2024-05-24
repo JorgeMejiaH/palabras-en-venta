@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <Options routeOptionsContainer="user-address-routes"/>
+    <Options routeOptionsContainer="user-address-routes" />
     <img
       src="@/assets/config-background.png"
       alt="Fondo de la pagina"
@@ -19,10 +19,14 @@
           dirección
         </button>
       </div>
-      <div v-if="show1" class="informacion">
+      <div
+        v-for="(address, index) in adresses"
+        :key="index"
+        class="address-info-container"
+      >
         <div class="contenedor-titulo-edit">
           <h1 class="titulo-ingresar-direccion">Ingresar dirección</h1>
-          <button class="edit-boton" @click="editarDireccion1">
+          <button class="edit-boton" @click="editarDireccion(address.uuid)">
             Editar <img class="edit-img" src="@/assets/pen-to-square.png" />
           </button>
         </div>
@@ -30,75 +34,19 @@
           <div>
             <p class="columna" id="nombre-direccion">
               <strong>Nombre de la dirección</strong><br />{{
-                formData1.nameDirection
+                address.name
               }}
             </p>
             <p class="columna" id="direccion">
-              <strong>Dirección</strong><br />{{ formData1.address }}
+              <strong>Dirección</strong><br />{{ address.address_description }}
             </p>
           </div>
           <div>
             <p class="columna" id="tipo-vivienda">
-              <strong>Tipo de vivienda</strong><br />{{ formData1.selectType }}
+              <strong>Tipo de vivienda</strong><br />{{ address.address_type }}
             </p>
             <p class="columna" id="ciudad">
-              <strong>Ciudad</strong><br />{{ formData1.city }}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div v-if="show2" class="informacion2">
-        <div class="contenedor-titulo-edit2">
-          <h1 class="titulo-ingresar-direccion">Ingresar dirección</h1>
-          <button class="edit-boton" @click="editarDireccion2">
-            Editar <img class="edit-img" src="@/assets/pen-to-square.png" />
-          </button>
-        </div>
-        <div class="datos-mostrar2">
-          <div>
-            <p class="columna" id="nombre-direccion">
-              <strong>Nombre de la dirección</strong><br />{{
-                formData2.nameDirection
-              }}
-            </p>
-            <p class="columna" id="direccion">
-              <strong>Dirección</strong><br />{{ formData2.address }}
-            </p>
-          </div>
-          <div>
-            <p class="columna" id="tipo-vivienda">
-              <strong>Tipo de vivienda</strong><br />{{ formData2.selectType }}
-            </p>
-            <p class="columna" id="ciudad">
-              <strong>Ciudad</strong><br />{{ formData2.city }}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div v-if="show3" class="informacion3">
-        <div class="contenedor-titulo-edit3">
-          <h1 class="titulo-ingresar-direccion">Ingresar dirección</h1>
-          <button class="edit-boton" @click="editarDireccion3">
-            Editar <img class="edit-img" src="@/assets/pen-to-square.png" />
-          </button>
-        </div>
-        <div class="datos-mostrar3">
-          <div>
-            <p class="columna" id="nombre-direccion">
-              <strong>Nombre de la dirección</strong><br />{{
-                formData3.nameDirection
-              }}
-            </p>
-            <p class="columna" id="direccion">
-              <strong>Dirección</strong><br />{{ formData3.address }}
-            </p>
-          </div>
-          <div>
-            <p class="columna" id="tipo-vivienda">
-              <strong>Tipo de vivienda</strong><br />{{ formData3.selectType }}
-            </p>
-            <p class="columna" id="ciudad">
-              <strong>Ciudad</strong><br />{{ formData3.city }}
+              <strong>Ciudad</strong><br />{{ address.city }}
             </p>
           </div>
         </div>
@@ -112,7 +60,11 @@
 import Options from "@/components/User/Options.vue";
 import Footer from "@/components/Footer.vue";
 import Navbar from "@/components/Navbar/Navbar.vue";
+import Cookies from 'js-cookie';
+import axios from "axios";
+import hostMixin from "@/mixins/host.js";
 export default {
+  mixins: [hostMixin],
   components: { Options, Footer, Navbar },
   data() {
     return {
@@ -123,62 +75,41 @@ export default {
       dataIn3: true,
       show3: true,
       isDisable: false,
+      sessionInfo: null,
 
-      formData1: {
-        nameDirection: "ccxvxzcvvcz",
-        selectType: "vv",
-        address: "gfdadfasdf",
-        city: "zcxvvda",
-        description: "zcvzcvasv",
-      },
-      formData2: {
-        nameDirection: "",
-        selectType: "",
-        address: "",
-        city: "",
-        description: "",
-      },
-      formData3: {
-        nameDirection: "",
-        selectType: "",
-        address: "",
-        city: "",
-        description: "",
-      },
+      adresses: [],
     };
   },
-
+  beforeMount() {
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+    this.getUserAddress();
+  },
   methods: {
+    getTokenFromCookie() {
+      // Retrieve the token from the cookie
+      return Cookies.get("loginToken");
+    },
     añadirDireccion() {
-      if (!this.dataIn1) {
-        this.$router.push("/add1");
-      } else if (!this.dataIn2) {
-        this.$router.push("/add2");
-      } else if (!this.dataIn3) {
-        this.$router.push("/add3");
+      if (this.adresses.length < 3) {
+        this.$router.push("/add-address");
       } else {
         this.isDisable = true;
       }
     },
-    editarDireccion1() {
-      this.$router.push("/address-edit");
+    editarDireccion(uuid) {
+      this.$router.push({ path: "/address-edit", query: { uuid } });
     },
-    editarDireccion2() {
-      this.$router.push("/address-edit");
-    },
-    editarDireccion3() {
-      this.$router.push("/address-edit");
-    },
-    verificarDatos() {
-      if (!this.dataIn1) {
-        this.show1 = false;
-      }
-      if (!this.dataIn2) {
-        this.show2 = false;
-      }
-      if (!this.dataIn3) {
-        this.show3 = false;
-      }
+    getUserAddress() {
+      axios
+        .get(hostMixin.data().host + "api/address/")
+        .then((response) => {
+          this.adresses = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching address:", error);
+        });
     },
   },
 };
@@ -187,7 +118,7 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Honk&family=Pixelify+Sans:wght@400..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 
-.user-address-routes{
+.user-address-routes {
   position: absolute;
   background-color: rgba(34, 33, 33, 0.6);
   width: 20%;
@@ -242,9 +173,7 @@ export default {
   border-radius: 10px;
 }
 
-.informacion,
-.informacion2,
-.informacion3 {
+.address-info-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -337,11 +266,10 @@ export default {
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  padding: 5%;
-  gap: 20px;
+  padding: 2%;
 }
 
-.footer-container-user-address{
+.footer-container-user-address {
   position: absolute;
   top: 180%;
   width: 100vw;

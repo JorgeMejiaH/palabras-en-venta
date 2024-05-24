@@ -22,6 +22,7 @@ export default {
   mixins: [hostMixin],
   beforeMount(){
     this.fetchCities();
+    console.log(this.cities)
   },
   data() {
     return {

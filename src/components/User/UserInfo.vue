@@ -165,8 +165,7 @@ export default {
     getUserInfo(){
 
       axios.get(hostMixin.data().host + 'api/user/' + this.sessionInfo.user.uuid, {
-      headers: {
-            }
+      headers: {}
           })
         .then(response => {
           this.userInfo = response.data;

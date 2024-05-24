@@ -153,6 +153,8 @@ export default {
     // this.fetchDocumentTypes();
     console.log("Creating");
     this.getBooksGenres();
+    console.log(this.categories)
+    console.log(this.genres)
   },
   computed: {
     validationForm() {
@@ -249,7 +251,6 @@ export default {
         .catch(error => {
           console.error('Error fetching categories:', error);
         });
-        console.log(this.categories);
     },
     navigateToGenreEdit(){
       this.$router.push("/genre-edit");

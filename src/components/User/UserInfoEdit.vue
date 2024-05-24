@@ -113,7 +113,7 @@
           <button
             class="user-info-btn-save"
             :disabled="!formularioValido"
-            @click="saveAndNavigateToUserInfo"
+            @click="updateUserData"
           >
             Guardar cambios
           </button>
@@ -128,7 +128,15 @@
 import Navbar from "../Navbar/Navbar.vue";
 import Footer from "../Footer.vue";
 import Options from "../User/Options.vue";
+import axios from "axios";
+import hostMixin from "@/mixins/host.js";
 export default {
+  mixins: [hostMixin],
+  beforeMount() {
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+  },
   components: {
     Navbar,
     Footer,
@@ -151,6 +159,21 @@ export default {
       dobError: false,
       flatpickrConfig: {
         dateFormat: "d-m-Y",
+        defaultDate: this.getEighteenYearsAgo(),
+      },
+      sessionInfo: null,
+      userInfo: {
+        first_name: null,
+        last_name: null,
+        birth_date: null,
+        place_birth: null,
+        document_type: null,
+        document_number: null,
+        want_spam: null,
+        gender: null,
+        notice_selection: null,
+        literary_genres: null,
+        is_active: null,
       },
     };
   },
@@ -166,8 +189,9 @@ export default {
     },
   },
   methods: {
-    saveAndNavigateToUserInfo() {
-      this.$router.push("/user-info");
+    getTokenFromCookie() {
+      // Retrieve the token from the cookie
+      return Cookies.get("loginToken");
     },
     handleNamesLastnames(event) {
       const property = event.target.id === "name" ? "nombre" : "apellido";
@@ -260,6 +284,34 @@ export default {
     handleSpamCheckbox() {
       // Este método se ejecutará cada vez que el estado del checkbox cambie
       console.log("Estado actual del checkbox:", this.isChecked);
+    },
+    saveAndNavigateToUserInfo() {
+      this.$router.push("/user-info");
+    },
+    updateUserData() {
+      const data = {
+        first_name: this.nombre,
+        last_name: this.apellido,
+        birth_date: this.dob,
+        place_birth: 0,
+        document_type: this.DocumentType,
+        document_number: this.DocumentNumber,
+        want_spam: this.spamIsChecked,
+        gender: "M",
+        notice_selection: true,
+        literary_genres: [0],
+        is_active: true,
+      }
+      console.log(data)
+      axios.post(hostMixin.data().host + 'api/user/'+ this.sessionInfo.user.uuid, data)
+        .then(response => {
+          console.log(response.data)
+          this.saveAndNavigateToUserInfo()
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error.response.data);
+          this.message = error.response.data;
+        });
     },
   },
   mounted() {
