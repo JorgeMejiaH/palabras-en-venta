@@ -7,51 +7,73 @@
         alt="titulo-de-pagina"
         class="home-page-title"
       />
-      <h1>Conoce nuevos mundos literarios</h1>
-      <h2>Títulos que te llevarán a otro mundo</h2>
-      <div
-        v-for="(book, index) in books"
-        :key="index"
-        class="home-title-books-img"
-      >
+      <div class="page-titles-slogans">
+        <h1 class="home-page-title-txt">Conoce nuevos mundos literarios</h1>
+        <h2 class="home-page-subtitle-txt">Títulos que te llevarán a otro mundo</h2>
+      </div>
+      <div class="home-page-title-books">
+        <div
+          v-for="(book, index) in books"
+          :key="index"
+          class="home-title-books-img"
+        >
+          <img
+            :src="getimagepath(book)"
+            :alt="`${book} genre`"
+            class="title-books-img"
+          />
+        </div>
         <img
-          :src="getimagepath(book)"
-          :alt="`${book} genre`"
-          class="title-books-img"
+          src="@/assets/home-image.png"
+          alt="home-image"
+          class="home-page-image"
         />
       </div>
     </div>
     <div class="home-news-container">
-        <h1 class="home-news-txt">
-            Novedades
-        </h1>
-        <button class="home-see-more">Ver más</button>
-        <div 
-        v-for="(book, index) in newBooks"
-        :key="index"
-        class="home-new-books">
-            <books :TituloLibro="book"/>
+      <div class="class-header">
+        <h1 class="home-news-txt">Novedades</h1>
+        <button class="home-see-more">VER MÁS</button>
+      </div>
+      <div class="home-new-books-container">
+        <div
+          v-for="(book, index) in newBooks"
+          :key="index"
+          class="home-new-books"
+        >
+          <books :TituloLibro="book" />
         </div>
+      </div>
     </div>
     <div class="home-recomended-container">
+      <div class="class-header">
         <h1 class="home-recomended-txt">Recomendados</h1>
-        <button class="home-see-more">Ver más</button>
-        <div 
-        v-for="(book, index) in recomendedBooks"
-        :key="index"
-        class="home-recomended-books">
-            <books :TituloLibro="book"/>
+        <button class="home-see-more">VER MÁS</button>
+      </div>
+      <div class="home-recomended-books-container">
+        <div
+          v-for="(book, index) in recomendedBooks"
+          :key="index"
+          class="home-recomended-books"
+        >
+          <books :TituloLibro="book" />
         </div>
+      </div>
     </div>
     <div class="home-bestseller-container">
+      <div class="class-header">
         <h1 class="home-bestseller-txt">Más vendidos</h1>
-        <button class="home-see-more">Ver más</button>
-        <div 
-        v-for="(book, index) in bestsellerdBooks"
-        :key="index"
-        class="home-bestseller-books">
-            <books :TituloLibro="book"/>
+        <button class="home-see-more">VER MÁS</button>
+      </div>
+      <div class="home-best-seller-books-container">
+        <div
+          v-for="(book, index) in bestsellerdBooks"
+          :key="index"
+          class="home-bestseller-books"
+        >
+          <books :TituloLibro="book" />
         </div>
+      </div>
     </div>
     <Footer containerClass="footer-container-home" />
   </div>
@@ -60,24 +82,44 @@
 <script>
 import Navbar from "@/components/Navbar/Navbar.vue";
 import Footer from "@/components/Footer.vue";
-import Books from '@/components/Books.vue';
+import Books from "@/components/Books.vue";
 export default {
   components: {
     Navbar,
     Footer,
     Books,
   },
-  data(){
-    return{
-        books:["El sastre de Gloucester"],
-        newBooks:["El sastre de Gloucester"],
-        recomendedBooks:["El sastre de Gloucester"],
-        bestsellerdBooks:["El sastre de Gloucester"],
+  data() {
+    return {
+      books: [
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+      ],
+      newBooks: [
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+      ],
+      recomendedBooks: [
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+      ],
+      bestsellerdBooks: [
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+      ],
     };
   },
   methods: {
     getimagepath(TituloLibro) {
-      const formattedTitle = TituloLibro.toLowerCase().replace(/\s+/g, '');
+      const formattedTitle = TituloLibro.toLowerCase().replace(/\s+/g, "");
       return require(`@/assets/${formattedTitle}.png`);
     },
   },
@@ -85,7 +127,68 @@ export default {
 </script>
 
 <style>
-.home-intro-container{
-  background-image: linear-gradient(to bottom, #409BCC, #ffffff);
+.home-intro-container {
+  background-image: linear-gradient(to bottom, #409bcc, #ffffff);
+}
+.home-page-title-books{
+  margin-left: 2%;
+}
+.page-titles-slogans{
+  text-align: start;
+  position: relative;
+  left: 2%;
+}
+.home-page-title-txt{
+  color: white;
+  font-weight: bold;
+}
+.home-page-subtitle-txt{
+  color:#1B4663;
+;
+}
+.home-page-title-books,
+.home-new-books-container,
+.home-recomended-books-container,
+.home-best-seller-books-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+}
+.home-page-image {
+  margin-left: auto;
+  margin-right: 10%; 
+}
+.home-title-books-img{
+  margin-top: 2%;
+}
+.home-page-title{
+  position: absolute;
+  right: 2%;
+}
+.home-see-more{
+  background-color: transparent;
+  border-color: #1B4663;
+  color: #1B4663;
+  border-radius: 2px;
+  margin-left: auto;
+  margin-right: 15%;
+}
+.class-header{
+  display: flex;
+  flex-direction: row;
+  margin-top: 3%;
+}
+.home-news-txt,
+.home-recomended-txt,
+.home-bestseller-txt{
+  margin-left: 3%;
+  color: black;
+  font-weight: bold;
+  text-decoration-line: underline;
+}
+.home-recomended-container{
+  background-color: #efeced;
+  padding: 10px;
 }
 </style>

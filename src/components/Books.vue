@@ -5,7 +5,7 @@
       alt="imagen-libro"
       class="img-libro"
     />
-    <h3>{{ TituloLibro }}</h3>
+    <h3>"{{ TituloLibro }}"</h3>
     <h5>{{ NombreAutor }}</h5>
     <h4>{{ Precio }}</h4>
   </div>

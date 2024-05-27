@@ -7,15 +7,18 @@
         <h1 class="payment-method-txt">Métodos de pago</h1>
       </div>
       <div class="button-container">
-        <button class="add-payment-method">
+        <button class="add-payment-method" @click="navigateToAddCard">
           <img src="@/assets/add.png" alt="agregrar" class="img-add-user-payment">
           <span class="add-payment-text">Agregar método de pago</span>
         </button>
       </div>
       <div class="user-payment-info-container" @click="sendToCardView">
+        <div class="user-payment-saldo">
+          <h4>Saldo : ${{ saldo }}</h4>
+        </div>
         <div v-for="(card, index) in formattedCard" :key="index" class="payment-card">
+          <img :src="getCardImage(cardLastDigit(card))" alt="marca-tarjeta" class="img-card-brand"/>
           <h4>******{{ card }}</h4>
-
           <img src="@/assets/angle-right.png" alt="flecha-derecha" class="user-payment-flecha-derecha"/>
         </div>
       </div>
@@ -36,18 +39,34 @@ export default {
   },
   data() {
     return {
+      saldo: 100000,
       cards: ["123456789", "987654321", "1466786542", "1465434186"],
     };
   },
   methods: {
+    getCardImage(cardLastDigit){
+      if(cardLastDigit % 2 == 0){
+        return require(`@/assets/visa.png`);
+      }else{
+        return require(`@/assets/mastercard.png`);
+      }
+    },
     sendToCardView(){
       this.$router.push("/card-info");
+    },
+    navigateToAddCard(){
+      this.$router.push("/add-card");
+    },
+    cardLastDigit(card){
+      const lastChar = card.charAt(card.length - 1);
+      this.lastCharacter = parseInt(lastChar, 10);
+      return this.lastCharacter;
     },
   },
   computed: {
   formattedCard() {
     return this.cards.map(card => card.slice(-4));
-  }
+  },
 },
 };
 </script>
@@ -145,6 +164,6 @@ export default {
   padding: 5px;
 }
 .user-payment-flecha-derecha{
-  margin-left: 85%;
+  margin-left: auto;
 }
 </style>
