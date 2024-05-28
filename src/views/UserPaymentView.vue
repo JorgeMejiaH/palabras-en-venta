@@ -16,9 +16,9 @@
         <div class="user-payment-saldo">
           <h4></h4>
         </div>
-        <div v-for="(card, index) in formattedCard" :key="index" class="payment-card">
-          <img :src="getCardImage(cardLastDigit(card))" alt="marca-tarjeta" class="img-card-brand"/>
-          <h4>******{{ card }}</h4>
+        <div v-for="(card, index) in cards" :key="index" class="payment-card">
+          <img :src="getCardImage(cardLastDigit(card.card_number))" alt="marca-tarjeta" class="img-card-brand"/>
+          <h4>******{{ cardLastFourDigits(card.card_number) }}</h4>
           <img src="@/assets/angle-right.png" alt="flecha-derecha" class="user-payment-flecha-derecha"/>
         </div>
       </div>
@@ -62,7 +62,7 @@ export default {
       this.$router.push({path: "/card-info", query: { uuid }});
     },
     getPaymentMethods(){
-      axios.get(hostMixin.data().host + 'api/card/' + this.sessionInfo.user.uuid)
+      axios.get(hostMixin.data().host + 'api/card/?' + this.sessionInfo.user.uuid)
       .then(response => {
           this.cards = response.data;
         })
@@ -81,16 +81,15 @@ export default {
       this.$router.push("/add-card");
     },
     cardLastDigit(card){
-      const lastChar = card.charAt(card.length - 1);
+      const lastChar = card.slice(- 1);
       this.lastCharacter = parseInt(lastChar, 10);
       return this.lastCharacter;
     },
+    cardLastFourDigits(card){
+      return card.slice(-4)
+    },
+
   },
-  computed: {
-  formattedCard() {
-    return this.cards.card_number.map(card => card.slice(-4));
-  }
-},
 };
 </script>
 

@@ -21,8 +21,15 @@
               class="in-validation-code"
               id="validation-code"
             />
+            <div v-if="showError" class="error-message">
+              Ingresa un código de verrificacion válido.
+            </div>
           </div>
-          <button type="submit" class="btn-code-validation" @click="validateCode">
+          <button
+            type="submit"
+            class="btn-code-validation"
+            @click="validateVerificationCode"
+          >
             Validar código
           </button>
         </form>
@@ -36,11 +43,17 @@
 
 <script>
 import SignUpHeader from "../SignUpPage/SignUpHeader.vue";
+import hostMixin from "@/mixins/host.js";
+import axios from "axios";
+
 export default {
   components: { SignUpHeader },
+  mixins: [hostMixin],
   data() {
     return {
       code: "",
+      showError: false,
+      email: "",
     };
   },
   methods: {
@@ -50,7 +63,28 @@ export default {
     validateCode() {
       this.$router.push("/password-change");
     },
+    validateVerificationCode() {
+      const data = {
+        email: this.email,
+        validation_code: this.code,
+      };
+      axios
+        .post(hostMixin.data().host + "api/verify_code", data)
+        .then((response) => {
+          console.log(response.data);
+          const userUUID = response.data.message.user_uuid;
+          const validationCode = this.code;
+          this.$router.push({path: "/password-change", query: {userUUID, validationCode}});
+        })
+        .catch((error) => {
+          console.error("Error fetching email:", error.response.data);
+          this.showError = true;
+        });
+    },
   },
+  mounted() {
+    this.email = this.$route.query.email;
+  }
 };
 </script>
 

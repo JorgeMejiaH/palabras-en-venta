@@ -23,7 +23,7 @@
         Ingresa un correo electrónico válido.
       </div>
       <div class="botones">
-        <button class="boton-recuperar" @click="sendValidationCode">
+        <button class="boton-recuperar" @click="sendVerificationCode">
           Recuperar contraseña
         </button>
         <button class="boton-cancelar" @click="cancelarV">Cancelar</button>
@@ -53,9 +53,13 @@
 
 <script>
 import SignUpHeader from "@/components/SignUpPage/SignUpHeader.vue";
+import hostMixin from "@/mixins/host.js";
+import axios from 'axios';
+
 
 export default {
   components: { SignUpHeader },
+  mixins: [hostMixin],
 
   data() {
     return {
@@ -89,43 +93,22 @@ export default {
         this.$router.push("/email");
       }
     },
-  },
-  /* sendVerificationCode() {
-      if (!this.isValidEmail) return;
-
-      // Aquí enviarías el código de verificación al correo electrónico ingresado
-      // Puedes usar servicios de correo electrónico como SendGrid, Nodemailer, etc.
-      // Por ejemplo, puedes llamar a una API que envíe el correo con el código de verificación.
-      // Después de enviar el correo, podrías redirigir al usuario a la página donde ingrese el código.
-
-      // Ejemplo de llamada a una API ficticia para enviar el correo
-      const verificationCode = Math.floor(10000 + Math.random() * 90000);
-      const requestBody = {
-        email: this.email,
-        verificationCode: verificationCode,
-      };
-
-      // Llamada a la API ficticia
-      // Aquí deberías hacer una llamada real a tu backend para enviar el correo
-      fetch("https://tu-api.com/enviar-codigo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      })
+    sendVerificationCode() {
+      const data = {
+        email: this.Email
+      }
+      axios
+        .post(hostMixin.data().host + "api/password/send_code/", data)
         .then((response) => {
-          if (response.ok) {
-            // Enviar el usuario a la página donde ingrese el código de verificación
-            this.$router.push("/validation-code");
-          } else {
-            console.error("Error al enviar el código de verificación");
-          }
+          console.log(response.data);
+          this.$router.push({ path: "/validation-code", query: { email: this.Email } });
         })
         .catch((error) => {
-          console.error("Error al enviar el código de verificación:", error);
-      });
-  }, */
+          console.error("Error fetching email:", error.response.data);
+          this.showError = true;
+        });
+    },
+  },
 };
 </script>
 

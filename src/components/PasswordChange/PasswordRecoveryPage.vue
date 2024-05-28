@@ -53,6 +53,9 @@
                 @change="toggleVerifiedShowPassword"
               />
             </label>
+            <div v-if="showError" class="error-message">
+              Ingresa un correo electrónico válido.
+            </div>
           </div>
         </div>
       </div>
@@ -65,7 +68,11 @@
         </h4>
       </div>
       <div class="btn-changingpass-container">
-        <button type="submit" class="btn-save-password-change-page" @click="safeNewPassword">
+        <button
+          type="submit"
+          class="btn-save-password-change-page"
+          @click="saveNewPassword"
+        >
           Guardar cambios
         </button>
       </div>
@@ -75,14 +82,21 @@
 
 <script>
 import SignUpHeader from "../SignUpPage/SignUpHeader.vue";
+import hostMixin from "@/mixins/host.js";
+import axios from "axios";
+
 export default {
   components: { SignUpHeader },
+  mixins: [hostMixin],
   data() {
     return {
       newPassword: "",
       showNewPassword: false,
       verifiedPassword: "",
       showVerifiedPassword: false,
+      userUUID: "",
+      validationCode: "",
+      showError: false,
     };
   },
   methods: {
@@ -93,14 +107,32 @@ export default {
       this.showPassword = !this.showPassword;
     },
     handleVerifyPasswordChange(event) {
-      this.password = event.target.value;
+      this.verifiedPassword = event.target.value;
     },
     toggleShowVerifiedPassword() {
       this.showPassword = !this.showPassword;
     },
-    safeNewPassword() {
-      this.$router.push("/login");
+    saveNewPassword() {
+      const data = {
+        uuid_user: this.userUUID,
+        password: this.verifiedPassword,
+        validation_code: this.validationCode,
+      };
+      axios
+        .post(hostMixin.data().host + "api/password/change_password/", data)
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push("/login");
+        })
+        .catch((error) => {
+          console.error("Error fetching password:", error.response.data);
+          this.showError = true;
+        });
     },
+  },
+  mounted() {
+    this.userUUID = this.$route.query.userUUID;
+    this.validationCode = this.$route.query.validationCode;
   },
 };
 </script>
