@@ -13,15 +13,34 @@ import UserAddAddressView from "@/views/UserAddAddressView"
 import RecoveryEmailView from "@/views/RecoveryEmailView.vue";
 import GenreEditView from "@/views/GenreEditView"
 import UserPaymentView from "@/views/UserPaymentView";
+import AddPaymentCard from "@/views/AddPaymentCard"
 import CardView from "@/views/CardView"
-import AddCardView from "@/views/AddCardView"
-import Test from "@/views/Test"
+import Test from "@/views/HomePage"
+import HomePage from "@/views/HomePage.vue";
+import BestSellersView from "@/views/BestSellerView.vue";
+import NewBooks from "@/views/newBooksView"
+import RecomendedBooks from "@/views/RecomendedBooksView"
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: HomePage,
+  },
+  {
+    path: "/best-seller",
+    name: "best-seller",
+    component: BestSellersView,
+  },
+  {
+    path: "/new-books",
+    name: "new-books",
+    component: NewBooks,
+  },
+  {
+    path: "/recomended-books",
+    name: "recomended-books",
+    component: RecomendedBooks,
   },
   {
     path: "/login",
@@ -89,19 +108,19 @@ const routes = [
     component: UserPaymentView,
   },
   {
-    path: "/test",
-    name: "test",
-    component: Test,
-  },
-  {
     path: "/card-info",
     name: "card-info",
     component: CardView,
   },
   {
-    path: "/new-card",
-    name: "new-card",
-    component: AddCardView,
+    path: "/add-card",
+    name: "add-card",
+    component: AddPaymentCard,
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: Test,
   },
 ];
 

@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       selectedOption: "Usuario",
-      options: ["Iniciar seción", "Regístate"],
+      options: ["Iniciar seción", "Regístate", "Informacion personal"],
       optionRoutes: {
         "Iniciar seción": "/login",
         "Regístate": "/sign-up",

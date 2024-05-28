@@ -1,6 +1,6 @@
 <template>
   <div class="Navbar">
-    <img src="@/assets/logo.png" alt="Logo de la pagina" class="nav-img-logo" />
+    <img src="@/assets/logo.png" alt="Logo de la pagina" class="nav-img-logo" @click="navigateToHome"/>
     <div class="nav-grouped">
       <input
         type="text"
@@ -46,6 +46,11 @@ import DropdownUser from "./DropdownUser.vue";
 export default {
   components: { DropdownCategory, DropdownUser },
   name: "navbar",
+  methods:{
+    navigateToHome(){
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 

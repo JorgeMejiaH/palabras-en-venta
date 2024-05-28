@@ -37,6 +37,11 @@
           </div>
         </div>
       </div>
+      <div class="btn-save-password-change-container">
+        <button type="submit" class="btn-save-password-change">
+          Guardar cambios
+        </button>
+      </div>
     </div>
     <Footer containerClass="footer-container-user-genre-edit" />
   </div>

@@ -7,15 +7,18 @@
         <h1 class="payment-method-txt">Métodos de pago</h1>
       </div>
       <div class="button-container">
-        <button class="add-payment-method">
+        <button class="add-payment-method" @click="navigateToAddCard">
           <img src="@/assets/add.png" alt="agregrar" class="img-add-user-payment">
           <span class="add-payment-text">Agregar método de pago</span>
         </button>
       </div>
       <div class="user-payment-info-container" @click="sendToCardView">
+        <div class="user-payment-saldo">
+          <h4></h4>
+        </div>
         <div v-for="(card, index) in formattedCard" :key="index" class="payment-card">
+          <img :src="getCardImage(cardLastDigit(card))" alt="marca-tarjeta" class="img-card-brand"/>
           <h4>******{{ card }}</h4>
-
           <img src="@/assets/angle-right.png" alt="flecha-derecha" class="user-payment-flecha-derecha"/>
         </div>
       </div>
@@ -66,6 +69,21 @@ export default {
         .catch(error => {
           console.error('Error fetching payments:', error);
         });
+    },
+    getCardImage(cardLastDigit){
+      if(cardLastDigit % 2 == 0){
+        return require(`@/assets/visa.png`);
+      }else{
+        return require(`@/assets/mastercard.png`);
+      }
+    },
+    navigateToAddCard(){
+      this.$router.push("/add-card");
+    },
+    cardLastDigit(card){
+      const lastChar = card.charAt(card.length - 1);
+      this.lastCharacter = parseInt(lastChar, 10);
+      return this.lastCharacter;
     },
   },
   computed: {
@@ -169,6 +187,6 @@ export default {
   padding: 5px;
 }
 .user-payment-flecha-derecha{
-  margin-left: 85%;
+  margin-left: auto;
 }
 </style>
