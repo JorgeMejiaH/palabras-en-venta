@@ -12,11 +12,11 @@
           <span class="add-payment-text">Agregar método de pago</span>
         </button>
       </div>
-      <div class="user-payment-info-container" @click="sendToCardView">
+      <div class="user-payment-info-container">
         <div class="user-payment-saldo">
           <h4></h4>
         </div>
-        <div v-for="(card, index) in cards" :key="index" class="payment-card">
+        <div v-for="(card, index) in cards" :key="index" class="payment-card" @click="sendToCardView(card.uuid)">
           <img :src="getCardImage(cardLastDigit(card.card_number))" alt="marca-tarjeta" class="img-card-brand"/>
           <h4>******{{ cardLastFourDigits(card.card_number) }}</h4>
           <img src="@/assets/angle-right.png" alt="flecha-derecha" class="user-payment-flecha-derecha"/>

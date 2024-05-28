@@ -31,8 +31,10 @@
             <h3>{{ card.card_number }}</h3>
           </div>
           <div class="card-details-3r">
-            <h5>Fecha de expiración</h5>
-            <h5>{{ card.expiration_date }}</h5>
+            <h5>Fecha de expiración: {{ card.expiration_date }}</h5>
+          </div>
+          <div class="card-details-4r">
+            <h5>Saldo: ${{ card.amount }}</h5>
           </div>
         </div>
       </div>
@@ -59,6 +61,7 @@ export default {
         card_type: null,
         amount: null,
       },
+      cardUUID: "",
     };
   },
   created() {
@@ -68,6 +71,9 @@ export default {
     }
   },
   methods: {
+    navigateToPaymentView(){
+      this.$router.push("/payment-method");
+    },
     fetchCardDetails(uuid) {
       axios
         .get(hostMixin.data().host + "api/card/" + uuid)
@@ -81,11 +87,11 @@ export default {
     deleteCard(uuid){
       axios
         .delete(hostMixin.data().host + "api/card/" + uuid)
-        .then(navigateToPaymentView())
+        .then(this.navigateToPaymentView())
     },
-    navigateToPaymentView(){
-      this.$router.push("/payment-method");
-    },
+  },
+  mounted(){
+    this.cardUUID = this.$route.query.uuid
   },
 };
 </script>
