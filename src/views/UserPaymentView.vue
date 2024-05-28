@@ -14,7 +14,7 @@
       </div>
       <div class="user-payment-info-container" @click="sendToCardView">
         <div class="user-payment-saldo">
-          <h4>Saldo : ${{ saldo }}</h4>
+          <h4></h4>
         </div>
         <div v-for="(card, index) in formattedCard" :key="index" class="payment-card">
           <img :src="getCardImage(cardLastDigit(card))" alt="marca-tarjeta" class="img-card-brand"/>

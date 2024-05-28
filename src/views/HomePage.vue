@@ -33,7 +33,7 @@
     <div class="home-news-container">
       <div class="class-header">
         <h1 class="home-news-txt">Novedades</h1>
-        <button class="home-see-more">VER MÁS</button>
+        <button class="home-see-more" @click="navigateToNewBooks">VER MÁS</button>
       </div>
       <div class="home-new-books-container">
         <div
@@ -48,7 +48,7 @@
     <div class="home-recomended-container">
       <div class="class-header">
         <h1 class="home-recomended-txt">Recomendados</h1>
-        <button class="home-see-more">VER MÁS</button>
+        <button class="home-see-more" @click="navigatedToRecomended">VER MÁS</button>
       </div>
       <div class="home-recomended-books-container">
         <div
@@ -63,7 +63,7 @@
     <div class="home-bestseller-container">
       <div class="class-header">
         <h1 class="home-bestseller-txt">Más vendidos</h1>
-        <button class="home-see-more">VER MÁS</button>
+        <button class="home-see-more" @click="navigateToBestSeller">VER MÁS</button>
       </div>
       <div class="home-best-seller-books-container">
         <div
@@ -121,6 +121,15 @@ export default {
     getimagepath(TituloLibro) {
       const formattedTitle = TituloLibro.toLowerCase().replace(/\s+/g, "");
       return require(`@/assets/${formattedTitle}.png`);
+    },
+    navigateToBestSeller(){
+      this.$router.push('/best-seller')
+    },
+    navigateToNewBooks(){
+      this.$router.push('/new-books')
+    },
+    navigatedToRecomended(){
+      this.$router.push('/recomended-books')
     },
   },
 };

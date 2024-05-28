@@ -58,6 +58,8 @@ export default {
   background-color: #7CB9F2;
   height: 75vh;
   padding: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .filter-group {

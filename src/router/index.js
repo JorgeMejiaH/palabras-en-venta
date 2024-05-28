@@ -16,12 +16,31 @@ import UserPaymentView from "@/views/UserPaymentView";
 import AddPaymentCard from "@/views/AddPaymentCard"
 import CardView from "@/views/CardView"
 import Test from "@/views/HomePage"
+import HomePage from "@/views/HomePage.vue";
+import BestSellersView from "@/views/BestSellerView.vue";
+import NewBooks from "@/views/newBooksView"
+import RecomendedBooks from "@/views/RecomendedBooksView"
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: HomePage,
+  },
+  {
+    path: "/best-seller",
+    name: "best-seller",
+    component: BestSellersView,
+  },
+  {
+    path: "/new-books",
+    name: "new-books",
+    component: NewBooks,
+  },
+  {
+    path: "/recomended-books",
+    name: "recomended-books",
+    component: RecomendedBooks,
   },
   {
     path: "/login",

@@ -4,8 +4,9 @@
     <options routeOptionsContainer="user-card-info-routes"/>
     <div Class="card-detail-container">
       <div class="personalinfo-edit">
-        <router-link to="/payment-method">
-          <h6 class="backto-payment-methods">Métodos de pago</h6>
+        <router-link to="/payment-method" class="card-info-router">
+          <img src="@/assets/angle-left.png" alt="flecha-izquierda" />
+          Métodos de pago
         </router-link>
         <div class="card-delete-container">
           <img src="@/assets/trash-can.png" alt="trash-can" class="card-trash-can">
@@ -49,6 +50,11 @@ export default {
 </script>
 
 <style>
+.card-info-router{
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
 .user-card-info-routes{
   position: absolute;
   background-color: rgba(34, 33, 33, 0.6);
