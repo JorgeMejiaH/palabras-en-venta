@@ -93,37 +93,6 @@ export default {
     Footer,
     Options,
   },
-  data(){
-    return{
-      UserName: "Jorge",
-      userNames: "Jorge Alejandro",
-      userEmail: "j.mejia2@utp",
-      userDocType: "cc",
-      userLastNames: "Mejia",
-      userBirthPlace: "",
-      userDateBirth: "",
-      userDocNumber: "",
-      
-    }  
-  },
-  data(){
-    return {
-      sessionInfo: null,
-      userInfo: {
-          first_name: null, 
-          last_name: null,
-          birth_date: null,
-          place_birth: null,
-          document_type: null,
-          document_number: null,
-          want_spam: null,
-          gender: null,
-          notice_selection: null,
-          literary_genres: null,
-          is_active: null,
-      },
-    };
-  },
   beforeMount(){
     // this.fetchDocumentTypes();
     console.log("Creating");
@@ -164,9 +133,8 @@ export default {
     },
     getUserInfo(){
 
-      axios.get(hostMixin.data().host + 'api/user/' + this.sessionInfo.user.uuid, {
-      headers: {}
-          })
+      axios
+        .get(hostMixin.data().host + 'api/user/' + this.sessionInfo.user.uuid)
         .then(response => {
           this.userInfo = response.data;
         })

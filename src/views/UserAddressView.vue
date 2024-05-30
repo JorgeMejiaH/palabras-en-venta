@@ -29,16 +29,17 @@
           <button class="edit-boton" @click="editarDireccion(address.uuid)">
             Editar <img class="edit-img" src="@/assets/pen-to-square.png" />
           </button>
+          <button class="edit-boton" @click="deleteDirection(address.uuid)">
+            Eliminar <img class="edit-img" src="@/assets/trash-can.png" />
+          </button>
         </div>
         <div class="datos">
           <div>
             <p class="columna" id="nombre-direccion">
-              <strong>Nombre de la dirección</strong><br />{{
-                address.name
-              }}
+              <strong>Nombre de la dirección</strong><br />{{ address.name }}
             </p>
             <p class="columna" id="direccion">
-              <strong>Dirección</strong><br />{{ address.address_description }}
+              <strong>Dirección</strong><br />{{ address.address }}
             </p>
           </div>
           <div>
@@ -46,7 +47,7 @@
               <strong>Tipo de vivienda</strong><br />{{ address.address_type }}
             </p>
             <p class="columna" id="ciudad">
-              <strong>Ciudad</strong><br />{{ address.city }}
+              <strong>Ciudad</strong><br />{{ getCityName(address.city) }}
             </p>
           </div>
         </div>
@@ -60,7 +61,7 @@
 import Options from "@/components/User/Options.vue";
 import Footer from "@/components/Footer.vue";
 import Navbar from "@/components/Navbar/Navbar.vue";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import axios from "axios";
 import hostMixin from "@/mixins/host.js";
 export default {
@@ -78,6 +79,7 @@ export default {
       sessionInfo: null,
 
       adresses: [],
+      cities: [],
     };
   },
   beforeMount() {
@@ -85,11 +87,25 @@ export default {
     console.log("Creating");
     this.sessionInfo = JSON.parse(this.getTokenFromCookie());
     this.getUserAddress();
+    this.fetchCities();
+    console.log("addreses: " + this.addresses);
   },
   methods: {
     getTokenFromCookie() {
       // Retrieve the token from the cookie
       return Cookies.get("loginToken");
+    },
+    fetchCities() {
+      // Make a GET request to fetch cities
+      axios
+        .get(hostMixin.data().host + "/api/cities/")
+        .then((response) => {
+          // Update the cities array with the fetched data
+          this.cities = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching cities:", error);
+        });
     },
     añadirDireccion() {
       if (this.adresses.length < 3) {
@@ -100,16 +116,36 @@ export default {
     },
     editarDireccion(uuid) {
       this.$router.push({ path: "/address-edit", query: { uuid } });
+      console.log(uuid);
     },
     getUserAddress() {
       axios
-        .get(hostMixin.data().host + "api/address/")
+        .get(
+          hostMixin.data().host +
+            "api/address/?user__uuid=" +
+            this.sessionInfo.user.uuid
+        )
         .then((response) => {
           this.adresses = response.data;
         })
         .catch((error) => {
           console.error("Error fetching address:", error);
         });
+    },
+    deleteDirection(uuid) {
+      axios
+        .delete(hostMixin.data().host + "api/address/" + uuid)
+        .then((response) => {
+          console.log(response.data);
+          this.getUserAddress();
+        })
+        .catch((error) => {
+          console.error("Error deleting direction: ", error);
+        });
+    },
+    getCityName(cityId) {
+      const city = this.cities.find((city) => city.id === cityId);
+      return city ? city.name : "Ciudad no encontrada";
     },
   },
 };

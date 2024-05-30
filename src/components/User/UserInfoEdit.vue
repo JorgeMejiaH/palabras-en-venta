@@ -353,10 +353,7 @@ export default {
       };
       console.log(data);
       axios
-        .post(
-          hostMixin.data().host + "api/user/" + this.sessionInfo.user.uuid,
-          data
-        )
+        .post(hostMixin.data().host + "api/user/" + this.sessionInfo.user.uuid, data)
         .then((response) => {
           console.log(response.data);
           this.saveAndNavigateToUserInfo();

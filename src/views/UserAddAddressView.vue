@@ -54,7 +54,7 @@
 
             <div class="place-of-birth-container">
               <label for="PlaceOfBirth" class="lbl-birth-place"
-                >Ciudad de nacimiento:</label
+                >Ciudad:</label
               >
               <select
                 v-model="placeOfBirth"
@@ -108,6 +108,7 @@ export default {
         selectType: "",
         address: "",
         description: "",
+        city: null,
         cities: [],
         PlaceOfBirth: null,
         isValidPlaceOfBirth: true,
@@ -142,17 +143,7 @@ export default {
     },
     handleChange(event) {
       const city_id = event.target.value;
-
-      if (city_id == "null") {
-        this.isValidPlaceOfBirth = false;
-      } else {
-        this.isValidPlaceOfBirth = true;
-      }
-
-      this.$emit("validBirthPlace", {
-        city_id: city_id,
-        is_valid: city_id != "null" ? true : false,
-      });
+      this.city = city_id
     },
     postAddress() {
       const data = {
@@ -161,7 +152,7 @@ export default {
         address_type: this.selectType,
         address_description: this.description,
         address: this.address,
-        city: this.PlaceOfBirth,
+        city: this.city,
       };
       console.log(data)
       axios.post(hostMixin.data().host + 'api/address/', data)

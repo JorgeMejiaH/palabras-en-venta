@@ -18,8 +18,8 @@
           class="home-title-books-img"
         >
           <img
-            :src="getimagepath(book)"
-            :alt="`${book} genre`"
+            :src="book.image"
+            :alt="book.title"
             class="title-books-img"
           />
         </div>
@@ -75,6 +75,20 @@
         </div>
       </div>
     </div>
+    <div class="all-books-container">
+      <div class="class-header">
+        <h1 class="home-all-books-txt">Todos nuestos Libros</h1>
+      </div>
+      <div class="home-all-books-container">
+        <div
+          v-for="(book, index) in allBooks"
+          :key="index"
+          class="home-all-books"
+        >
+          <books :TituloLibro="book" />
+        </div>
+      </div>
+    </div>
     <Footer containerClass="footer-container-home" />
   </div>
 </template>
@@ -83,20 +97,19 @@
 import Navbar from "@/components/Navbar/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 import Books from "@/components/Books.vue";
+import hostMixin from "@/mixins/host.js";
+import axios from 'axios';
+
 export default {
   components: {
     Navbar,
     Footer,
     Books,
   },
+  mixins: [hostMixin],
   data() {
     return {
-      books: [
-        "El sastre de Gloucester",
-        "El sastre de Gloucester",
-        "El sastre de Gloucester",
-        "El sastre de Gloucester",
-      ],
+      books: [],
       newBooks: [
         "El sastre de Gloucester",
         "El sastre de Gloucester",
@@ -115,7 +128,17 @@ export default {
         "El sastre de Gloucester",
         "El sastre de Gloucester",
       ],
+      allBooks: [
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+      ],
     };
+  },
+  beforeMount(){
+    console.log("Creating");
+    this.fetchBooksList();
   },
   methods: {
     getimagepath(TituloLibro) {
@@ -130,6 +153,16 @@ export default {
     },
     navigatedToRecomended(){
       this.$router.push('/recomended-books')
+    },
+    fetchBooksList(){
+      axios.get(hostMixin.data().host + 'api/book/')
+        .then(response => {
+          this.books = response.data;
+          console.log(this.books)
+        })
+        .catch(error => {
+          console.error('Error fetching books:', error);
+        });
     },
   },
 };
@@ -158,7 +191,8 @@ export default {
 .home-page-title-books,
 .home-new-books-container,
 .home-recomended-books-container,
-.home-best-seller-books-container {
+.home-best-seller-books-container,
+.home-all-books-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -190,13 +224,15 @@ export default {
 }
 .home-news-txt,
 .home-recomended-txt,
-.home-bestseller-txt{
+.home-bestseller-txt,
+.home-all-books-txt{
   margin-left: 3%;
   color: black;
   font-weight: bold;
   text-decoration-line: underline;
 }
-.home-recomended-container{
+.home-recomended-container,
+.all-books-container{
   background-color: #efeced;
   padding: 10px;
 }
