@@ -22,7 +22,7 @@
             <label for="firstName" class="lbl-user-name">Nombres:</label>
             <input
               type="text"
-              :value="nombre"
+              v-model="nombre"
               @input="handleNamesLastnames"
               class="in-user-input-names"
               id="name"
@@ -30,7 +30,7 @@
             <label for="lastName" class="lbl-user-lastname">Apellidos:</label>
             <input
               type="text"
-              :value="apellido"
+              v-model="apellido"
               @input="handleNamesLastnames"
               class="in-user-input-names"
               id="lastName"
@@ -53,11 +53,9 @@
             </div>
           </div>
           <div class="place-of-birth-container">
-            <label for="PlaceOfBirth" class="lbl-birth-place"
-              >Ciudad de nacimiento:</label
-            >
+            <label for="PlaceOfBirth" class="lbl-birth-place">Ciudad de nacimiento:</label>
             <select
-              v-model="placeOfBirth"
+              v-model="PlaceOfBirth"
               @change="handleCities"
               id="birth-place"
               class="in-user-input"
@@ -67,42 +65,26 @@
                 {{ city.name }}
               </option>
             </select>
-            <div v-if="!isValidPlaceOfBirth" class="error-message">
-              Ingresa un lugar de nacimiento válido.
-            </div>
           </div>
           <div class="document-type-container">
-            <label for="DocumentType" class="lbl-document-type"
-              >Tipo de documento:</label
-            >
+            <label for="DocumentType" class="lbl-document-type">Tipo de documento:</label>
             <select
               v-model="DocumentType"
               @change="handleDocumentType"
-              id="birth-place"
+              id="document-type"
               class="in-user-input"
             >
-              <option value="null" disabled>
-                Selecciona una tipo de documento
-              </option>
-              <option
-                v-for="DocumentType in DocumentTypes"
-                :key="DocumentType.value"
-                :value="DocumentType.value"
-              >
+              <option value="null" disabled>Selecciona un tipo de documento</option>
+              <option v-for="DocumentType in DocumentTypes" :key="DocumentType.value" :value="DocumentType.value">
                 {{ DocumentType.description }}
               </option>
             </select>
-            <div v-if="docTypeError" class="error-message">
-              Ingresa un tipo de documento valido.
-            </div>
           </div>
           <div class="document-number-container">
-            <label for="DocumentNumber" class="lbl-document-number"
-              >Numero de documento:</label
-            >
+            <label for="DocumentNumber" class="lbl-document-number">Numero de documento:</label>
             <input
               type="text"
-              :value="DocumentNumber"
+              v-model="DocumentNumber"
               @input="handleDocNumber"
               id="document-number"
               class="in-user-input"
@@ -115,12 +97,10 @@
             <input
               type="checkbox"
               id="myCheckbox"
-              v-model="isChecked"
+              v-model="spamIsChecked"
               @change="handleSpamCheckbox"
             />
-            <label for="myCheckbox" class="checkbox-label"
-              >Permite recibir novedades via email</label
-            >
+            <label for="myCheckbox" class="checkbox-label">Permite recibir novedades via email</label>
           </div>
         </div>
         <div class="user-info-edit-btn">
@@ -145,36 +125,38 @@ import Options from "../User/Options.vue";
 import axios from "axios";
 import Cookies from "js-cookie";
 import hostMixin from "@/mixins/host.js";
+import flatpickr from "flatpickr";
+
 export default {
   mixins: [hostMixin],
-  beforeMount() {
-    // this.fetchDocumentTypes();
-    console.log("Creating");
-    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
-  },
   components: {
     Navbar,
     Footer,
     Options,
   },
+  beforeMount() {
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+    this.fetchCities();
+    this.fetchDocumentTypes();
+    this.getUserInfo();
+    console.log(this.sessionInfo.user.uuid)
+  },
   data() {
     return {
       nombre: "",
       apellido: "",
-      dob: null,
+      dob: "",
       cities: [],
       PlaceOfBirth: null,
       DocumentNumber: "",
       spamIsChecked: false,
-      validNames: false,
-      validDate: false,
-      validBirthPlace: false,
-      documentoValido: false,
-      tipoDocumentoValido: false,
+      validNames: true,
+      validDate: true,
+      documentoValido: true,
       dobError: false,
       flatpickrConfig: {
-        dateFormat: "d-m-Y",
-        defaultDate: this.getEighteenYearsAgo(),
+        dateFormat: "Y-m-d",
       },
       DocumentTypes: [],
       DocumentType: null,
@@ -196,42 +178,43 @@ export default {
       },
     };
   },
-  beforeMount(){
-    this.fetchCities();
-    console.log(this.cities)
-    this.fetchDocumentTypes()
-  },
   computed: {
     formularioValido() {
       return (
         this.validNames &&
         this.validDate &&
-        this.documentoValido &&
-        this.tipoDocumentoValido &&
-        this.validBirthPlace
+        this.documentoValido
       );
     },
   },
   methods: {
-    fetchDocumentTypes(){
-      axios.get(hostMixin.data().host + '/api/choices/users/user/document_type')
-        .then(response => {
-          // Update the cities array with the fetched data
-          this.DocumentTypes = response.data;
+    getUserInfo() {
+      axios
+        .get(hostMixin.data().host + "api/user/" + this.sessionInfo.user.uuid)
+        .then((response) => {
+          const data = response.data;
+          this.nombre = data.first_name;
+          this.apellido = data.last_name;
+          this.dob = data.birth_date;
+          this.PlaceOfBirth = data.place_birth;
+          this.DocumentType = data.document_type;
+          this.DocumentNumber = data.document_number;
+          this.spamIsChecked = data.want_spam;
+          this.userInfo = data;
         })
-        .catch(error => {
-          console.error('Error fetching cities:', error);
+        .catch((error) => {
+          console.error("Error fetching user info:", error);
         });
     },
-    handleDocumentType(event) {
-      const typeValue = event.target.value;
-      console.log(typeValue)
-
-      if(typeValue == 'null'){
-        this.tipoDocumentoValido = false;
-      }else{
-        this.tipoDocumentoValido = true;
-      }
+    fetchDocumentTypes() {
+      axios
+        .get(hostMixin.data().host + "/api/choices/users/user/document_type")
+        .then((response) => {
+          this.DocumentTypes = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching document types:", error);
+        });
     },
     getEighteenYearsAgo() {
       const today = new Date();
@@ -242,11 +225,9 @@ export default {
       );
     },
     fetchCities() {
-      // Make a GET request to fetch cities
       axios
         .get(hostMixin.data().host + "/api/cities/")
         .then((response) => {
-          // Update the cities array with the fetched data
           this.cities = response.data;
         })
         .catch((error) => {
@@ -255,54 +236,34 @@ export default {
     },
     handleCities(event) {
       const city_id = event.target.value;
-      this.PlaceOfBirth = event.target.value;
-      console.log(city_id)
-
-      if (city_id == "null") {
-        this.validBirthPlace = false;
-      } else {
-        this.validBirthPlace = true;
-      }
+      this.PlaceOfBirth = city_id;
     },
     getTokenFromCookie() {
-      // Retrieve the token from the cookie
       return Cookies.get("loginToken");
     },
     handleNamesLastnames(event) {
       const property = event.target.id === "name" ? "nombre" : "apellido";
-      const value = event.target.value.trim(); // Elimina los espacios en blanco al principio y al final
+      const value = event.target.value.trim();
       const isValid = value !== "";
       this.validNames = isValid;
-
-      if (isValid) {
-        this[property] = value;
-        this.nameErrorMessage = "";
-      } else {
-        // Si el valor está vacío, establece el valor de la propiedad en una cadena vacía
-        this[property] = "";
-        // Puedes mostrar un mensaje de error o realizar alguna otra acción para indicar al usuario que el campo es obligatorio
-        this.nameErrorMessage = `El ${property} no puede estar vacío`;
-      }
+      this[property] = value;
+      this.nameErrorMessage = isValid ? "" : `El ${property} no puede estar vacío`;
     },
     validateDob() {
       const dobParts = this.dob.split("-");
-      const selectedDate = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]);
+      const selectedDate = new Date(dobParts[0], dobParts[1] - 1, dobParts[2]);
       const currentDate = new Date();
-      currentDate.setHours(0, 0, 0, 0);
       const eighteenYearsAgo = new Date(
         currentDate.getFullYear() - 18,
         currentDate.getMonth(),
         currentDate.getDate()
       );
-      eighteenYearsAgo.setHours(0, 0, 0, 0);
       const hundredYearsAgo = new Date(
         currentDate.getFullYear() - 100,
         currentDate.getMonth(),
         currentDate.getDate()
       );
-      hundredYearsAgo.setHours(0, 0, 0, 0);
 
-      // Validación básica para verificar si la fecha de nacimiento es una fecha válida.
       if (
         isNaN(selectedDate.getTime()) ||
         selectedDate < hundredYearsAgo ||
@@ -310,11 +271,10 @@ export default {
       ) {
         this.dobError = true;
         this.validDate = false;
-        this.$emit("fechaValida", this.validDate);
       } else {
         this.dobError = false;
         this.validDate = true;
-        this.$emit("fechaValida", this.validDate);
+        this.dob = selectedDate.toISOString().split('T')[0]
       }
     },
     handleDocNumber(event) {
@@ -331,7 +291,6 @@ export default {
       }
     },
     handleSpamCheckbox() {
-      // Este método se ejecutará cada vez que el estado del checkbox cambie
       console.log("Estado actual del checkbox:", this.isChecked);
     },
     saveAndNavigateToUserInfo() {
@@ -346,20 +305,20 @@ export default {
         document_type: this.DocumentType,
         document_number: this.DocumentNumber,
         want_spam: this.spamIsChecked,
-        gender: "M",
+        gender: this.userInfo.gender,
         notice_selection: true,
-        literary_genres: [0],
+        literary_genres: [],
         is_active: true,
       };
-      console.log(data);
+      console.log(data)
       axios
-        .post(hostMixin.data().host + "api/user/" + this.sessionInfo.user.uuid, data)
+        .put(hostMixin.data().host + "api/user/" + this.sessionInfo.user.uuid + "/", data)
         .then((response) => {
           console.log(response.data);
           this.saveAndNavigateToUserInfo();
         })
         .catch((error) => {
-          console.error("Error fetching data:", error.response.data);
+          console.error("Error updating user data:", error.response.data);
           this.message = error.response.data;
         });
     },
