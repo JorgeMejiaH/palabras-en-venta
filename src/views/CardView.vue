@@ -48,6 +48,7 @@ import Navbar from "@/components/Navbar/Navbar.vue";
 import hostMixin from "@/mixins/host.js";
 import axios from "axios";
 export default {
+  mixins: [hostMixin],
   components: { Options, Navbar },
   data() {
     return {

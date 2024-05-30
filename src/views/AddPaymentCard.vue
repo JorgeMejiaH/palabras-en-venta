@@ -15,69 +15,59 @@
               <div class = 'card-edit-number'>
                 <label for = 'card-number-in-edit' class = 'lbl-card-number-edit'>*Número de tarjeta: </label>
                 <input
-                  :type="text"
+                  type="text"
                   id = "edit-new-card-number"   
-                  :v-model = "editCardNumer"          
+                  v-model = "editCardNumer"  
+                  @input="formatCardNumber"        
                   class = "edit-new-card-id"              
                 />
               </div>
               <div class = "card-edit-input">
                 <label for = 'card-name-in-edit' class = 'lbl-card-edit-input'>*Nombre: </label>
                 <input
-                  :type="text"
+                  type="text"
                   id = "edit-new-card-name"
-                  :v-model = 'editCardName'
+                  v-model = 'editCardName'
                   class = 'edit-card-input-textfield'
                 />
               </div>
-              <div class = "card-edit-input">
-                <label for="card-lastname-in-edit" class = 'lbl-card-edit-input'>*Apellido(s): </label>
-                <input 
-                  :type="text"
-                  id = 'edit-new-card-lastname'
-                  :v-model="editCardLastname"
-                  class="edit-card-input-textfield"
-                />
-              </div>
-              <div class = "card-edit-input">
-                <label for="card-expedition-in-edit" class = 'lbl-card-edit-input'>*Fecha de expedición: </label>
-                <input 
-                  :type="text"
-                  id = 'edit-new-card-expedition'
-                  :v-model = 'editCardExpedition'
-                  class="edit-card-input-textfield"
-                />
+              <div class="date-input-container">
+                <label for="dobPicker">Fecha de expiración:</label>
+                <input
+                  id="dobPicker"
+                  v-model="dob"
+                  :config="flatpickrConfig"
+                  @input="validateDob"
+                  class="date-input"
+                 />
+                <div v-if="dobError" class="error-message">
+                  Ingresa una fecha de expiración válida.
+                </div>
               </div>
               <div class = "card-edit-input">
                 <label for="card-code-in-edit" class='lbl-card-edit-input'>*CVC/CVV: </label>
                 <input 
-                  :type="text"
+                  type="text"
                   id = 'edit-new-cvc'
-                  :v-model="editCardCVC"
+                  v-model="editCardCVC"
                   class="edit-card-input-textfield"
                 />
               </div>
               <div class = "card-edit-input">
                 <label for="card-type-in-edit" class='lbl-card-edit-input'>*Tipo de tarjeta</label>
-                <input 
-                  :type="text"
-                  id="edit-new-card-type"
-                  :v-model="editCardType"
-                  class = "edit-card-input-textfield"
-                />
-              </div>
-              <div class = "card-edit-input" >
-                <label for="card-ammount-in-edit">*Monto total: </label>
-                <input 
-                  :type="int"
-                  id = 'edit-new-card-ammount'
-                  :v-model="editCardAmmount"
-                  class = "edit-card-input-textfield"
-                />
+                <select  
+                  id="edit-new-card-type" 
+                  v-model="editCardType" 
+                  class="edit-card-input-textfield"
+                >
+                  <option value="" disabled>Selecciona un tipo de tarjeta</option>
+                  <option value="DE">Debito</option>
+                  <option value="CR">Crédito</option>
+                </select>
               </div>
             </div>
             <div class = 'card-edit-save'>
-              <button type="submit" class="btn-save-password-change">Guardar tarjeta</button>
+              <button type="submit" class="btn-save-password-change" @click="saveCardInfo">Guardar tarjeta</button>
             </div>
           </div>
         </div>
@@ -87,18 +77,91 @@
   <script>
 import Options from "@/components/User/Options.vue";
 import Navbar from "@/components/Navbar/Navbar.vue";
+import Cookies from 'js-cookie';
+import hostMixin from "@/mixins/host.js";
+import axios from 'axios';
 export default {
+  mixins: [hostMixin],
   components: { Options, Navbar },
   data() {
     return {
       editCardNumer: "",
       editCardName: "",
-      editCardLastname: "",
       editCardExpedition: "",
       editCardCVC: "",
       editCardType: "",
-      editCardAmmount: "",
+      editCardAmmount: 100000,
+      sessionInfo: null,
+
+      dob: null,
+      dobError: false,
+      validDate: false,
+      flatpickrConfig: {
+        dateFormat: "Y-m-d",
+      },
     };
+  },
+  beforeMount(){
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+  },
+  methods:{
+    validateDob() {
+      const dobParts = this.dob.split("-");
+      const selectedDate = new Date(dobParts[0], dobParts[1] - 1, dobParts[2]);
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
+      // Validación básica para verificar si la fecha de nacimiento es una fecha válida.
+      if (isNaN(selectedDate.getTime()) || selectedDate <= currentDate) {
+        this.dobError = true;
+        this.validDate = false;
+        //console.log("N "+ selectedDate.toISOString().split('T')[0])
+      } else {
+        this.dobError = false;
+        this.validDate = true;
+        //console.log("S "+ selectedDate.toISOString().split('T')[0])
+        this.editCardExpedition = selectedDate.toISOString().split('T')[0]
+      }
+    },
+    getTokenFromCookie() {
+      // Retrieve the token from the cookie
+      return Cookies.get('loginToken');
+    },
+    saveCardInfo(){
+      const data = {
+        user: this.sessionInfo.user.uuid,
+        name: this.editCardName,
+        card_number: this.editCardNumer,
+        expiration_date: this.editCardExpedition,
+        ccv: this.editCardCVC,
+        card_type: this.editCardType,
+        amount: this.editCardAmmount
+      }
+      console.log(data)
+      axios
+        .post(hostMixin.data().host + 'api/card/', data)
+        .then(response => {
+          console.log(response.data)
+          this.$router.push("/payment-method")
+        })
+        .catch(error => {
+          console.error('Error posting payments:', error);
+        });
+    },
+    formatCardNumber() {
+      let value = this.editCardNumer.replace(/\D/g, ''); // Remove all non-digit characters
+      value = value.slice(0, 16); // Limit to 16 digits
+      let formattedValue = '';
+      for (let i = 0; i < value.length; i += 4) {
+        if (i > 0) formattedValue += '-';
+        formattedValue += value.slice(i, i + 4);
+      }
+      this.editCardNumer = formattedValue;
+    },
+  },
+  mounted() {
+    flatpickr("#dobPicker", this.flatpickrConfig);
   },
 };
 </script>
