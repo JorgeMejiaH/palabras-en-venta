@@ -8,7 +8,6 @@
         <user-names-last-names @validNames="validarNombres" />
         <date-input @fechaValida="validarFecha" />
         <place-of-birth @validBirthPlace="validarLugarNacimiento" />
-        <user-direction @validDirection="validarDireccion" />
         <user-gender @validGenre="validarGenero" />
         <spam-checkbox />
       </div>
@@ -33,24 +32,24 @@
       </h2>
       <div class="genre-select-container">
         <div
-          v-for="category in categories"
-          :key="category.uuid"
+          v-for="genre in literary_genres"
+          :key="genre.uuid"
           class="genre-selection-item"
-          @click="toggleSelection(category)"
+          @click="toggleSelection(genre)"
         >
-          <div :class="{ selected: selectedGenres.includes(category.uuid) }"></div>
+          <div :class="{ selected: selectedGenres.includes(genre.uuid) }"></div>
           <img
-            :src="getImagePath(category.name)"
-            :alt="`${category.name} genre`"
+            :src="genre.image"
+            :alt="`${genre.name} genre`"
             class="genre-image"
           />
           <div class="checkbox-genres-container">
-            <h5 class="genre-name-txt">{{ category.name }}</h5>
+            <h5 class="genre-name-txt">{{ genre.name }}</h5>
             <input
               type="checkbox"
-              :class="'checkbox-GenresUser-' + category.name.toLowerCase()"
+              :class="'checkbox-GenresUser-' + genre.name.toLowerCase()"
               v-model="selectedGenres"
-              :value="category.uuid"
+              :value="genre.uuid"
             />
           </div>
         </div>
@@ -114,7 +113,6 @@ export default {
       validPassword: false,
       validNames: false,
       validBirthPlace: false,
-      validDirection: false,
       validGenre: false,
       validEmail: false,
       validUsername: false,
@@ -125,12 +123,11 @@ export default {
       Password: false,
       Names: false,
       BirthPlace:false,
-      Direction: false,
       Genre: false,
       Email: false,
       Username: false,
       spam: false,
-      categories: [],
+      literary_genres: [],
       selectedGenres: [],
     };
   },
@@ -148,7 +145,6 @@ export default {
         this.validPassword &&
         this.validNames &&
         this.validBirthPlace &&
-        this.validDirection &&
         this.validGenre &&
         this.validEmail &&
         this.validUsername &&
@@ -224,12 +220,12 @@ export default {
       this.$router.push('/');
     },
     getBooksGenres(){
-      axios.get(hostMixin.data().host + 'api/categories', {
+      axios.get(hostMixin.data().host + 'api/literary_genres', {
       headers: {
             }
           })
         .then(response => {
-          this.categories = response.data;
+          this.literary_genres = response.data;
         })
         .catch(error => {
           console.error('Error fetching categories:', error);
@@ -266,7 +262,7 @@ export default {
         password: this.password,
         want_spam: this.spam,
         gender: this.Genre,
-        notice_selection: false,
+        notice_selection: this.spam,
         literary_genres: this.selectedGenres
       }
 

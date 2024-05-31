@@ -50,7 +50,7 @@
       </div>
       <div class="user-info-password-container">
         <h1 class="user-info-password-title">Contraseña</h1>
-        <button class="user-info-btn"  @click="navigateToPasswordChange">
+        <button class="user-info-btn"  @click="navigateToPasswordChange()">
           <span class="user-info-btn-content">Editar</span>
           <img
             src="@/assets/pen-to-square.png"
@@ -144,7 +144,10 @@ export default {
     },
     navigateToGenreEdit(){
       this.$router.push("/genre-edit");
-    }
+    },
+    navigateToPasswordChange(){
+      this.$router.push({path: "/recovery-email"})
+    },
   },
 };
 </script>

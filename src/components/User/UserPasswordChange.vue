@@ -56,7 +56,7 @@
                 @input="handleNewPasswordChange"
                 class="new-user-password-input"
               />
-
+              <p>{{ userUUID }}</p>
               <label for="showPassword" class="lbl-user-show">
                 Mostrar Contraseña:
                 <input
@@ -117,20 +117,25 @@ export default {
     Navbar,
     Footer,
   },
+  beforeMount(){
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+  },
   data() {
     return {
+      sessionInfo: null,
       actualPassword: "",
       showActualPassword: false,
       newPassword: "",
       showNewPassword: false,
       verifiedPassword: "",
       showVerifiedPassword: false,
+      userUUID: "",
     };
   },
   beforeMount() {
     // this.fetchDocumentTypes();
     console.log("Creating");
-    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
   },
   getTokenFromCookie() {
       // Retrieve the token from the cookie
@@ -154,6 +159,9 @@ export default {
     },
     toggleShowVerifiedPassword() {
       this.showPassword = !this.showPassword;
+    },
+    getTokenFromCookie() {
+      return Cookies.get('loginToken');
     },
     updapePassword(){
       const data={
