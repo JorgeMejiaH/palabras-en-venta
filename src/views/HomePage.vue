@@ -109,7 +109,12 @@ export default {
   mixins: [hostMixin],
   data() {
     return {
-      books: [],
+      books: [
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+        "El sastre de Gloucester",
+      ],
       newBooks: [
         "El sastre de Gloucester",
         "El sastre de Gloucester",

@@ -52,6 +52,7 @@ export default {
     console.log("Creating");
     this.sessionInfo = JSON.parse(this.getTokenFromCookie());
     this.getPaymentMethods();
+    console.log(this.sessionInfo.user.uuid)
   },
   methods: {
     getTokenFromCookie() {
@@ -62,7 +63,7 @@ export default {
       this.$router.push({path: "/card-info", query: { uuid }});
     },
     getPaymentMethods(){
-      axios.get(hostMixin.data().host + 'api/card/?' + this.sessionInfo.user.uuid)
+      axios.get(hostMixin.data().host + 'api/card/?user__uuid=' + this.sessionInfo.user.uuid)
       .then(response => {
           this.cards = response.data;
         })

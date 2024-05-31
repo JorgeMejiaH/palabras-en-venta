@@ -1,6 +1,8 @@
 <template>
   <div>
-    <img src="@/assets/logo.png" alt="Logo de la pagina" class="img-logo" />
+    <div class="logo-img" @click="navigateToHome">
+      <img src="@/assets/logo.png" alt="Logo de la pagina" class="img-logo" />
+    </div>
     <img
       src="@/assets/LoginBackground.png"
       alt="Fondo de la pagina"
@@ -86,7 +88,10 @@ export default {
           console.error('Error fetching data:', error.response.data);
           this.message = error.response.data.detail;
         });
-    }
+    },
+    navigateToHome(){
+      this.$router.push("/")
+    },
   },
 };
 </script>

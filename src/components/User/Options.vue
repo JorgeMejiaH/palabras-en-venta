@@ -33,18 +33,39 @@
         <img src="@/assets/circle-xmark.png" alt="xmark" class="icono-xmark" />
         Información personal / contraseña
       </p>
-      <router-link to="/" class="options-router">Cerrrar sesión</router-link>
+      <a @click="logout" class="options-router" href="#">Cerrar sesión</a>
     </div>
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+import hostMixin from "@/mixins/host.js";
 export default {
+  mixins: [hostMixin],
   name: "Options",
+  beforeMount(){
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+    console.log(this.sessionInfo.user.uuid)
+  },
   props: {
     routeOptionsContainer: {
       type: String,
       default: "",
+    },
+  },
+  methods:{
+    getTokenFromCookie() {
+      // Retrieve the token from the cookie
+      return Cookies.get('loginToken');
+    },
+    logout() {
+      // Remove the token from the cookie
+      Cookies.remove('loginToken');
+      // Redirect to the login page or home page
+      this.$router.push('/login'); // Assuming you have a login route
     },
   },
 };

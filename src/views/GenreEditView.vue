@@ -14,31 +14,31 @@
       <div class="LiteraryGenresUser-selectcontainer">
         <div class="LiteraryGenresUser-item">
           <div
-            v-for="(genre, index) in genres"
-            :key="index"
+            v-for="genre in literary_genres"
+            :key="genre.uuid"
             class="item"
             @click="toggleSelection(genre)"
           >
-            <div :class="{ selected: selectedGenres.includes(genre) }"></div>
+            <div :class="{ selected: selectedGenres.includes(genre.uuid) }"></div>
             <img
-              :src="getImagePath(genre)"
-              :alt="`${genre} genre`"
+              :src="genre.image"
+              :alt="`${genre.name} genre`"
               class="item-image-genre"
             />
             <div class="checkbox-genres-container">
-              <h5 class="genre-name-txt">{{ genre }}</h5>
+              <h5 class="genre-name-txt">{{ genre.name }}</h5>
               <input
                 type="checkbox"
-                :class="'checkbox-GenresUser-' + genre.toLowerCase()"
+                :class="'checkbox-GenresUser-' + genre.name.toLowerCase()"
                 v-model="selectedGenres"
-                :value="genre"
+                :value="genre.id"
               />
             </div>
           </div>
         </div>
       </div>
-      <div class="btn-save-password-change-container">
-        <button type="submit" class="btn-save-password-change">
+      <div class="btn-save-genre-change-container">
+        <button type="submit" class="btn-save-genre-change" :disabled="!validationForm" @click="saveLiteraryGenres">
           Guardar cambios
         </button>
       </div>
@@ -51,40 +51,115 @@
 import Navbar from "@/components/Navbar/Navbar.vue";
 import Options from "@/components/User/Options.vue";
 import Footer from "@/components/Footer.vue";
+import Cookies from "js-cookie";
+import hostMixin from "@/mixins/host.js";
+import axios from "axios";
 export default {
   components: { Navbar, Options, Footer },
+  mixins: [hostMixin],
+  beforeMount() {
+    // this.fetchDocumentTypes();
+    console.log("Creating");
+    this.sessionInfo = JSON.parse(this.getTokenFromCookie());
+    this.getUserInfo();
+    this.getBooksGenres();
+  },
   data() {
     return {
-      genres: [
-        "Filosofía",
-        "Historia",
-        "Acción y Aventura",
-        "Infantil y juvenil",
-        "Ciencia ficción",
-        "Fantasía",
-        "Política",
-        "Antologías",
-        "Ficción clásica",
-        "Psicología",
-        "Lingüistica",
-        "Cuentos",
-      ],
+      literary_genres: [],
       selectedGenres: [], // Array para almacenar los géneros seleccionados
+      Genre: false,
+      sessionInfo: null,
+      userInfo: {
+        first_name: null,
+        last_name: null,
+        birth_date: null,
+        place_birth: null,
+        document_type: null,
+        document_number: null,
+        want_spam: null,
+        gender: null,
+        notice_selection: null,
+        literary_genres: null,
+        is_active: null,
+      },
     };
   },
-  methods: {
-    toggleSelection(genre) {
-      // Toggle para agregar o quitar el índice del género seleccionado
-      if (this.selectedGenres.includes(genre)) {
-        this.selectedGenres = this.selectedGenres.filter(
-          (selectedGenre) => selectedGenre !== genre
-        );
-      } else {
-        this.selectedGenres.push(genre);
-      }
+  computed:{
+    validationForm(){
+      return this.selectedGenres.length > 0;
     },
-    getImagePath(genre) {
-      return require(`@/assets/${genre.toLowerCase()}Books.png`);
+  },
+  methods: {
+    getTokenFromCookie() {
+      // Retrieve the token from the cookie
+      return Cookies.get("loginToken");
+    },
+    toggleSelection(category) {
+      // Toggle para agregar o quitar el uuid del género seleccionado
+      const index = this.selectedGenres.indexOf(category.id);
+      if (index > -1) {
+        // Si el uuid ya está en selectedGenres, lo elimina
+        this.selectedGenres.splice(index, 1);
+      } else {
+        // Si el uuid no está en selectedGenres, lo añade
+        this.selectedGenres.push(category.id);
+      }
+      console.log(this.selectedGenres);
+    },
+    checkboxValue(Valid) {
+      console.log(Valid);
+      this.spam = Valid;
+    },
+    validarGenero(Valid) {
+      console.log(Valid);
+      this.validGenre = Valid.is_valid;
+      this.Genre = Valid.gender;
+    },
+    getUserInfo() {
+      axios
+        .get(hostMixin.data().host + "api/user/" + this.sessionInfo.user.uuid)
+        .then((response) => {
+          this.userInfo = response.data;
+          this.selectedGenres = this.userInfo.literary_genres || [];
+        })
+        .catch((error) => {
+          console.error("Error fetching cities:", error);
+        });
+    },
+    getBooksGenres() {
+      axios
+        .get(hostMixin.data().host + "api/literary_genres", {
+          headers: {},
+        })
+        .then((response) => {
+          this.literary_genres = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching categories:", error);
+        });
+    },
+    saveLiteraryGenres(){
+      const data = {
+        first_name: this.userInfo.first_name,
+        last_name: this.userInfo.last_name,
+        birth_date: this.userInfo.birth_date,
+        place_birth: this.userInfo.place_birth,
+        document_type: this.userInfo.document_type,
+        document_number: this.userInfo.document_number,
+        want_spam: this.userInfo.want_spam,
+        gender: this.userInfo.gender,
+        notice_selection: this.userInfo.notice_selection,
+        literary_genres: this.selectedGenres,
+      }
+      axios.patch(hostMixin.data().host + "/api/user/" + this.sessionInfo.user.uuid + "/", data)
+      .then((response) => {
+        console.log(response.data)
+        this.$router.push("/user-info")
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error.response.data);
+      })
     },
   },
 };
@@ -186,5 +261,10 @@ export default {
   top: 95%;
   width: 100vw;
   height: 35%;
+}
+.btn-save-genre-change:not(:disabled):hover {
+  background-color: #050834; /* Cambia el color de fondo cuando pasas el cursor */
+  color: white;
+  cursor: pointer;
 }
 </style>

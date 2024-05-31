@@ -83,7 +83,7 @@ import PasswordInputSignUp from "./PasswordInputSignUp.vue";
 import UserEmail from "./UserEmail.vue";
 import UserGender from "./UserGender.vue";
 import SpamCheckbox from "./SpamCheckbox.vue";
-import axios from 'axios';
+import axios from "axios";
 import hostMixin from "@/mixins/host.js";
 
 export default {
@@ -104,7 +104,6 @@ export default {
   },
   data() {
     return {
-
       message: "",
 
       fechaValida: false,
@@ -122,7 +121,7 @@ export default {
       tipoDocumento: false,
       Password: false,
       Names: false,
-      BirthPlace:false,
+      BirthPlace: false,
       Genre: false,
       Email: false,
       Username: false,
@@ -131,7 +130,7 @@ export default {
       selectedGenres: [],
     };
   },
-  beforeMount(){
+  beforeMount() {
     // this.fetchDocumentTypes();
     console.log("Creating");
     this.getBooksGenres();
@@ -160,91 +159,88 @@ export default {
       this.message = null;
     },
     checkboxValue(Valid) {
-      console.log(Valid)
+      console.log(Valid);
       this.spam = Valid;
     },
     validarFecha(Valid) {
-      console.log(Valid)
+      console.log(Valid);
       this.fechaValida = Valid.is_valid;
       this.fecha = Valid.select_date;
     },
     validarDocumento(Valid) {
-      console.log(Valid)
+      console.log(Valid);
       this.documentoValido = Valid.is_valid;
       this.documento = Valid.document;
     },
     validarTipoDocumento(Valid) {
-      console.log(Valid)
+      console.log(Valid);
       this.tipoDocumentoValido = Valid.is_valid;
       this.tipoDocumento = Valid.type_value;
     },
     validarContraseña(Valid) {
-      console.log(Valid)
+      console.log(Valid);
       this.validPassword = Valid.is_valid;
       this.password = Valid.password;
     },
-    validarNombres(Valid){
-      console.log(Valid)
+    validarNombres(Valid) {
+      console.log(Valid);
       this.validNames = Valid.is_valid;
       this.Names = {
         name: Valid.name,
-        last_name: Valid.last_name
-      }
+        last_name: Valid.last_name,
+      };
     },
-    validarLugarNacimiento(Valid){
-      console.log(Valid)
+    validarLugarNacimiento(Valid) {
+      console.log(Valid);
       this.validBirthPlace = Valid.is_valid;
       this.BirthPlace = Valid.city_id;
     },
-    validarDireccion(Valid){
-      console.log(Valid)
+    validarDireccion(Valid) {
+      console.log(Valid);
       this.validDirection = Valid.is_valid;
       this.Direction = Valid.direction;
     },
-    validarGenero(Valid){
-      console.log(Valid)
+    validarGenero(Valid) {
+      console.log(Valid);
       this.validGenre = Valid.is_valid;
       this.Genre = Valid.gender;
     },
-    validarEmail(Valid){
-      console.log(Valid)
+    validarEmail(Valid) {
+      console.log(Valid);
       this.validEmail = Valid.is_valid;
       this.Email = Valid.email;
     },
-    validarUsername(Valid){
-      console.log(Valid)
+    validarUsername(Valid) {
+      console.log(Valid);
       this.validUsername = Valid.is_valid;
       this.Username = Valid.username;
     },
     navigateToLogin() {
-      this.$router.push('/');
+      this.$router.push("/");
     },
-    getBooksGenres(){
-      axios.get(hostMixin.data().host + 'api/literary_genres', {
-      headers: {
-            }
-          })
-        .then(response => {
+    getBooksGenres() {
+      axios
+        .get(hostMixin.data().host + "api/literary_genres", {
+          headers: {},
+        })
+        .then((response) => {
           this.literary_genres = response.data;
         })
-        .catch(error => {
-          console.error('Error fetching categories:', error);
+        .catch((error) => {
+          console.error("Error fetching categories:", error);
         });
-    },
-    navigateToGenreEdit(){
-      this.$router.push("/genre-edit");
     },
     toggleSelection(category) {
       // Toggle para agregar o quitar el uuid del género seleccionado
-    const index = this.selectedGenres.indexOf(category.uuid);
-    if (index > -1) {
-      // Si el uuid ya está en selectedGenres, lo elimina
-      this.selectedGenres.splice(index, 1);
-    } else {
-      // Si el uuid no está en selectedGenres, lo añade
-      this.selectedGenres.push(category.uuid);
-    }
-    console.log(this.selectedGenres)
+      const index = this.selectedGenres.indexOf(category.uuid);
+      if (index > -1) {
+        // Si el uuid ya está en selectedGenres, lo elimina
+        this.selectedGenres.splice(index, 1);
+      } else {
+        // Si el uuid no está en selectedGenres, lo añade
+        this.selectedGenres.push(category.uuid);
+      }
+      console.log(this.selectedGenres);
     },
     getImagePath(genre) {
       return require(`@/assets/${genre.toLowerCase()}Books.png`);
@@ -263,17 +259,18 @@ export default {
         want_spam: this.spam,
         gender: this.Genre,
         notice_selection: this.spam,
-        literary_genres: this.selectedGenres
-      }
+        literary_genres: this.selectedGenres,
+      };
 
-      console.log(data)
-      axios.post(hostMixin.data().host + 'api/register/', data)
-        .then(response => {
-          console.log(response.data)
-          this.navigateToLogin()
+      console.log(data);
+      axios
+        .post(hostMixin.data().host + "api/register/", data)
+        .then((response) => {
+          console.log(response.data);
+          this.navigateToLogin();
         })
-        .catch(error => {
-          console.error('Error fetching data:', error.response.data);
+        .catch((error) => {
+          console.error("Error fetching data:", error.response.data);
           this.message = error.response.data;
         });
     },
@@ -282,7 +279,7 @@ export default {
 </script>
 
 <style>
-.link-login{
+.link-login {
   color: black;
   font-weight: bold;
   text-decoration: none;
@@ -407,4 +404,3 @@ export default {
   color: #5c6972;
 }
 </style>
-
