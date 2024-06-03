@@ -18,7 +18,7 @@
           class="home-title-books-img"
         >
           <img
-            :src="book.image"
+            :src="getimagepath(book)"
             :alt="book.title"
             class="title-books-img"
           />
@@ -162,7 +162,7 @@ export default {
     fetchBooksList(){
       axios.get(hostMixin.data().host + 'api/book/')
         .then(response => {
-          this.books = response.data;
+          //this.books = response.data;
           console.log(this.books)
         })
         .catch(error => {

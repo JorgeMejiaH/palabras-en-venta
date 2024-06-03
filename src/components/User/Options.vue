@@ -29,11 +29,10 @@
         <img src="@/assets/truck.png" alt="camion" class="icono-camion" /> Sigue
         tu pedido
       </p>
-      <p>
+      <a @click="logout" class="options-router" href="#">
         <img src="@/assets/circle-xmark.png" alt="xmark" class="icono-xmark" />
-        Información personal / contraseña
-      </p>
-      <a @click="logout" class="options-router" href="#">Cerrar sesión</a>
+        Cerrar sesión
+      </a>
     </div>
   </div>
 </template>

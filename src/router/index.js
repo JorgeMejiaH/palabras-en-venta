@@ -1,9 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 import ValidationCodePage from "../views/ValidationCodePageView.vue";
-import PasswordChangePage from "../views/PasswordRecoveryView.vue";
+import PasswordRecoveryView from "../views/PasswordRecoveryView.vue";
 import UserPasswordChangeView from "../views/UserPasswordChangeView.vue";
 import UserInfoView from "@/views/UserInfoView.vue";
 import UserInfoEditView from "@/views/UserInfoEditView"
@@ -83,9 +82,9 @@ const routes = [
     component: UserAddAddressView,
   },
   {
-    path : "/password-change",
-    name: "password-change",
-    component: PasswordChangePage,
+    path : "/password-recovery",
+    name: "password-recovery",
+    component: PasswordRecoveryView,
   },
   {
     path: "/user-pass-edit",
