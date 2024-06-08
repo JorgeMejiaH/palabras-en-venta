@@ -2,7 +2,7 @@
     <div>
       <Navbar />
       <div class="book-detail-container">
-        <img :src="book.cover_image" alt="Cover" class="book-cover" />
+        <img :src = book.cover_image  alt="Cover" class="book-cover" />
         <div class="book-info">
           <h1>{{ book.title }}</h1>
           <h2>{{ book.author }}</h2>
@@ -21,11 +21,8 @@
   <script>
   import Navbar from "@/components/Navbar/Navbar.vue";
   import Footer from "@/components/Footer.vue";
+  import coverImage from "@/assets/elsastredegloucester.png";
 
-  // Importa las imágenes directamente
-  import FilosofyBooks from "@/assets/filosofyBooks.png";
-  import ActionAdventureBooks from "@/assets/acctionAdventureBooks.png";
-  import FantasyBooks from "@/assets/fantasyBooks.png";
   
   export default {
     components: {
@@ -34,46 +31,21 @@
     },
     data() {
       return {
-        book: {},
+        book: {
+            id: 1,
+            title: "El Sastre de Gloucester",
+            author: "Beatrix Potter",
+            cover_image: coverImage,
+            description: "Descripción del libro El Sastre de Gloucester.",
+            price: "$63.000"
+        },
         quantity: 1,
       };
     },
     created() {
-      const bookId = this.$route.params.id;
-      this.fetchBookDetails(bookId);
+      
     },
     methods: {
-      fetchBookDetails(id) {
-        // Aquí se debe realizar una petición para obtener los detalles del libro
-        // Ejemplo estático:
-        const books = [
-          {
-            id: 1,
-            title: "El Sastre de Gloucester",
-            author: "Beatrix Potter",
-            cover_image: FilosofyBooks,
-            description: "Descripción del libro El Sastre de Gloucester.",
-            price: "$63.000"
-          },
-          {
-            id: 2,
-            title: "Otro Libro de Ficción",
-            author: "Autor Desconocido",
-            cover_image: ActionAdventureBooks,
-            description: "Descripción del otro libro de ficción.",
-            price: "$45.000"
-          },
-          {
-            id: 3,
-            title: "Alicia en el país de las maravillas",
-            author: "Lewis Carroll",
-            cover_image: FantasyBooks,
-            description: "Alicia drogada",
-            price: "$50.000"
-          }
-        ];
-        this.book = books.find(book => book.id === parseInt(id));
-      },
       addToCart(){
         this.$emit('add-to-cart', this.quantity);
       },

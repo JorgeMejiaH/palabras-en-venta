@@ -40,6 +40,7 @@
           v-for="(book, index) in newBooks"
           :key="index"
           class="home-new-books"
+          @click="navigateToBookShop"
         >
           <books :TituloLibro="book" />
         </div>
@@ -168,6 +169,9 @@ export default {
         .catch(error => {
           console.error('Error fetching books:', error);
         });
+    },
+    navigateToBookShop(){
+      this.$router.push("/book-shop")
     },
   },
 };

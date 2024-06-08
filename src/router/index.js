@@ -19,12 +19,19 @@ import HomePage from "@/views/HomePage.vue";
 import BestSellersView from "@/views/BestSellerView.vue";
 import NewBooks from "@/views/newBooksView"
 import RecomendedBooks from "@/views/RecomendedBooksView"
+import BookShopView from "@/views/BookShopView"
+import cartView from "@/views/cartView"
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomePage,
+  },
+  {
+    path: "/cart-view",
+    name: "cart-view",
+    component: cartView,
   },
   {
     path: "/best-seller",
@@ -115,6 +122,11 @@ const routes = [
     path: "/add-card",
     name: "add-card",
     component: AddPaymentCard,
+  },
+  {
+    path: "/book-shop",
+    name: "book-shop",
+    component: BookShopView,
   },
   {
     path: "/test",

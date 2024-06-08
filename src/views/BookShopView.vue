@@ -6,8 +6,8 @@
   </template>
   
   <script>
-  import BookDetailView from '@/components/BookGenre/BookDetailView.vue';
-  import CartModal from '@/components/BookGenre/CartModal.vue';
+  import BookDetailView from '@/components/BookDetailView.vue';
+  import CartModal from '@/components/CartModal.vue';
   
   export default {
     components: {
